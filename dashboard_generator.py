@@ -10,12 +10,97 @@ import pandas as pd
 
 def format_kr_marcap(val: float | int) -> str:
     if pd.isna(val) or val <= 0: return "-"
-    val = int(val)
-    cho = val // 1_000_000_000_000
-    eok = (val % 1_000_000_000_000) // 100_000_000
-    if cho > 0:
-        return f"{cho}조 {eok:,}억" if eok > 0 else f"{cho}조"
-    return f"{eok:,}억"
+    # 시가총액 억 단위 간소화 (예: 5,584 / 57,496)
+    eok = round(float(val) / 100_000_000)
+    return f"{eok:,}"
+
+
+SECTOR_CACHE_FILE = os.path.join("history", "stock_sectors.json")
+
+SECTOR_MAP = {
+    "생명과학도구및서비스": "바이오",
+    "생명과학서비스": "바이오",
+    "제약": "제약/바이오",
+    "도로와철도운송": "운송/물류",
+    "석유와가스": "정유/에너지",
+    "손해보험": "보험",
+    "생명보험": "보험",
+    "부동산": "리츠/부동산",
+    "복합기업": "지주사",
+    "다각화된통신서비스": "통신",
+    "무선통신서비스": "통신",
+    "게임엔터테인먼트": "게임",
+    "엔터테인먼트와미디어": "엔터/미디어",
+    "방송과엔터테인먼트": "엔터/미디어",
+    "전자제품": "전자/IT",
+    "디스플레이및관련부품": "디스플레이",
+    "인터넷과카탈로그소매": "인터넷/커머스",
+}
+
+
+def clean_sector_name(raw: str) -> str:
+    s = raw.strip()
+    s = s.replace("와반도체장비", "").replace("와기기", "").replace("와서비스", "").strip()
+    return SECTOR_MAP.get(s, s)
+
+
+def fetch_single_sector(code: str, name: str = "") -> tuple[str, str]:
+    etf_keywords = ["KODEX", "TIGER", "ACE", "RISE", "SOL", "PLUS", "KBSTAR", "HANARO", "TIMEFOLIO", "TIME", "WOORI", "KOSEF", "ARIRANG", "ETF"]
+    if any(k in name for k in etf_keywords):
+        return code, "ETF"
+    import urllib.request
+    import re
+    url = f"https://navercomp.wisereport.co.kr/v2/company/c1010001.aspx?cmp_cd={code}"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
+    try:
+        with urllib.request.urlopen(req, timeout=3) as resp:
+            html = resp.read().decode("utf-8", errors="ignore")
+            m = re.search(r"WICS\s*:\s*([^<\r\n\t]+)", html)
+            if m:
+                sec = clean_sector_name(m.group(1))
+                if sec:
+                    return code, sec
+    except Exception:
+        pass
+    return code, "기타"
+
+
+def get_stock_sectors(df: pd.DataFrame) -> dict[str, str]:
+    if df.empty or "code" not in df.columns:
+        return {}
+    sectors = {}
+    if os.path.exists(SECTOR_CACHE_FILE):
+        try:
+            with open(SECTOR_CACHE_FILE, "r", encoding="utf-8") as f:
+                sectors = json.load(f)
+        except Exception:
+            sectors = {}
+
+    missing_items = []
+    for _, r in df.iterrows():
+        c = str(r["code"]).zfill(6)
+        n = str(r.get("name", ""))
+        sec = sectors.get(c)
+        if not sec or sec == "기타":
+            missing_items.append((c, n))
+
+    if missing_items:
+        from concurrent.futures import ThreadPoolExecutor
+        with ThreadPoolExecutor(max_workers=10) as ex:
+            futures = [ex.submit(fetch_single_sector, c, n) for c, n in missing_items]
+            for fut in futures:
+                try:
+                    c, sec = fut.result()
+                    sectors[c] = sec
+                except Exception:
+                    pass
+        try:
+            os.makedirs(os.path.dirname(SECTOR_CACHE_FILE), exist_ok=True)
+            with open(SECTOR_CACHE_FILE, "w", encoding="utf-8") as f:
+                json.dump(sectors, f, ensure_ascii=False, indent=2)
+        except Exception:
+            pass
+    return sectors
 
 
 def format_us_marcap(val: float | int) -> str:
@@ -34,12 +119,13 @@ def format_us_volume(val: float) -> str:
     return f"${val:,.0f}"
 
 
-def build_tab_rows(df: pd.DataFrame, is_us: bool = False) -> str:
+def build_tab_rows(df: pd.DataFrame, is_us: bool = False, sectors: dict[str, str] | None = None) -> str:
     """각 시장별 매수 스크리닝 테이블 행 HTML을 생성합니다."""
     colspan = "13" if is_us else "14"
     if df.empty:
         return f'<tr><td colspan="{colspan}" class="text-center py-4">조건을 통과한 종목이 없습니다.</td></tr>'
 
+    sectors = sectors or {}
     rows_html = []
     for idx, r in df.iterrows():
         code = str(r["code"])
@@ -69,10 +155,23 @@ def build_tab_rows(df: pd.DataFrame, is_us: bool = False) -> str:
             trading_val_str = format_us_volume(r.get("avg_trading_val_20d", 0))
             flow_cell = ""
         else:
+            # KOSDAQ / KOSDAQ GLOBAL 구분 불필요: KOSDAQ으로 단일화
+            if "KOSDAQ" in market.upper():
+                market = "KOSDAQ"
+            elif "KOSPI" in market.upper():
+                market = "KOSPI"
+
+            sec = sectors.get(code)
+            if not sec:
+                sec = "ETF" if any(k in name for k in ["KODEX", "TIGER", "ACE", "RISE", "SOL", "PLUS", "KBSTAR", "HANARO", "TIMEFOLIO", "TIME", "WOORI", "KOSEF", "ARIRANG", "ETF"]) else ""
+            etf_cls = " badge-sector-etf" if sec == "ETF" else ""
+            sector_badge = f'<span class="badge-sector{etf_cls}">{sec}</span>' if sec else ""
+
             chart_url = f"https://finance.naver.com/item/main.naver?code={code}"
             link_html = f"""
                 <a href="{chart_url}" target="_blank" class="stock-link">
-                    <strong>{name}</strong> <small class="text-muted">({code})</small>
+                    <strong>{name}</strong>{sector_badge}
+                    <span style="display:none">{code}</span>
                     <span class="external-icon">↗</span>
                 </a>
             """
@@ -157,9 +256,9 @@ def build_tab_rows(df: pd.DataFrame, is_us: bool = False) -> str:
             <td class="text-right font-bold">{price_str}</td>
             <td class="text-center" data-order="{rs}">{rs_badge}</td>
             <td class="text-right {high_dist_class} font-bold" data-order="{pct_high}">{pct_high:+.1f}%</td>
-            <td class="text-right text-success font-bold" data-order="{pct_low}">+{pct_low:.1f}%</td>
-            <td class="text-right font-mono" data-order="{roc_3m}">{roc_3m:+.1f}%</td>
-            <td class="text-right font-mono">{trading_val_str}</td>
+            <td class="text-right text-success font-bold col-desktop" data-order="{pct_low}">+{pct_low:.1f}%</td>
+            <td class="text-right font-mono col-desktop" data-order="{roc_3m}">{roc_3m:+.1f}%</td>
+            <td class="text-right font-mono col-desktop">{trading_val_str}</td>
             <td class="text-center" data-order="{vcp}">{vcp_badge} <small class="text-muted">({vcp:.2f})</small></td>
             {flow_cell}
         </tr>
@@ -228,11 +327,11 @@ def build_sell_rows(sell_signals: list[dict]) -> str:
             <td class="text-center font-bold">{idx + 1}</td>
             <td>{link_html}</td>
             <td class="text-center"><span class="market-tag market-{market.lower()}">{market}</span></td>
-            <td class="text-center font-mono">{r.get('buy_date', '-')}</td>
+            <td class="text-center font-mono col-desktop">{r.get('buy_date', '-')}</td>
             <td class="text-right font-mono">{buy_str}</td>
             <td class="text-right font-mono font-bold">{curr_str}</td>
             <td class="text-right font-mono {ret_class}" data-order="{ret_pct}">{ret_pct:+.2f}%</td>
-            <td class="text-right font-mono text-success" data-order="{max_ret}">+{max_ret:.1f}%</td>
+            <td class="text-right font-mono text-success col-desktop" data-order="{max_ret}">+{max_ret:.1f}%</td>
             <td class="text-right font-mono {peak_class}" data-order="{from_peak}">{from_peak:.1f}%</td>
             <td class="text-center">{badge_html}</td>
             <td class="text-right font-mono font-bold text-warning">{stop_str}</td>
@@ -358,7 +457,8 @@ def generate_unified_dashboard(
     </div>
     """
 
-    kr_rows = build_tab_rows(kr_df, is_us=False)
+    kr_sectors = get_stock_sectors(kr_df)
+    kr_rows = build_tab_rows(kr_df, is_us=False, sectors=kr_sectors)
     us_rows = build_tab_rows(us_df, is_us=True)
     sell_rows = build_sell_rows(sell_signals)
 
@@ -790,6 +890,111 @@ def generate_unified_dashboard(
             display: none;
             color: #fff;
         }}
+        .badge-sector {{
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(88, 166, 255, 0.15);
+            color: #58a6ff;
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            margin-left: 6px;
+            white-space: nowrap;
+            display: inline-block;
+            vertical-align: middle;
+        }}
+        .badge-sector-etf {{
+            background: rgba(188, 140, 255, 0.15);
+            color: #bc8cff;
+            border-color: rgba(188, 140, 255, 0.3);
+        }}
+        @media (max-width: 768px) {{
+            body {{
+                padding: 10px 8px;
+            }}
+            .container {{
+                padding: 0;
+            }}
+            .header {{
+                padding: 14px 12px;
+                margin-bottom: 14px;
+            }}
+            .header h1 {{
+                font-size: 18px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }}
+            .header p {{
+                font-size: 12px;
+            }}
+            .score-info-box, .sell-info-box {{
+                font-size: 12px;
+                padding: 10px 12px;
+            }}
+            .tab-nav {{
+                gap: 6px;
+                margin-bottom: 14px;
+            }}
+            .tab-btn {{
+                padding: 10px 12px;
+                font-size: 13px;
+                width: 100%;
+                justify-content: space-between;
+                box-sizing: border-box;
+            }}
+            .card {{
+                padding: 10px 6px;
+                border-radius: 8px;
+                -webkit-overflow-scrolling: touch;
+            }}
+            .col-desktop {{
+                display: none !important;
+            }}
+            table.dataTable thead th {{
+                padding: 8px 6px !important;
+                font-size: 12px !important;
+                white-space: nowrap;
+            }}
+            table.dataTable tbody td {{
+                padding: 8px 6px !important;
+                font-size: 12px !important;
+                white-space: nowrap;
+            }}
+            .badge {{
+                padding: 2px 6px;
+                font-size: 11px;
+            }}
+            .badge-sector {{
+                font-size: 10px;
+                padding: 1px 5px;
+                margin-left: 4px;
+            }}
+            .dataTables_wrapper .dataTables_filter {{
+                float: none !important;
+                text-align: left !important;
+                margin-bottom: 10px;
+            }}
+            .dataTables_wrapper .dataTables_filter input {{
+                width: 100% !important;
+                box-sizing: border-box;
+                margin-left: 0 !important;
+                margin-top: 4px;
+                padding: 6px 10px;
+            }}
+            .dataTables_wrapper .dataTables_length {{
+                float: none !important;
+                margin-bottom: 8px;
+                font-size: 12px;
+            }}
+            .dataTables_wrapper .dataTables_info,
+            .dataTables_wrapper .dataTables_paginate {{
+                float: none !important;
+                text-align: center !important;
+                font-size: 12px;
+                margin-top: 8px;
+            }}
+        }}
     </style>
 </head>
 <body>
@@ -852,18 +1057,18 @@ def generate_unified_dashboard(
                     <thead>
                         <tr>
                             <th class="text-center">순위</th>
-                            <th>종목명 (코드)</th>
+                            <th>종목명</th>
                             <th class="text-center">시장</th>
-                            <th class="text-center">상태/연속</th>
+                            <th class="text-center">상태</th>
                             <th class="text-center">SEPA점수</th>
-                            <th class="text-right">시가총액</th>
+                            <th class="text-right">시총(억)</th>
                             <th class="text-right">현재가</th>
-                            <th class="text-center">RS 상대강도</th>
+                            <th class="text-center">RS</th>
                             <th class="text-right">52주고점거리</th>
-                            <th class="text-right">52주저점상승</th>
-                            <th class="text-right">3개월수익</th>
-                            <th class="text-right">20일거래대금</th>
-                            <th class="text-center">VCP변동성</th>
+                            <th class="text-right col-desktop">52주저점상승</th>
+                            <th class="text-right col-desktop">3개월수익</th>
+                            <th class="text-right col-desktop">20일거래대금</th>
+                            <th class="text-center">VCP</th>
                             <th class="text-center">메이저 수급 (5일)</th>
                         </tr>
                     </thead>
@@ -900,16 +1105,16 @@ def generate_unified_dashboard(
                             <th class="text-center">순위</th>
                             <th>티커 (기업명)</th>
                             <th class="text-center">거래소</th>
-                            <th class="text-center">상태/연속</th>
+                            <th class="text-center">상태</th>
                             <th class="text-center">SEPA점수</th>
                             <th class="text-right">시가총액</th>
                             <th class="text-right">현재가</th>
-                            <th class="text-center">RS 상대강도</th>
+                            <th class="text-center">RS</th>
                             <th class="text-right">52주고점거리</th>
-                            <th class="text-right">52주저점상승</th>
-                            <th class="text-right">3개월수익</th>
-                            <th class="text-right">20일거래대금</th>
-                            <th class="text-center">VCP변동성</th>
+                            <th class="text-right col-desktop">52주저점상승</th>
+                            <th class="text-right col-desktop">3개월수익</th>
+                            <th class="text-right col-desktop">20일거래대금</th>
+                            <th class="text-center">VCP</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -953,11 +1158,11 @@ def generate_unified_dashboard(
                             <th class="text-center">순번</th>
                             <th>보유 종목 (코드)</th>
                             <th class="text-center">시장</th>
-                            <th class="text-center">매수일자</th>
+                            <th class="text-center col-desktop">매수일자</th>
                             <th class="text-right">매수가</th>
                             <th class="text-right">현재가</th>
                             <th class="text-right">현재 손익</th>
-                            <th class="text-right">최고 수익</th>
+                            <th class="text-right col-desktop">최고 수익</th>
                             <th class="text-right">고점거리</th>
                             <th class="text-center">미너비니 매도진단</th>
                             <th class="text-right">권장스탑선</th>
