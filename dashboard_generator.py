@@ -135,7 +135,7 @@ def build_tab_rows(df: pd.DataFrame, is_us: bool = False) -> str:
 def build_sell_rows(sell_signals: list[dict]) -> str:
     """내 보유 종목 매도 감시 테이블 행 HTML을 생성합니다."""
     if not sell_signals:
-        return '<tr><td colspan="12" class="text-center py-4">등록된 보유 종목이 없습니다. 터미널에서 <code>python portfolio_manager.py</code> 명령어로 보유 종목을 등록하세요.</td></tr>'
+        return '<tr><td colspan="13" class="text-center py-4">등록된 보유 종목이 없습니다. 상단의 <strong>[➕ 보유 종목 추가]</strong> 버튼을 눌러 보유 종목을 등록하세요.</td></tr>'
 
     rows_html = []
     for idx, r in enumerate(sell_signals):
@@ -187,7 +187,7 @@ def build_sell_rows(sell_signals: list[dict]) -> str:
             badge_html = f'<span class="badge badge-safe">{signal}</span>'
 
         row = f"""
-        <tr>
+        <tr id="sell-row-{code}">
             <td class="text-center font-bold">{idx + 1}</td>
             <td>{link_html}</td>
             <td class="text-center"><span class="market-tag market-{market.lower()}">{market}</span></td>
@@ -200,6 +200,9 @@ def build_sell_rows(sell_signals: list[dict]) -> str:
             <td class="text-center">{badge_html}</td>
             <td class="text-right font-mono font-bold text-warning">{stop_str}</td>
             <td style="font-size: 13px; max-width: 320px; white-space: normal;">{action}</td>
+            <td class="text-center">
+                <button class="btn-del" onclick="deleteStockFromWeb('{code}', '{name}')" title="삭제">🗑️</button>
+            </td>
         </tr>
         """
         rows_html.append(row)
@@ -226,6 +229,25 @@ def generate_unified_dashboard(
     us_new = us_new or []
     kr_drop = kr_drop or []
     us_drop = us_drop or []
+
+    # 포트폴리오 및 저장소 정보 로드
+    portfolio_data = []
+    if os.path.exists("portfolio.json"):
+        try:
+            with open("portfolio.json", "r", encoding="utf-8") as f:
+                portfolio_data = json.load(f)
+        except Exception:
+            portfolio_data = []
+
+    repo_name = "jungkbugk/minervini-krx"
+    if os.path.exists("github_config.json"):
+        try:
+            with open("github_config.json", "r", encoding="utf-8") as f:
+                repo_name = json.load(f).get("repo", repo_name)
+        except Exception:
+            pass
+
+    portfolio_json_str = json.dumps(portfolio_data, ensure_ascii=False)
 
     # 매도 감시 데이터 로드
     if sell_signals is None:
@@ -538,6 +560,146 @@ def generate_unified_dashboard(
         .text-right {{ text-align: right; }}
         .font-mono {{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }}
         .font-bold {{ font-weight: 700; }}
+        .sell-toolbar {{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }}
+        .btn {{
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: #21262d;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+        }}
+        .btn:hover {{
+            color: #fff;
+            border-color: var(--accent-blue);
+        }}
+        .btn-green {{
+            background: #238636;
+            color: #fff;
+            border-color: rgba(240,246,252,0.1);
+        }}
+        .btn-green:hover {{
+            background: #2ea043;
+        }}
+        .btn-del {{
+            background: transparent;
+            border: 1px solid rgba(248, 81, 73, 0.4);
+            color: #ff7b72;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }}
+        .btn-del:hover {{
+            background: rgba(248, 81, 73, 0.2);
+            border-color: #f85149;
+        }}
+        /* Modals */
+        .modal-overlay {{
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(3px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }}
+        .modal-box {{
+            background: #161b22;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            width: 90%;
+            max-width: 480px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            color: var(--text-main);
+            box-sizing: border-box;
+        }}
+        .modal-header {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }}
+        .modal-header h3 {{
+            margin: 0;
+            font-size: 18px;
+            color: var(--text-heading);
+        }}
+        .modal-close {{
+            background: none;
+            border: none;
+            color: #8b949e;
+            font-size: 22px;
+            cursor: pointer;
+        }}
+        .modal-close:hover {{
+            color: #fff;
+        }}
+        .form-row {{
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }}
+        .form-field {{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+        }}
+        .form-field label {{
+            font-size: 12px;
+            font-weight: 600;
+            color: #8b949e;
+        }}
+        .form-input {{
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: #c9d1d9;
+            padding: 8px 12px;
+            font-size: 14px;
+            outline: none;
+            width: 100%;
+            box-sizing: border-box;
+        }}
+        .form-input:focus {{
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.3);
+        }}
+        .toast-box {{
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.6);
+            z-index: 20000;
+            display: none;
+            color: #fff;
+        }}
     </style>
 </head>
 <body>
@@ -652,8 +814,24 @@ def generate_unified_dashboard(
                 2. <strong>본전 보호:</strong> +12% 이상 상승했던 종목은 스탑을 매수가로 올려 <strong>원금 손실 위험을 0%</strong>로 만듭니다.<br>
                 3. <strong>이익 보존:</strong> +20% 이상 큰 시세가 난 종목은 <strong>고점 대비 -10% 반락 시 트레일링 익절</strong>하여 수익을 확정 짓습니다.<br>
                 4. <strong>클라이맥스:</strong> 200일선 70%+ 수직 급등 시 <strong>강세 구간에서 보유 물량의 1/2을 분할 매도</strong>합니다.<br>
-                <small class="text-muted">👉 보유 종목 추가/수정/삭제: 터미널에서 <code>python portfolio_manager.py</code> 명령어를 실행하세요.</small>
+                <small class="text-muted">👉 보유 종목 관리: 아래 <strong>[➕ 새 보유 종목 추가]</strong> / 테이블 우측 <strong>[🗑️ 삭제]</strong> 버튼으로 웹에서 바로 관리할 수 있습니다.</small>
             </div>
+
+            <div class="sell-toolbar">
+                <button class="btn btn-green font-bold" onclick="openAddModal()">
+                    ➕ 새 보유 종목 추가
+                </button>
+                <button class="btn" onclick="openGhSyncModal()">
+                    ⚙️ GitHub 클라우드 직접 연동 <span id="ghSyncBadge" class="badge" style="font-size:11px; margin-left:4px;">확인 중...</span>
+                </button>
+                <a href="http://localhost:5050" target="_blank" class="btn" style="text-decoration:none;">
+                    💻 PC 로컬 웹 관리자 열기
+                </a>
+                <button class="btn" onclick="exportPortfolioJson()">
+                    📥 portfolio.json 다운로드
+                </button>
+            </div>
+
             <div class="card">
                 <table id="tableSell" class="display nowrap" style="width:100%">
                     <thead>
@@ -670,6 +848,7 @@ def generate_unified_dashboard(
                             <th class="text-center">미너비니 매도진단</th>
                             <th class="text-right">권장스탑선</th>
                             <th>대응 가이드</th>
+                            <th class="text-center" style="width:50px;">관리</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -680,10 +859,308 @@ def generate_unified_dashboard(
         </div>
     </div>
 
+    <!-- 종목 추가 모달 -->
+    <div id="modalAddStock" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>➕ 새 보유 종목 추가</h3>
+                <button class="modal-close" onclick="closeModal('modalAddStock')">&times;</button>
+            </div>
+            <div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>시장 구분</label>
+                        <select id="webMarket" class="form-input">
+                            <option value="KR">🇰🇷 국내 주식 (KR)</option>
+                            <option value="US">🇺🇸 미국 주식 (US)</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label>종목코드 / 티커</label>
+                        <input type="text" id="webCode" class="form-input" placeholder="예: 000500, AAPL">
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label>종목명</label>
+                    <input type="text" id="webName" class="form-input" placeholder="예: 가온전선, Apple Inc.">
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>매수가격 (단가)</label>
+                        <input type="number" id="webPrice" class="form-input" placeholder="예: 318000 또는 150.5" step="any">
+                    </div>
+                    <div class="form-field">
+                        <label>매수일자</label>
+                        <input type="date" id="webDate" class="form-input">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label>보유수량 (주)</label>
+                        <input type="number" id="webShares" class="form-input" value="1" min="1">
+                    </div>
+                    <div class="form-field">
+                        <label>메모 (선택)</label>
+                        <input type="text" id="webMemo" class="form-input" placeholder="예: SEPA VCP 돌파">
+                    </div>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
+                    <button class="btn" onclick="closeModal('modalAddStock')">취소</button>
+                    <button class="btn btn-green" onclick="submitWebAddStock()">💾 저장하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GitHub 클라우드 연동 모달 -->
+    <div id="modalGhSync" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>⚙️ GitHub 클라우드 직접 연동 설정</h3>
+                <button class="modal-close" onclick="closeModal('modalGhSync')">&times;</button>
+            </div>
+            <div>
+                <p style="font-size:13px; line-height:1.6; color:#8b949e; margin-top:0;">
+                    스마트폰이나 다른 브라우저에서 종목을 추가/삭제하면 별도의 PC 프로그램 실행 없이 GitHub 저장소의 <code>portfolio.json</code>을 즉시 원격 업데이트합니다.<br>
+                    <small style="color:var(--accent-gold);">🔒 토큰은 외부 서버로 전송되지 않으며, 현재 사용 중인 브라우저의 로컬 스토리지에만 안전하게 저장됩니다.</small>
+                </p>
+                <div class="form-field">
+                    <label>GitHub 저장소 (기본값)</label>
+                    <input type="text" id="ghRepoInput" class="form-input" value="{repo_name}">
+                </div>
+                <div class="form-field">
+                    <label>GitHub Personal Access Token (PAT)</label>
+                    <input type="password" id="ghTokenInput" class="form-input" placeholder="ghp_...">
+                </div>
+                <div id="ghStatusText" style="font-size:13px; margin: 10px 0 16px 0;"></div>
+                <div style="display:flex; justify-content:space-between; gap:8px;">
+                    <button class="btn" style="color:#ff7b72; border-color:rgba(248,81,73,0.4);" onclick="clearGhToken()">연동 해제</button>
+                    <div style="display:flex; gap:8px;">
+                        <button class="btn" onclick="closeModal('modalGhSync')">닫기</button>
+                        <button class="btn btn-green" onclick="saveGhToken()">토큰 저장 및 검증</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 토스트 알림창 -->
+    <div id="webToast" class="toast-box"></div>
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
+        let currentPortfolio = {portfolio_json_str};
+        const DEFAULT_REPO = "{repo_name}";
+
+        function showWebToast(msg, isError = false) {{
+            const t = document.getElementById('webToast');
+            t.innerText = msg;
+            t.style.background = isError ? '#da3633' : '#238636';
+            t.style.display = 'block';
+            setTimeout(() => {{ t.style.display = 'none'; }}, 3500);
+        }}
+
+        function openModal(id) {{
+            const el = document.getElementById(id);
+            if (el) el.style.display = 'flex';
+        }}
+
+        function closeModal(id) {{
+            const el = document.getElementById(id);
+            if (el) el.style.display = 'none';
+        }}
+
+        function openAddModal() {{
+            document.getElementById('webDate').value = new Date().toISOString().split('T')[0];
+            openModal('modalAddStock');
+        }}
+
+        function openGhSyncModal(warnNotice = false) {{
+            const savedToken = localStorage.getItem('minervini_gh_token') || '';
+            const savedRepo = localStorage.getItem('minervini_gh_repo') || DEFAULT_REPO;
+            document.getElementById('ghTokenInput').value = savedToken;
+            document.getElementById('ghRepoInput').value = savedRepo;
+
+            const statusEl = document.getElementById('ghStatusText');
+            if (savedToken) {{
+                statusEl.innerHTML = '<span class="text-success font-bold">🟢 GitHub 클라우드 연동 완료</span> (웹에서 추가/삭제 시 자동 반영)';
+            }} else {{
+                statusEl.innerHTML = warnNotice 
+                    ? '<span class="text-warning font-bold">⚠️ GitHub 토큰을 등록하시면 웹에서 추가/삭제한 내역이 GitHub 저장소에 영구 동기화됩니다.</span>'
+                    : '<span class="text-muted">⚪ 아직 토큰이 등록되지 않았습니다.</span>';
+            }}
+            openModal('modalGhSync');
+        }}
+
+        async function saveGhToken() {{
+            const token = document.getElementById('ghTokenInput').value.trim();
+            const repo = document.getElementById('ghRepoInput').value.trim() || DEFAULT_REPO;
+            if (!token) {{
+                alert('GitHub 토큰(PAT)을 입력해주세요.');
+                return;
+            }}
+
+            showWebToast('⏳ 토큰 유효성 검증 중...');
+            try {{
+                const res = await fetch(`https://api.github.com/repos/${{repo}}`, {{
+                    headers: {{ 'Authorization': `token ${{token}}`, 'Accept': 'application/vnd.github.v3+json' }}
+                }});
+                if (res.ok) {{
+                    localStorage.setItem('minervini_gh_token', token);
+                    localStorage.setItem('minervini_gh_repo', repo);
+                    updateGhSyncBadge();
+                    showWebToast('🎉 GitHub 클라우드 연동 성공!');
+                    closeModal('modalGhSync');
+                }} else {{
+                    showWebToast('❌ 토큰 또는 저장소 권한 확인 실패', true);
+                }}
+            }} catch (e) {{
+                showWebToast('❌ 네트워크 오류: ' + e.message, true);
+            }}
+        }}
+
+        function clearGhToken() {{
+            if (!confirm('저장된 GitHub 토큰을 삭제하시겠습니까?')) return;
+            localStorage.removeItem('minervini_gh_token');
+            updateGhSyncBadge();
+            showWebToast('토큰이 삭제되었습니다.');
+            closeModal('modalGhSync');
+        }}
+
+        function updateGhSyncBadge() {{
+            const badge = document.getElementById('ghSyncBadge');
+            if (!badge) return;
+            const token = localStorage.getItem('minervini_gh_token');
+            if (token) {{
+                badge.innerHTML = '🟢 연동됨';
+                badge.className = 'badge badge-safe';
+            }} else {{
+                badge.innerHTML = '⚪ 미연동';
+                badge.className = 'badge badge-silver';
+            }}
+        }}
+
+        async function syncToGitHubApi(newPortfolio, commitMsg) {{
+            const token = localStorage.getItem('minervini_gh_token');
+            const repo = localStorage.getItem('minervini_gh_repo') || DEFAULT_REPO;
+            if (!token) {{
+                openGhSyncModal(true);
+                return false;
+            }}
+
+            try {{
+                showWebToast('⏳ GitHub 저장소에 동기화 중...');
+                const getUrl = `https://api.github.com/repos/${{repo}}/contents/portfolio.json`;
+                const getRes = await fetch(getUrl, {{
+                    headers: {{ 'Authorization': `token ${{token}}`, 'Accept': 'application/vnd.github.v3+json' }}
+                }});
+
+                let sha = null;
+                if (getRes.ok) {{
+                    const data = await getRes.json();
+                    sha = data.sha;
+                }}
+
+                const jsonStr = JSON.stringify(newPortfolio, null, 2);
+                const utf8Bytes = new TextEncoder().encode(jsonStr);
+                let binaryStr = '';
+                utf8Bytes.forEach(b => binaryStr += String.fromCharCode(b));
+                const base64Content = btoa(binaryStr);
+
+                const putRes = await fetch(getUrl, {{
+                    method: 'PUT',
+                    headers: {{
+                        'Authorization': `token ${{token}}`,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/vnd.github.v3+json'
+                    }},
+                    body: JSON.stringify({{
+                        message: commitMsg,
+                        content: base64Content,
+                        sha: sha || undefined
+                    }})
+                }});
+
+                if (putRes.ok) {{
+                    showWebToast('🎉 GitHub 저장소에 성공적으로 동기화되었습니다!');
+                    return true;
+                }} else {{
+                    const err = await putRes.json();
+                    showWebToast('❌ 동기화 실패: ' + (err.message || '권한 오류'), true);
+                    return false;
+                }}
+            }} catch (e) {{
+                showWebToast('❌ 통신 오류: ' + e.message, true);
+                return false;
+            }}
+        }}
+
+        async function submitWebAddStock() {{
+            const market = document.getElementById('webMarket').value;
+            const code = document.getElementById('webCode').value.trim().toUpperCase();
+            const name = document.getElementById('webName').value.trim() || code;
+            const price = parseFloat(document.getElementById('webPrice').value);
+            const date = document.getElementById('webDate').value;
+            const shares = parseInt(document.getElementById('webShares').value) || 1;
+            const memo = document.getElementById('webMemo').value.trim();
+
+            if (!code || isNaN(price) || price <= 0) {{
+                alert('종목코드와 올바른 매수가격을 입력해주세요.');
+                return;
+            }}
+
+            const item = {{ code, name, market, buy_price: price, buy_date: date, shares, memo }};
+            const idx = currentPortfolio.findIndex(p => String(p.code).toUpperCase() === code);
+            if (idx >= 0) {{
+                currentPortfolio[idx] = item;
+            }} else {{
+                currentPortfolio.push(item);
+            }}
+
+            closeModal('modalAddStock');
+
+            const synced = await syncToGitHubApi(currentPortfolio, `Add/Update stock ${{code}} (${{name}}) via web`);
+            if (!synced) {{
+                showWebToast(`[${{code}}] 로컬 반영 완료! (GitHub 클라우드에 영구 저장하려면 상단 연동 설정을 완료하세요)`);
+            }}
+
+            setTimeout(() => {{ location.reload(); }}, 1500);
+        }}
+
+        async function deleteStockFromWeb(code, name) {{
+            if (!confirm(`정말 [${{name || code}}] 종목을 포트폴리오에서 삭제하시겠습니까?`)) return;
+
+            currentPortfolio = currentPortfolio.filter(p => String(p.code).toUpperCase() !== String(code).toUpperCase());
+
+            const row = document.getElementById(`sell-row-${{code}}`);
+            if (row) {{
+                row.style.opacity = '0.3';
+                row.style.background = 'rgba(248, 81, 73, 0.2)';
+            }}
+
+            const synced = await syncToGitHubApi(currentPortfolio, `Delete stock ${{code}} (${{name}}) via web`);
+            if (!synced) {{
+                showWebToast(`[${{code}}] 삭제 완료! (클라우드 반영은 연동 필요)`);
+            }}
+
+            setTimeout(() => {{ location.reload(); }}, 1500);
+        }}
+
+        function exportPortfolioJson() {{
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentPortfolio, null, 2));
+            const dlAnchor = document.createElement('a');
+            dlAnchor.setAttribute("href", dataStr);
+            dlAnchor.setAttribute("download", "portfolio.json");
+            document.body.appendChild(dlAnchor);
+            dlAnchor.click();
+            dlAnchor.remove();
+            showWebToast('📥 portfolio.json 다운로드 완료!');
+        }}
+
         $(document).ready(function() {{
+            updateGhSyncBadge();
+
             const tableKR = $('#tableKR').DataTable({{
                 pageLength: 25,
                 order: [[4, 'desc']],
@@ -709,6 +1186,7 @@ def generate_unified_dashboard(
             const tableSell = $('#tableSell').DataTable({{
                 pageLength: 25,
                 order: [[6, 'desc']], // 현재 수익률 기준 정렬
+                columnDefs: [{{ orderable: false, targets: [12] }}],
                 language: {{
                     search: "보유 종목 검색:",
                     lengthMenu: "_MENU_ 개씩 보기",
