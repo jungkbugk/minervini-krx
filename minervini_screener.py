@@ -347,11 +347,20 @@ def main() -> None:
     else:
         us_df, us_new, us_drop = load_latest_cache("us")
 
-    # 3. 한/미 통합 대시보드 (index.html) 생성
+    # 3. 보유 종목 미너비니 매도 시점 감시
+    sell_signals = []
+    try:
+        from minervini_sell_monitor import run_sell_monitor
+        sell_signals = run_sell_monitor()
+    except Exception as e:
+        print(f"매도 감시 실행 중 오류: {e}")
+
+    # 4. 한/미 스크리너 및 매도 감시 통합 대시보드 (index.html) 생성
     dashboard_path = generate_unified_dashboard(
         kr_df=kr_df, us_df=us_df,
         kr_new=kr_new, us_new=us_new,
         kr_drop=kr_drop, us_drop=us_drop,
+        sell_signals=sell_signals,
         output_path="index.html"
     )
 
