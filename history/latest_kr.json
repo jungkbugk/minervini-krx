@@ -24,8 +24,8 @@
       "rs_rating": 97,
       "sepa_score": 98,
       "sepa_grade": "👑 다이아",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 4,
+      "status_label": "🟢 4일 연속"
     },
     {
       "code": "222800",
@@ -51,8 +51,8 @@
       "rs_rating": 98,
       "sepa_score": 94,
       "sepa_grade": "👑 다이아",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "000500",
@@ -78,8 +78,8 @@
       "rs_rating": 99,
       "sepa_score": 93,
       "sepa_grade": "👑 다이아",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "064290",
@@ -105,8 +105,8 @@
       "rs_rating": 98,
       "sepa_score": 92,
       "sepa_grade": "👑 다이아",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "119850",
@@ -132,8 +132,8 @@
       "rs_rating": 97,
       "sepa_score": 92,
       "sepa_grade": "👑 다이아",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "252990",
@@ -159,8 +159,8 @@
       "rs_rating": 97,
       "sepa_score": 92,
       "sepa_grade": "👑 다이아",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "159010",
@@ -186,8 +186,8 @@
       "rs_rating": 99,
       "sepa_score": 90,
       "sepa_grade": "👑 다이아",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "010950",
@@ -213,8 +213,8 @@
       "rs_rating": 96,
       "sepa_score": 90,
       "sepa_grade": "👑 다이아",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "131290",
@@ -240,8 +240,8 @@
       "rs_rating": 99,
       "sepa_score": 89,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 7,
+      "status_label": "🟢 7일 연속"
     },
     {
       "code": "031980",
@@ -267,8 +267,8 @@
       "rs_rating": 98,
       "sepa_score": 89,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "417840",
@@ -294,8 +294,8 @@
       "rs_rating": 98,
       "sepa_score": 89,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "029460",
@@ -321,8 +321,8 @@
       "rs_rating": 95,
       "sepa_score": 89,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 5,
+      "status_label": "🟢 5일 연속"
     },
     {
       "code": "089860",
@@ -348,8 +348,8 @@
       "rs_rating": 95,
       "sepa_score": 87,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "017890",
@@ -375,8 +375,8 @@
       "rs_rating": 92,
       "sepa_score": 87,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "446540",
@@ -402,8 +402,8 @@
       "rs_rating": 98,
       "sepa_score": 86,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "094800",
@@ -429,8 +429,8 @@
       "rs_rating": 91,
       "sepa_score": 86,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "055550",
@@ -456,8 +456,8 @@
       "rs_rating": 89,
       "sepa_score": 86,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "086790",
@@ -483,8 +483,8 @@
       "rs_rating": 89,
       "sepa_score": 86,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "105560",
@@ -510,8 +510,8 @@
       "rs_rating": 87,
       "sepa_score": 86,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "036930",
@@ -537,8 +537,8 @@
       "rs_rating": 99,
       "sepa_score": 85,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "161890",
@@ -564,8 +564,8 @@
       "rs_rating": 96,
       "sepa_score": 85,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "003490",
@@ -591,8 +591,8 @@
       "rs_rating": 86,
       "sepa_score": 85,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "096530",
@@ -618,8 +618,8 @@
       "rs_rating": 89,
       "sepa_score": 84,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "002990",
@@ -645,8 +645,8 @@
       "rs_rating": 98,
       "sepa_score": 83,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "005930",
@@ -672,8 +672,8 @@
       "rs_rating": 97,
       "sepa_score": 83,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 3,
+      "status_label": "🟢 3일 연속"
     },
     {
       "code": "086670",
@@ -699,8 +699,8 @@
       "rs_rating": 91,
       "sepa_score": 83,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "032580",
@@ -726,8 +726,8 @@
       "rs_rating": 99,
       "sepa_score": 82,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 3,
+      "status_label": "🟢 3일 연속"
     },
     {
       "code": "098120",
@@ -753,8 +753,8 @@
       "rs_rating": 98,
       "sepa_score": 82,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "006340",
@@ -780,8 +780,8 @@
       "rs_rating": 98,
       "sepa_score": 82,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 4,
+      "status_label": "🟢 4일 연속"
     },
     {
       "code": "000810",
@@ -807,8 +807,8 @@
       "rs_rating": 85,
       "sepa_score": 82,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "078930",
@@ -834,8 +834,8 @@
       "rs_rating": 96,
       "sepa_score": 81,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "051160",
@@ -861,8 +861,8 @@
       "rs_rating": 95,
       "sepa_score": 81,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "001450",
@@ -888,8 +888,8 @@
       "rs_rating": 93,
       "sepa_score": 81,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "096770",
@@ -915,8 +915,8 @@
       "rs_rating": 92,
       "sepa_score": 80,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "228850",
@@ -942,8 +942,8 @@
       "rs_rating": 91,
       "sepa_score": 80,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 4,
+      "status_label": "🟢 4일 연속"
     },
     {
       "code": "101160",
@@ -969,8 +969,8 @@
       "rs_rating": 85,
       "sepa_score": 80,
       "sepa_grade": "💎 골드",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 3,
+      "status_label": "🟢 3일 연속"
     },
     {
       "code": "052860",
@@ -996,8 +996,8 @@
       "rs_rating": 97,
       "sepa_score": 79,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "241770",
@@ -1023,8 +1023,8 @@
       "rs_rating": 95,
       "sepa_score": 79,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "049430",
@@ -1050,8 +1050,8 @@
       "rs_rating": 92,
       "sepa_score": 78,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "122640",
@@ -1077,8 +1077,8 @@
       "rs_rating": 90,
       "sepa_score": 78,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 3,
+      "status_label": "🟢 3일 연속"
     },
     {
       "code": "003690",
@@ -1104,8 +1104,8 @@
       "rs_rating": 84,
       "sepa_score": 78,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "294870",
@@ -1131,8 +1131,8 @@
       "rs_rating": 83,
       "sepa_score": 78,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 4,
+      "status_label": "🟢 4일 연속"
     },
     {
       "code": "007340",
@@ -1158,8 +1158,8 @@
       "rs_rating": 92,
       "sepa_score": 77,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 5,
+      "status_label": "🟢 5일 연속"
     },
     {
       "code": "236200",
@@ -1212,8 +1212,8 @@
       "rs_rating": 98,
       "sepa_score": 76,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 4,
+      "status_label": "🟢 4일 연속"
     },
     {
       "code": "192820",
@@ -1239,8 +1239,8 @@
       "rs_rating": 94,
       "sepa_score": 76,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "006360",
@@ -1266,8 +1266,8 @@
       "rs_rating": 94,
       "sepa_score": 76,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "028050",
@@ -1293,8 +1293,8 @@
       "rs_rating": 93,
       "sepa_score": 76,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "317400",
@@ -1320,8 +1320,8 @@
       "rs_rating": 98,
       "sepa_score": 75,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "241710",
@@ -1347,8 +1347,8 @@
       "rs_rating": 96,
       "sepa_score": 75,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "044820",
@@ -1374,8 +1374,8 @@
       "rs_rating": 95,
       "sepa_score": 75,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 9,
+      "status_label": "🟢 9일 연속"
     },
     {
       "code": "071200",
@@ -1401,8 +1401,8 @@
       "rs_rating": 96,
       "sepa_score": 74,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 8,
+      "status_label": "🟢 8일 연속"
     },
     {
       "code": "041960",
@@ -1428,8 +1428,8 @@
       "rs_rating": 89,
       "sepa_score": 74,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 5,
+      "status_label": "🟢 5일 연속"
     },
     {
       "code": "453340",
@@ -1455,8 +1455,8 @@
       "rs_rating": 84,
       "sepa_score": 74,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 3,
+      "status_label": "🟢 3일 연속"
     },
     {
       "code": "011560",
@@ -1482,8 +1482,8 @@
       "rs_rating": 92,
       "sepa_score": 73,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "013700",
@@ -1509,8 +1509,8 @@
       "rs_rating": 90,
       "sepa_score": 73,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "068930",
@@ -1563,8 +1563,8 @@
       "rs_rating": 88,
       "sepa_score": 72,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "316140",
@@ -1590,8 +1590,8 @@
       "rs_rating": 86,
       "sepa_score": 72,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 6,
+      "status_label": "🟢 6일 연속"
     },
     {
       "code": "021240",
@@ -1617,8 +1617,8 @@
       "rs_rating": 81,
       "sepa_score": 72,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "088350",
@@ -1644,8 +1644,8 @@
       "rs_rating": 92,
       "sepa_score": 71,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "090430",
@@ -1671,8 +1671,8 @@
       "rs_rating": 87,
       "sepa_score": 71,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "079650",
@@ -1725,8 +1725,8 @@
       "rs_rating": 97,
       "sepa_score": 70,
       "sepa_grade": "⭐ 실버",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "036800",
@@ -1752,8 +1752,8 @@
       "rs_rating": 92,
       "sepa_score": 69,
       "sepa_grade": "⚪ 일반",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "092730",
@@ -1779,8 +1779,8 @@
       "rs_rating": 89,
       "sepa_score": 68,
       "sepa_grade": "⚪ 일반",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "067290",
@@ -1806,8 +1806,8 @@
       "rs_rating": 95,
       "sepa_score": 67,
       "sepa_grade": "⚪ 일반",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "053260",
@@ -1833,8 +1833,8 @@
       "rs_rating": 93,
       "sepa_score": 67,
       "sepa_grade": "⚪ 일반",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "175330",
@@ -1860,8 +1860,8 @@
       "rs_rating": 85,
       "sepa_score": 66,
       "sepa_grade": "⚪ 일반",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 5,
+      "status_label": "🟢 5일 연속"
     },
     {
       "code": "443060",
@@ -1888,7 +1888,7 @@
       "sepa_score": 66,
       "sepa_grade": "⚪ 일반",
       "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "status_label": "🔥 NEW (1일)"
     },
     {
       "code": "180640",
@@ -1914,8 +1914,8 @@
       "rs_rating": 84,
       "sepa_score": 63,
       "sepa_grade": "⚪ 일반",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "000370",
@@ -1941,8 +1941,8 @@
       "rs_rating": 88,
       "sepa_score": 62,
       "sepa_grade": "⚪ 일반",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 7,
+      "status_label": "🟢 7일 연속"
     },
     {
       "code": "004770",
@@ -1968,8 +1968,8 @@
       "rs_rating": 87,
       "sepa_score": 62,
       "sepa_grade": "⚪ 일반",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "457600",
@@ -1995,8 +1995,8 @@
       "rs_rating": 96,
       "sepa_score": 61,
       "sepa_grade": "⚪ 일반",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 10,
+      "status_label": "🟢 10일 연속"
     },
     {
       "code": "280360",
@@ -2022,8 +2022,8 @@
       "rs_rating": 83,
       "sepa_score": 56,
       "sepa_grade": "⚪ 일반",
-      "consecutive_days": 1,
-      "status_label": "🟢 1일 연속"
+      "consecutive_days": 7,
+      "status_label": "🟢 7일 연속"
     },
     {
       "code": "162300",
@@ -2049,8 +2049,8 @@
       "rs_rating": 84,
       "sepa_score": 53,
       "sepa_grade": "⚪ 일반",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 2,
+      "status_label": "🟢 2일 연속"
     },
     {
       "code": "950190",
@@ -2076,218 +2076,11 @@
       "rs_rating": 75,
       "sepa_score": 51,
       "sepa_grade": "⚪ 일반",
-      "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "consecutive_days": 6,
+      "status_label": "🟢 6일 연속"
     }
   ],
   "new": [
-    {
-      "code": "144960",
-      "name": "뉴파워프라즈마",
-      "close": 12780,
-      "sepa_score": 98,
-      "pct_from_52w_high": 0.0,
-      "vcp_ratio": 0.67,
-      "marcap": 558828660960
-    },
-    {
-      "code": "222800",
-      "name": "심텍",
-      "close": 149400,
-      "sepa_score": 94,
-      "pct_from_52w_high": -5.02,
-      "vcp_ratio": 0.78,
-      "marcap": 5753436637000
-    },
-    {
-      "code": "064290",
-      "name": "인텍플러스",
-      "close": 55000,
-      "sepa_score": 92,
-      "pct_from_52w_high": -1.96,
-      "vcp_ratio": 0.94,
-      "marcap": 710075274400
-    },
-    {
-      "code": "119850",
-      "name": "지엔씨에너지",
-      "close": 56100,
-      "sepa_score": 92,
-      "pct_from_52w_high": 0.0,
-      "vcp_ratio": 0.85,
-      "marcap": 922783794900
-    },
-    {
-      "code": "252990",
-      "name": "샘씨엔에스",
-      "close": 18110,
-      "sepa_score": 92,
-      "pct_from_52w_high": -0.82,
-      "vcp_ratio": 0.92,
-      "marcap": 1079706749770
-    },
-    {
-      "code": "159010",
-      "name": "아스플로",
-      "close": 29400,
-      "sepa_score": 90,
-      "pct_from_52w_high": 0.0,
-      "vcp_ratio": 0.97,
-      "marcap": 397375222200
-    },
-    {
-      "code": "131290",
-      "name": "티에스이",
-      "close": 289000,
-      "sepa_score": 89,
-      "pct_from_52w_high": -5.71,
-      "vcp_ratio": 0.85,
-      "marcap": 3196752981000
-    },
-    {
-      "code": "031980",
-      "name": "피에스케이홀딩스",
-      "close": 163200,
-      "sepa_score": 89,
-      "pct_from_52w_high": -4.0,
-      "vcp_ratio": 0.91,
-      "marcap": 3518982864000
-    },
-    {
-      "code": "417840",
-      "name": "저스템",
-      "close": 17230,
-      "sepa_score": 89,
-      "pct_from_52w_high": -9.27,
-      "vcp_ratio": 0.82,
-      "marcap": 391929311480
-    },
-    {
-      "code": "017890",
-      "name": "한국알콜",
-      "close": 15420,
-      "sepa_score": 87,
-      "pct_from_52w_high": 0.0,
-      "vcp_ratio": 0.79,
-      "marcap": 318165257340
-    },
-    {
-      "code": "446540",
-      "name": "메가터치",
-      "close": 10890,
-      "sepa_score": 86,
-      "pct_from_52w_high": 0.0,
-      "vcp_ratio": 1.09,
-      "marcap": 316962309900
-    },
-    {
-      "code": "036930",
-      "name": "주성엔지니어링",
-      "close": 209500,
-      "sepa_score": 85,
-      "pct_from_52w_high": -16.37,
-      "vcp_ratio": 0.77,
-      "marcap": 9737794849500
-    },
-    {
-      "code": "096530",
-      "name": "씨젠",
-      "close": 33850,
-      "sepa_score": 84,
-      "pct_from_52w_high": -5.05,
-      "vcp_ratio": 0.84,
-      "marcap": 1588969668000
-    },
-    {
-      "code": "086670",
-      "name": "비엠티",
-      "close": 19390,
-      "sepa_score": 83,
-      "pct_from_52w_high": 0.0,
-      "vcp_ratio": 0.85,
-      "marcap": 191668839350
-    },
-    {
-      "code": "032580",
-      "name": "피델릭스",
-      "close": 7020,
-      "sepa_score": 82,
-      "pct_from_52w_high": -17.02,
-      "vcp_ratio": 0.8,
-      "marcap": 232587089280
-    },
-    {
-      "code": "098120",
-      "name": "마이크로컨텍솔",
-      "close": 58700,
-      "sepa_score": 82,
-      "pct_from_52w_high": 0.0,
-      "vcp_ratio": 1.25,
-      "marcap": 482140428000
-    },
-    {
-      "code": "051160",
-      "name": "지어소프트",
-      "close": 11830,
-      "sepa_score": 81,
-      "pct_from_52w_high": -1.91,
-      "vcp_ratio": 1.35,
-      "marcap": 186312137200
-    },
-    {
-      "code": "228850",
-      "name": "레이언스",
-      "close": 7920,
-      "sepa_score": 80,
-      "pct_from_52w_high": -6.16,
-      "vcp_ratio": 1.0,
-      "marcap": 131234920740
-    },
-    {
-      "code": "101160",
-      "name": "월덱스",
-      "close": 30900,
-      "sepa_score": 80,
-      "pct_from_52w_high": -11.59,
-      "vcp_ratio": 0.64,
-      "marcap": 510189683700
-    },
-    {
-      "code": "052860",
-      "name": "아이앤씨",
-      "close": 6790,
-      "sepa_score": 79,
-      "pct_from_52w_high": -5.83,
-      "vcp_ratio": 1.13,
-      "marcap": 121315938660
-    },
-    {
-      "code": "241770",
-      "name": "메카로",
-      "close": 41050,
-      "sepa_score": 79,
-      "pct_from_52w_high": -14.39,
-      "vcp_ratio": 0.72,
-      "marcap": 424013824000
-    },
-    {
-      "code": "049430",
-      "name": "코메론",
-      "close": 23000,
-      "sepa_score": 78,
-      "pct_from_52w_high": -1.5,
-      "vcp_ratio": 1.15,
-      "marcap": 209008800000
-    },
-    {
-      "code": "122640",
-      "name": "예스티",
-      "close": 32200,
-      "sepa_score": 78,
-      "pct_from_52w_high": -19.2,
-      "vcp_ratio": 0.69,
-      "marcap": 692842400000
-    },
     {
       "code": "236200",
       "name": "슈프리마",
@@ -2296,42 +2089,6 @@
       "pct_from_52w_high": -13.03,
       "vcp_ratio": 0.79,
       "marcap": 384981967200
-    },
-    {
-      "code": "241710",
-      "name": "코스메카코리아",
-      "close": 127100,
-      "sepa_score": 75,
-      "pct_from_52w_high": -17.41,
-      "vcp_ratio": 1.02,
-      "marcap": 1359564000000
-    },
-    {
-      "code": "071200",
-      "name": "인피니트헬스케어",
-      "close": 11820,
-      "sepa_score": 74,
-      "pct_from_52w_high": -11.86,
-      "vcp_ratio": 1.2,
-      "marcap": 288366133560
-    },
-    {
-      "code": "041960",
-      "name": "코미팜",
-      "close": 9930,
-      "sepa_score": 74,
-      "pct_from_52w_high": -3.69,
-      "vcp_ratio": 1.14,
-      "marcap": 734989279850
-    },
-    {
-      "code": "011560",
-      "name": "세보엠이씨",
-      "close": 24250,
-      "sepa_score": 73,
-      "pct_from_52w_high": -13.24,
-      "vcp_ratio": 0.89,
-      "marcap": 245062389600
     },
     {
       "code": "068930",
@@ -2352,69 +2109,86 @@
       "marcap": 124800000000
     },
     {
-      "code": "036800",
-      "name": "나이스정보통신",
-      "close": 7470,
-      "sepa_score": 69,
-      "pct_from_52w_high": -9.01,
-      "vcp_ratio": 1.34,
-      "marcap": 337610000000
-    },
-    {
-      "code": "092730",
-      "name": "네오팜",
-      "close": 23650,
-      "sepa_score": 68,
-      "pct_from_52w_high": -7.07,
-      "vcp_ratio": 1.03,
-      "marcap": 379061939850
-    },
-    {
-      "code": "067290",
-      "name": "JW신약",
-      "close": 3155,
-      "sepa_score": 67,
-      "pct_from_52w_high": -18.89,
-      "vcp_ratio": 1.35,
-      "marcap": 175956503420
-    },
-    {
-      "code": "053260",
-      "name": "금강철강",
-      "close": 7030,
-      "sepa_score": 67,
-      "pct_from_52w_high": -12.02,
-      "vcp_ratio": 1.48,
-      "marcap": 130291200000
-    },
-    {
-      "code": "457600",
-      "name": "벡트",
-      "close": 4305,
-      "sepa_score": 61,
-      "pct_from_52w_high": -21.3,
-      "vcp_ratio": 1.25,
-      "marcap": 59559087500
-    },
-    {
-      "code": "162300",
-      "name": "신스틸",
-      "close": 2185,
-      "sepa_score": 53,
-      "pct_from_52w_high": -23.6,
-      "vcp_ratio": 1.41,
-      "marcap": 90407612760
-    },
-    {
-      "code": "950190",
-      "name": "고스트스튜디오",
-      "close": 9680,
-      "sepa_score": 51,
-      "pct_from_52w_high": -13.8,
-      "vcp_ratio": 1.35,
-      "marcap": 125614619350
+      "code": "443060",
+      "name": "HD현대마린솔루션",
+      "close": 240000,
+      "sepa_score": 66,
+      "pct_from_52w_high": -14.44,
+      "vcp_ratio": 0.97,
+      "marcap": 10715196940000
     }
   ],
-  "drop": [],
-  "updated_at": "2026-09-26 11:18"
+  "drop": [
+    {
+      "code": "028670",
+      "name": "팬오션",
+      "consecutive_days": 9,
+      "last_close": 5780,
+      "last_score": 77
+    },
+    {
+      "code": "003010",
+      "name": "혜인",
+      "consecutive_days": 4,
+      "last_close": 9890,
+      "last_score": 65
+    },
+    {
+      "code": "121440",
+      "name": "골프존홀딩스",
+      "consecutive_days": 9,
+      "last_close": 7700,
+      "last_score": 71
+    },
+    {
+      "code": "005090",
+      "name": "SGC에너지",
+      "consecutive_days": 6,
+      "last_close": 52700,
+      "last_score": 70
+    },
+    {
+      "code": "033780",
+      "name": "KT&G",
+      "consecutive_days": 1,
+      "last_close": 176300,
+      "last_score": 83
+    },
+    {
+      "code": "001210",
+      "name": "금호전기",
+      "consecutive_days": 9,
+      "last_close": 10230,
+      "last_score": 67
+    },
+    {
+      "code": "093320",
+      "name": "케이아이엔엑스",
+      "consecutive_days": 1,
+      "last_close": 140000,
+      "last_score": 73
+    },
+    {
+      "code": "054940",
+      "name": "엑사이엔씨",
+      "consecutive_days": 9,
+      "last_close": 3740,
+      "last_score": 59
+    },
+    {
+      "code": "194370",
+      "name": "제이에스코퍼레이션",
+      "consecutive_days": 9,
+      "last_close": 12940,
+      "last_score": 62
+    },
+    {
+      "code": "181710",
+      "name": "NHN",
+      "consecutive_days": 1,
+      "last_close": 57000,
+      "last_score": 70
+    }
+  ],
+  "updated_at": "2026-09-23"
 }
