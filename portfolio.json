@@ -1,47 +1,29 @@
 [
   {
-    "code": "000500",
-    "name": "가온전선",
+    "code": "252990",
+    "name": "샘씨엔에스",
     "market": "KR",
-    "buy_price": 310000,
-    "buy_date": "2026-09-15",
-    "shares": 10,
-    "memo": "미너비니 SEPA 돌파 매수"
+    "buy_price": 18080.0,
+    "buy_date": "2026-09-23",
+    "shares": 98,
+    "memo": ""
   },
   {
-    "code": "222800",
-    "name": "심텍",
+    "code": "003490",
+    "name": "대한항공",
     "market": "KR",
-    "buy_price": 140000,
-    "buy_date": "2026-09-10",
-    "shares": 20,
-    "memo": "코스닥 글로벌 10일 연속"
+    "buy_price": 30550.0,
+    "buy_date": "2026-09-08",
+    "shares": 81,
+    "memo": ""
   },
   {
-    "code": "144960",
-    "name": "뉴파워프라즈마",
+    "code": "055550",
+    "name": "신한지주",
     "market": "KR",
-    "buy_price": 12000,
-    "buy_date": "2026-09-21",
-    "shares": 100,
-    "memo": "4일 전 신규 편입 돌파"
-  },
-  {
-    "code": "HZO",
-    "name": "MarineMax Inc",
-    "market": "US",
-    "buy_price": 24.5,
-    "buy_date": "2026-09-14",
-    "shares": 50,
-    "memo": "미국 SEPA 1위"
-  },
-  {
-    "code": "AMD",
-    "name": "Advanced Micro Devices",
-    "market": "US",
-    "buy_price": 145.0,
-    "buy_date": "2026-09-15",
-    "shares": 15,
-    "memo": "반도체 주도주"
+    "buy_price": 115000.0,
+    "buy_date": "2026-09-07",
+    "shares": 21,
+    "memo": ""
   }
 ]
