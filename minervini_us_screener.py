@@ -361,9 +361,7 @@ def run_us_minervini_screener(
         ascending=[False, False, False],
     ).reset_index(drop=True)
 
-    # 일자별 히스토리 추적
-    history_us_file = "history/history_us_log.json"
-    screened_df, new_entrants, dropped_stocks = track_daily_changes(screened_df, today_str)
+    screened_df, new_entrants, dropped_stocks = track_daily_changes(screened_df, today_str, market_type="US")
 
     elapsed_total = time.time() - start_time
     print(f"\n🎉 미국 증시 스크리닝 완료! (총 소요 시간: {elapsed_total:.1f}초)")
