@@ -1,15 +1,9 @@
-"""마크 미너비니(Mark Minervini) SEPA 트렌드 템플릿 국내 주식 스크리너
-(SEPA 종합 추천 점수 + 일자별 히스토리 추적 + 신규 편입/이탈 감지 + 텔레그램 알림)
+"""마크 미너비니(Mark Minervini) SEPA 글로벌 주식 스크리너 (한/미 통합)
 
-마크 미너비니의 '슈퍼 스톡(Superperformance Stocks)' 8대 조건 + SEPA 종합 추천 점수(100점 만점):
-1. 주가가 150일(30주), 200일(40주) 이동평균선 위에 위치
-2. 150일 이동평균선이 200일 이동평균선 위에 위치
-3. 200일 이동평균선이 최소 1개월 이상 지속 상승
-4. 50일(10주) 이동평균선이 150일 및 200일 이동평균선 위에 위치 (완전 정배열)
-5. 현재 주가가 50일 이동평균선 위에 위치
-6. 현재 주가가 52주 신저가 대비 최소 25~30% 이상 상승
-7. 현재 주가가 52주 신고가 대비 25% 이내 (10~15% 이내면 초강력 베이스)
-8. RS(상대강도) 순위 70 이상 (권장 80 이상)
+사용법:
+  - 국내 주식 스크리닝 (기본): python minervini_screener.py --market KR
+  - 미국 주식 스크리닝:        python minervini_screener.py --market US
+  - 한/미 동시 스크리닝:        python minervini_screener.py --market ALL
 """
 
 from __future__ import annotations
@@ -17,6 +11,7 @@ from __future__ import annotations
 import argparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta
+import json
 import os
 import sys
 import time
@@ -28,7 +23,9 @@ import pandas as pd
 from tabulate import tabulate
 from tqdm import tqdm
 
+from dashboard_generator import generate_unified_dashboard
 from history_tracker import track_daily_changes
+from minervini_us_screener import run_us_minervini_screener, print_us_summary_table
 from telegram_notifier import send_telegram_alert
 
 # Windows 콘솔 UTF-8 인코딩 설정
@@ -38,42 +35,29 @@ if sys.stdout.encoding != "utf-8":
     except Exception:
         pass
 
+HISTORY_DIR = "history"
+
 
 def format_marcap(val: float | int) -> str:
-    """시가총액(원)을 'X조 Y,YYY억원' 또는 'X,YYY억원' 형태로 변환합니다."""
-    if pd.isna(val) or val <= 0:
-        return "-"
+    """시가총액(원)을 'X조 Y,YYY억원' 형태로 변환합니다."""
+    if pd.isna(val) or val <= 0: return "-"
     val = int(val)
     cho = val // 1_000_000_000_000
     eok = (val % 1_000_000_000_000) // 100_000_000
     if cho > 0:
-        if eok > 0:
-            return f"{cho}조 {eok:,}억"
-        return f"{cho}조원"
+        return f"{cho}조 {eok:,}억" if eok > 0 else f"{cho}조"
     return f"{eok:,}억원"
 
 
-def filter_universe(
-    market: str = "ALL", min_price: int = 1000, exclude_bad_dept: bool = True
-) -> pd.DataFrame:
+def filter_kr_universe(min_price: int = 1000) -> pd.DataFrame:
     """KRX 상장 종목 중 투자 부적합 종목(스팩, 우선주, ETF, 관리종목 등)을 필터링합니다."""
     print("▶ KRX 전체 종목 목록 수집 및 유니버스 필터링 중...")
     stocks = fdr.StockListing("KRX")
+    stocks = stocks[stocks["Market"].isin(["KOSPI", "KOSDAQ", "KOSDAQ GLOBAL"])].copy()
 
-    # 1. 시장 필터 (KOSPI / KOSDAQ / ALL)
-    market = market.upper()
-    if market == "KOSPI":
-        stocks = stocks[stocks["Market"] == "KOSPI"].copy()
-    elif market == "KOSDAQ":
-        stocks = stocks[stocks["Market"].isin(["KOSDAQ", "KOSDAQ GLOBAL"])].copy()
-    else:  # ALL: 코스피 + 코스닥 (코넥스는 제외)
-        stocks = stocks[stocks["Market"].isin(["KOSPI", "KOSDAQ", "KOSDAQ GLOBAL"])].copy()
-
-    # 2. 우선주 제외 (국내 보통주는 일반적으로 종목코드 끝자리가 '0')
     stocks["Code"] = stocks["Code"].astype(str).str.zfill(6)
     stocks = stocks[stocks["Code"].str.endswith("0")].copy()
 
-    # 3. 종목명 기준 제외 (스팩, 리츠, 우선주 표기 등)
     bad_name_keywords = [
         "스팩", "SPAC", "리츠", "1우", "2우", "3우", "우B", "우C",
         "ETN", "ETF", "인버스", "레버리지", "타이거", "코덱스"
@@ -81,13 +65,11 @@ def filter_universe(
     pattern = "|".join(bad_name_keywords)
     stocks = stocks[~stocks["Name"].str.contains(pattern, case=False, na=False)].copy()
 
-    # 4. 관리종목 / 투자주의환기종목 제외
-    if exclude_bad_dept and "Dept" in stocks.columns:
+    if "Dept" in stocks.columns:
         bad_dept_keywords = ["관리종목", "SPAC", "투자주의환기종목"]
         dept_pattern = "|".join(bad_dept_keywords)
         stocks = stocks[~stocks["Dept"].fillna("").str.contains(dept_pattern, case=False)].copy()
 
-    # 5. 동전주 제외 (현재가 기준)
     if "Close" in stocks.columns and min_price > 0:
         stocks = stocks[pd.to_numeric(stocks["Close"], errors="coerce") >= min_price].copy()
 
@@ -96,25 +78,19 @@ def filter_universe(
     return stocks
 
 
-def calculate_stock_metrics(
-    code: str, name: str, market: str, marcap: float, start_date: str
-) -> dict | None:
-    """개별 종목의 주가 데이터를 다운로드하여 트렌드 템플릿 및 RS 계산에 필요한 지표를 산출합니다."""
+def calculate_kr_stock_metrics(code: str, name: str, market: str, marcap: float, start_date: str) -> dict | None:
+    """국내 개별 종목의 지표를 계산합니다."""
     try:
         df = fdr.DataReader(code, start=start_date)
-        if df is None or len(df) < 252:
-            return None
+        if df is None or len(df) < 252: return None
 
         close = df["Close"].dropna().astype(float)
         volume = df["Volume"].dropna().astype(float)
-        if len(close) < 252:
-            return None
+        if len(close) < 252: return None
 
         last = float(close.iloc[-1])
-        if last <= 0:
-            return None
+        if last <= 0: return None
 
-        # 이동평균선
         ma50 = float(close.rolling(50).mean().iloc[-1])
         ma150 = float(close.rolling(150).mean().iloc[-1])
         ma200_series = close.rolling(200).mean()
@@ -122,14 +98,12 @@ def calculate_stock_metrics(
         ma200_20d_ago = float(ma200_series.iloc[-21])
         ma200_slope_pct = ((ma200 - ma200_20d_ago) / ma200_20d_ago) * 100 if ma200_20d_ago > 0 else 0
 
-        # 52주(252거래일) 최고가 / 최저가
         high_52w = float(close.iloc[-252:].max())
         low_52w = float(close.iloc[-252:].min())
 
         pct_from_52w_high = ((last - high_52w) / high_52w) * 100
         pct_above_52w_low = ((last - low_52w) / low_52w) * 100
 
-        # IBD RS 가중 점수 (3개월 40%, 6개월 20%, 9개월 20%, 12개월 20%)
         p_now = last
         p_63 = float(close.iloc[-63]) if len(close) >= 63 else float(close.iloc[0])
         p_126 = float(close.iloc[-126]) if len(close) >= 126 else float(close.iloc[0])
@@ -142,25 +116,19 @@ def calculate_stock_metrics(
         roc_12m = (p_now - p_252) / p_252 if p_252 > 0 else 0
 
         ibd_raw_score = (0.4 * roc_3m) + (0.2 * roc_6m) + (0.2 * roc_9m) + (0.2 * roc_12m)
-
         recent_trading_val = (close.iloc[-20:] * volume.iloc[-20:]).mean() / 1e8
 
-        # VCP 변동성 축소 패턴 (ATR 20 / ATR 60)
         high_s = df["High"].iloc[-60:].astype(float)
         low_s = df["Low"].iloc[-60:].astype(float)
         close_prev = df["Close"].iloc[-61:-1].astype(float).values
         tr = np.maximum(
             high_s.values - low_s.values,
-            np.maximum(
-                np.abs(high_s.values - close_prev),
-                np.abs(low_s.values - close_prev),
-            ),
+            np.maximum(np.abs(high_s.values - close_prev), np.abs(low_s.values - close_prev)),
         )
         atr20 = tr[-20:].mean() / last if last > 0 else 0
         atr60 = tr.mean() / last if last > 0 else 0
         vcp_ratio = (atr20 / atr60) if atr60 > 0 else 1.0
 
-        # 미너비니 8대 조건 검사
         c1 = (last > ma150) and (last > ma200)
         c2 = ma150 > ma200
         c3 = ma200 > ma200_20d_ago
@@ -197,186 +165,105 @@ def calculate_stock_metrics(
         return None
 
 
-def calculate_sepa_score(row: pd.Series) -> tuple[int, str]:
-    """마크 미너비니 SEPA 전략 기반 100점 만점 종합 추천 점수를 계산합니다."""
+def calculate_kr_sepa_score(row: pd.Series) -> tuple[int, str]:
+    """국내 주식 SEPA 종합 추천 점수 (100점 만점) 산출."""
     rs = row.get("rs_rating", 50)
     high_dist = row.get("pct_from_52w_high", -25)
     vcp = row.get("vcp_ratio", 1.0)
     ma200_slope = row.get("ma200_slope_pct", 0.0)
     tval = row.get("avg_trading_val_20d", 0.0)
 
-    # 1. RS 점수 (35점 만점)
-    if rs >= 95:
-        score_rs = 35
-    elif rs >= 90:
-        score_rs = 31
-    elif rs >= 85:
-        score_rs = 27
-    elif rs >= 80:
-        score_rs = 23
-    elif rs >= 75:
-        score_rs = 19
-    else:
-        score_rs = 15
+    if rs >= 95: score_rs = 35
+    elif rs >= 90: score_rs = 31
+    elif rs >= 85: score_rs = 27
+    elif rs >= 80: score_rs = 23
+    elif rs >= 75: score_rs = 19
+    else: score_rs = 15
 
-    # 2. 신고가 근접도 (25점 만점)
-    if high_dist >= -3.0:
-        score_high = 25
-    elif high_dist >= -7.0:
-        score_high = 22
-    elif high_dist >= -12.0:
-        score_high = 18
-    elif high_dist >= -18.0:
-        score_high = 13
-    else:
-        score_high = 8
+    if high_dist >= -3.0: score_high = 25
+    elif high_dist >= -7.0: score_high = 22
+    elif high_dist >= -12.0: score_high = 18
+    elif high_dist >= -18.0: score_high = 13
+    else: score_high = 8
 
-    # 3. VCP 변동성 축소 (20점 만점)
-    if vcp < 0.70:
-        score_vcp = 20
-    elif vcp < 0.85:
-        score_vcp = 17
-    elif vcp <= 1.00:
-        score_vcp = 13
-    elif vcp <= 1.15:
-        score_vcp = 8
-    else:
-        score_vcp = 4
+    if vcp < 0.70: score_vcp = 20
+    elif vcp < 0.85: score_vcp = 17
+    elif vcp <= 1.00: score_vcp = 13
+    elif vcp <= 1.15: score_vcp = 8
+    else: score_vcp = 4
 
-    # 4. 정배열 및 200일선 상승 기울기 (10점 만점)
     score_trend = 5
-    if ma200_slope >= 3.0:
-        score_trend += 5
-    elif ma200_slope >= 1.0:
-        score_trend += 4
-    elif ma200_slope > 0:
-        score_trend += 3
+    if ma200_slope >= 3.0: score_trend += 5
+    elif ma200_slope >= 1.0: score_trend += 4
+    elif ma200_slope > 0: score_trend += 3
 
-    # 5. 거래대금 유동성 (10점 만점)
-    if tval >= 500:
-        score_vol = 10
-    elif tval >= 100:
-        score_vol = 9
-    elif tval >= 50:
-        score_vol = 8
-    elif tval >= 20:
-        score_vol = 7
-    elif tval >= 10:
-        score_vol = 6
-    else:
-        score_vol = 4
+    if tval >= 500: score_vol = 10
+    elif tval >= 100: score_vol = 9
+    elif tval >= 50: score_vol = 8
+    elif tval >= 20: score_vol = 7
+    elif tval >= 10: score_vol = 6
+    else: score_vol = 4
 
-    total_score = score_rs + score_high + score_vcp + score_trend + score_vol
-    total_score = max(0, min(100, int(total_score)))
-
-    if total_score >= 90:
-        grade = "👑 다이아"
-    elif total_score >= 80:
-        grade = "💎 골드"
-    elif total_score >= 70:
-        grade = "⭐ 실버"
-    else:
-        grade = "⚪ 일반"
+    total_score = max(0, min(100, int(score_rs + score_high + score_vcp + score_trend + score_vol)))
+    if total_score >= 90: grade = "👑 다이아"
+    elif total_score >= 80: grade = "💎 골드"
+    elif total_score >= 70: grade = "⭐ 실버"
+    else: grade = "⚪ 일반"
 
     return total_score, grade
 
 
-def run_minervini_screener(
-    market: str = "ALL",
-    min_rs: int = 70,
-    min_trading_val: float = 5.0,
-    min_price: int = 1000,
-    max_workers: int = 20,
+def run_kr_minervini_screener(
+    min_rs: int = 70, min_trading_val: float = 5.0, min_price: int = 1000, max_workers: int = 20
 ) -> tuple[pd.DataFrame, list[dict], list[dict]]:
-    """마크 미너비니 트렌드 템플릿 스크리닝 및 히스토리 추적."""
+    """국내 주식 스크리닝 전체 과정."""
     start_time = time.time()
     today_str = datetime.now().strftime("%Y-%m-%d")
     lookback_date = (datetime.now() - timedelta(days=500)).strftime("%Y-%m-%d")
 
-    market_display = "코스피 + 코스닥 전체" if market.upper() == "ALL" else market
     print("\n" + "=" * 75)
-    print(" 🚀 [마크 미너비니 SEPA 트렌드 템플릿 국내 주식 스크리너] 🚀")
-    print(f" - 분석 기준일: {today_str}")
-    print(f" - 대상 시장: {market_display} | 최소 RS: {min_rs}점 | 최소 거래대금: {min_trading_val}억원")
+    print(" 🇰🇷 [마크 미너비니 SEPA 트렌드 템플릿 국내 주식 스크리너] 🇰🇷")
+    print(f" - 분석 기준일: {today_str} | 최소 RS: {min_rs}점 | 최소 거래대금: {min_trading_val}억원")
     print("=" * 75 + "\n")
 
-    universe = filter_universe(market=market, min_price=min_price)
+    universe = filter_kr_universe(min_price=min_price)
     total_stocks = len(universe)
 
-    print(f"▶ {max_workers}개 스레드로 전 종목 시세 수집 및 기술적 지표 병렬 연산 중...")
+    print(f"▶ {max_workers}개 스레드로 국내 전 종목 시세 수집 및 기술적 지표 병렬 연산 중...")
     results = []
-
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = {
-            executor.submit(
-                calculate_stock_metrics,
-                row["Code"],
-                row["Name"],
-                row["Market"],
-                row.get("Marcap", 0),
-                lookback_date,
-            ): row["Code"]
-            for _, row in universe.iterrows()
+            executor.submit(calculate_kr_stock_metrics, r["Code"], r["Name"], r["Market"], r.get("Marcap", 0), lookback_date): r["Code"]
+            for _, r in universe.iterrows()
         }
-
         with tqdm(total=total_stocks, desc="진행률", unit="종목", ncols=80) as pbar:
-            for future in as_completed(futures):
-                res = future.result()
-                if res is not None:
-                    results.append(res)
+            for f in as_completed(futures):
+                res = f.result()
+                if res is not None: results.append(res)
                 pbar.update(1)
 
-    elapsed_collect = time.time() - start_time
-    print(f"  ✓ {len(results):,}개 종목 분석 완료 (소요 시간: {elapsed_collect:.1f}초)")
-
-    if not results:
-        print("❌ 분석 가능한 주식 데이터를 가져오지 못했습니다.")
-        return pd.DataFrame(), [], []
+    if not results: return pd.DataFrame(), [], []
 
     df = pd.DataFrame(results)
-
-    print("▶ 전체 유니버스 대비 IBD 상대강도(RS Rating, 1~99) 순위 산출 중...")
-    df["rs_rating"] = (df["ibd_raw_score"].rank(pct=True) * 99).round().astype(int)
-    df["rs_rating"] = df["rs_rating"].clip(lower=1, upper=99)
-
-    passed_mask = (
-        df["passed_trend_template"]
-        & (df["rs_rating"] >= min_rs)
-        & (df["avg_trading_val_20d"] >= min_trading_val)
-    )
+    df["rs_rating"] = (df["ibd_raw_score"].rank(pct=True) * 99).round().astype(int).clip(1, 99)
+    passed_mask = df["passed_trend_template"] & (df["rs_rating"] >= min_rs) & (df["avg_trading_val_20d"] >= min_trading_val)
     screened_df = df[passed_mask].copy()
 
-    if screened_df.empty:
-        return screened_df, [], []
+    if screened_df.empty: return screened_df, [], []
 
-    print("▶ 마크 미너비니 SEPA 종합 추천 점수(100점 만점) 및 추천 등급 계산 중...")
-    scores_grades = screened_df.apply(calculate_sepa_score, axis=1)
+    scores_grades = screened_df.apply(calculate_kr_sepa_score, axis=1)
     screened_df["sepa_score"] = [s[0] for s in scores_grades]
     screened_df["sepa_grade"] = [s[1] for s in scores_grades]
+    screened_df = screened_df.sort_values(by=["sepa_score", "rs_rating", "pct_from_52w_high"], ascending=[False, False, False]).reset_index(drop=True)
 
-    # 정렬: 1순위 SEPA 종합 점수 내림차순, 2순위 RS 순위 내림차순
-    screened_df = screened_df.sort_values(
-        by=["sepa_score", "rs_rating", "pct_from_52w_high"],
-        ascending=[False, False, False],
-    ).reset_index(drop=True)
-
-    # 일자별 히스토리 비교 추적 (연속 통과 일수, 신규 편입, 이탈 종목 감지)
-    print("▶ 일자별 히스토리 분석 (신규 편입/이탈/연속 일수) 추적 중...")
-    screened_df, new_entrants, dropped_stocks = track_daily_changes(screened_df, today_str)
-
-    elapsed_total = time.time() - start_time
-    print(f"\n🎉 스크리닝 완료! (총 소요 시간: {elapsed_total:.1f}초)")
-    print(f"▶ 조건 통과 종목: 총 {len(screened_df):,}개 (🔥 신규 편입: {len(new_entrants)}개 | 🚨 조건 이탈: {len(dropped_stocks)}개)\n")
-
-    return screened_df, new_entrants, dropped_stocks
+    screened_df, new_e, dropped = track_daily_changes(screened_df, today_str)
+    print(f"\n🎉 국내 증시 스크리닝 완료! ({time.time() - start_time:.1f}초, 통과: {len(screened_df)}개 | 신규: {len(new_e)}개 | 이탈: {len(dropped)}개)\n")
+    return screened_df, new_e, dropped
 
 
-def print_summary_table(df: pd.DataFrame, max_rows: int = 30) -> None:
-    """콘솔에 상태/연속 일수가 포함된 표를 출력합니다."""
-    if df.empty:
-        print("⚠️ 조건을 통과한 종목이 없습니다.")
-        return
-
+def print_kr_summary_table(df: pd.DataFrame, max_rows: int = 25) -> None:
+    """콘솔에 국내 주식 요약 표를 출력합니다."""
+    if df.empty: return
     display_df = df.head(max_rows).copy()
     display_df["순위"] = range(1, len(display_df) + 1)
     display_df["종목"] = display_df.apply(lambda r: f"{r['name']} ({r['code']})", axis=1)
@@ -387,504 +274,105 @@ def print_summary_table(df: pd.DataFrame, max_rows: int = 30) -> None:
     display_df["현재가(원)"] = display_df["close"].apply(lambda x: f"{x:,}")
     display_df["RS점수"] = display_df["rs_rating"].apply(lambda x: f"{x}점")
     display_df["52주고점대비"] = display_df["pct_from_52w_high"].apply(lambda x: f"{x:+.1f}%")
-    display_df["3개월수익률"] = display_df["roc_3m"].apply(lambda x: f"{x:+.1f}%")
     display_df["20일거래대금"] = display_df["avg_trading_val_20d"].apply(lambda x: f"{x:.1f}억")
-    display_df["VCP축소"] = display_df["vcp_ratio"].apply(
-        lambda x: "🟢 수축" if x < 0.85 else ("🟡 양호" if x <= 1.0 else "⚪ 보통")
-    )
+    display_df["VCP축소"] = display_df["vcp_ratio"].apply(lambda x: "🟢 수축" if x < 0.85 else ("🟡 양호" if x <= 1.0 else "⚪ 보통"))
 
-    cols = [
-        "순위", "종목", "시장", "상태/연속", "추천등급", "종합점수", "시가총액", "현재가(원)",
-        "RS점수", "52주고점대비", "3개월수익률", "20일거래대금", "VCP축소"
-    ]
-    renamed_df = display_df.rename(columns={"market": "시장"})[cols]
-
-    print("=" * 145)
-    print(f" 🏆 마크 미너비니 SEPA 종합 추천 상위 종목 (상위 {len(display_df)}개 표시 / 종합점수 순) 🏆")
-    print("=" * 145)
-    print(tabulate(renamed_df, headers="keys", tablefmt="simple", showindex=False))
-    print("=" * 145)
-    if len(df) > max_rows:
-        print(f" * 전체 {len(df)}개 종목 중 상위 {max_rows}개만 표시되었습니다. (전체 목록은 CSV/HTML 파일 참조)")
+    cols = ["순위", "종목", "market", "상태/연속", "추천등급", "종합점수", "시가총액", "현재가(원)", "RS점수", "52주고점대비", "20일거래대금", "VCP축소"]
+    renamed = display_df.rename(columns={"market": "시장"})[["순위", "종목", "시장", "상태/연속", "추천등급", "종합점수", "시가총액", "현재가(원)", "RS점수", "52주고점대비", "20일거래대금", "VCP축소"]]
+    print("=" * 140)
+    print(f" 🏆 마크 미너비니 SEPA 국내 주식 상위 추천 종목 (상위 {len(display_df)}개 표시) 🏆")
+    print("=" * 140)
+    print(tabulate(renamed, headers="keys", tablefmt="simple", showindex=False))
+    print("=" * 140)
 
 
-def export_to_csv(df: pd.DataFrame, filename: str | None = None) -> str:
-    """결과를 CSV 파일(UTF-8-SIG)로 저장합니다."""
-    if filename is None:
-        today_str = datetime.now().strftime("%Y%m%d")
-        filename = f"minervini_stocks_{today_str}.csv"
-
-    export_df = df.copy()
-    export_df["시가총액(요약)"] = export_df["marcap"].apply(format_marcap)
-
-    col_map = {
-        "code": "종목코드",
-        "name": "종목명",
-        "market": "시장",
-        "status_label": "상태및연속일수",
-        "consecutive_days": "연속통과일수",
-        "sepa_grade": "SEPA추천등급",
-        "sepa_score": "SEPA종합점수(100점만점)",
-        "rs_rating": "RS상대강도(1-99)",
-        "pct_from_52w_high": "52주신고가괴리율(%)",
-        "pct_above_52w_low": "52주신저가대비상승(%)",
-        "vcp_ratio": "VCP변동성비율(20d/60d)",
-        "시가총액(요약)": "시가총액",
-        "marcap": "시가총액(원)",
-        "close": "현재가(원)",
-        "ma50": "50일이평",
-        "ma150": "150일이평",
-        "ma200": "200일이평",
-        "52w_high": "52주최고가",
-        "52w_low": "52주최저가",
-        "roc_3m": "3개월수익률(%)",
-        "roc_6m": "6개월수익률(%)",
-        "roc_12m": "1년수익률(%)",
-        "avg_trading_val_20d": "20일평균거래대금(억원)",
+def save_latest_cache(market_type: str, df: pd.DataFrame, new_e: list, drop: list) -> None:
+    """통합 대시보드 렌더링을 위해 각 시장별 최신 결과를 캐시 파일로 보관합니다."""
+    os.makedirs(HISTORY_DIR, exist_ok=True)
+    cache_file = os.path.join(HISTORY_DIR, f"latest_{market_type.lower()}.json")
+    data = {
+        "df": df.to_dict(orient="records"),
+        "new": new_e,
+        "drop": drop,
+        "updated_at": datetime.now().strftime("%Y-%m-%d %H:%M"),
     }
-    cols_to_keep = [c for c in col_map.keys() if c in export_df.columns]
-    export_df = export_df[cols_to_keep].rename(columns=col_map)
-    export_df.to_csv(filename, index=False, encoding="utf-8-sig")
-    print(f"📁 CSV 파일 저장 완료: {filename} (엑셀에서 바로 열기 가능)")
-    return filename
+    with open(cache_file, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
 
-def export_to_html_dashboard(
-    df: pd.DataFrame, new_entrants: list[dict], dropped_stocks: list[dict], filename: str = "minervini_dashboard.html"
-) -> str:
-    """브라우저 및 GitHub Pages용 모던 인터랙티브 대시보드를 생성합니다."""
-    today_str = datetime.now().strftime("%Y년 %m월 %d일")
-
-    rows_html = []
-    for idx, r in df.iterrows():
-        naver_url = f"https://finance.naver.com/item/main.naver?code={r['code']}"
-
-        # 연속 일수 뱃지
-        status_badge = (
-            f'<span class="badge badge-new">{r["status_label"]}</span>'
-            if "NEW" in str(r.get("status_label", ""))
-            else f'<span class="badge badge-days">{r["status_label"]}</span>'
-        )
-
-        score_badge = (
-            f'<span class="badge badge-diamond">👑 {r["sepa_score"]}점</span>'
-            if r["sepa_score"] >= 90
-            else f'<span class="badge badge-gold">💎 {r["sepa_score"]}점</span>'
-            if r["sepa_score"] >= 80
-            else f'<span class="badge badge-silver">⭐ {r["sepa_score"]}점</span>'
-        )
-
-        rs_badge = (
-            f'<span class="badge badge-super">★ {r["rs_rating"]}</span>'
-            if r["rs_rating"] >= 90
-            else f'<span class="badge badge-high">{r["rs_rating"]}</span>'
-            if r["rs_rating"] >= 80
-            else f'<span class="badge badge-normal">{r["rs_rating"]}</span>'
-        )
-
-        vcp_badge = (
-            '<span class="badge badge-vcp-good">🟢 수축</span>'
-            if r["vcp_ratio"] < 0.85
-            else '<span class="badge badge-vcp-normal">🟡 양호</span>'
-            if r["vcp_ratio"] <= 1.0
-            else '<span class="badge badge-muted">⚪ 보통</span>'
-        )
-
-        high_dist_class = "text-danger" if r["pct_from_52w_high"] >= -7 else "text-warning"
-        marcap_formatted = format_marcap(r["marcap"])
-
-        row = f"""
-        <tr>
-            <td class="text-center font-bold">{idx + 1}</td>
-            <td>
-                <a href="{naver_url}" target="_blank" class="stock-link">
-                    <strong>{r['name']}</strong> <small class="text-muted">({r['code']})</small>
-                    <span class="external-icon">↗</span>
-                </a>
-            </td>
-            <td class="text-center"><span class="market-tag market-{r['market'].lower().replace(' ', '')}">{r['market']}</span></td>
-            <td class="text-center" data-order="{r.get('consecutive_days', 1)}">{status_badge}</td>
-            <td class="text-center" data-order="{r['sepa_score']}">{score_badge}</td>
-            <td class="text-right font-mono font-bold" data-order="{r['marcap']}">{marcap_formatted}</td>
-            <td class="text-right font-bold">{r['close']:,}원</td>
-            <td class="text-center" data-order="{r['rs_rating']}">{rs_badge}</td>
-            <td class="text-right {high_dist_class} font-bold" data-order="{r['pct_from_52w_high']}">{r['pct_from_52w_high']:+.1f}%</td>
-            <td class="text-right text-success font-bold" data-order="{r['pct_above_52w_low']}">+{r['pct_above_52w_low']:.1f}%</td>
-            <td class="text-right font-mono" data-order="{r['roc_3m']}">{r['roc_3m']:+.1f}%</td>
-            <td class="text-right font-mono" data-order="{r['avg_trading_val_20d']}">{r['avg_trading_val_20d']:.1f}억</td>
-            <td class="text-center" data-order="{r['vcp_ratio']}">{vcp_badge} <small class="text-muted">({r['vcp_ratio']:.2f})</small></td>
-        </tr>
-        """
-        rows_html.append(row)
-
-    table_body = "\n".join(rows_html)
-
-    # 신규 편입 / 이탈 배너 HTML
-    new_names = ", ".join([f"<strong>{s['name']}</strong>" for s in new_entrants[:8]]) or "없음"
-    dropped_names = ", ".join([f"{s['name']}" for s in dropped_stocks[:8]]) or "없음"
-
-    html_content = f"""<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마크 미너비니 SEPA 트렌드 템플릿 추천 대시보드</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <style>
-        :root {{
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --border-color: #30363d;
-            --text-main: #c9d1d9;
-            --text-heading: #f0f6fc;
-            --accent-blue: #58a6ff;
-            --accent-green: #3fb950;
-            --accent-red: #f85149;
-            --accent-gold: #f1e05a;
-            --accent-purple: #bc8cff;
-        }}
-        body {{
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
-            padding: 24px;
-        }}
-        .container {{
-            max-width: 1540px;
-            margin: 0 auto;
-        }}
-        .header {{
-            background: linear-gradient(135deg, #1f2937, #111827);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        }}
-        .header h1 {{
-            margin: 0 0 8px 0;
-            font-size: 26px;
-            color: var(--text-heading);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }}
-        .header p {{
-            margin: 4px 0;
-            color: #8b949e;
-            font-size: 14px;
-            line-height: 1.5;
-        }}
-        .change-banner {{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-            margin-top: 14px;
-        }}
-        .change-box {{
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 13px;
-            line-height: 1.5;
-        }}
-        .change-new {{
-            background: rgba(248, 81, 73, 0.1);
-            border: 1px solid rgba(248, 81, 73, 0.4);
-            color: #ff7b72;
-        }}
-        .change-drop {{
-            background: rgba(139, 148, 158, 0.1);
-            border: 1px solid rgba(139, 148, 158, 0.4);
-            color: #8b949e;
-        }}
-        .score-info-box {{
-            background: rgba(88, 166, 255, 0.08);
-            border: 1px solid rgba(88, 166, 255, 0.3);
-            border-radius: 8px;
-            padding: 12px 16px;
-            margin-top: 14px;
-            font-size: 13px;
-            color: #c9d1d9;
-        }}
-        .card {{
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            overflow-x: auto;
-        }}
-        table.dataTable {{
-            width: 100% !important;
-            border-collapse: collapse !important;
-            color: var(--text-main);
-        }}
-        table.dataTable thead th {{
-            background-color: #21262d !important;
-            color: var(--text-heading) !important;
-            border-bottom: 2px solid var(--border-color) !important;
-            padding: 12px 10px;
-            font-size: 13px;
-        }}
-        table.dataTable tbody td {{
-            padding: 10px 10px;
-            border-bottom: 1px solid #21262d;
-            font-size: 14px;
-        }}
-        table.dataTable tbody tr:hover {{
-            background-color: rgba(56, 139, 253, 0.08) !important;
-        }}
-        .stock-link {{
-            color: var(--accent-blue);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            transition: color 0.15s ease;
-        }}
-        .stock-link:hover {{
-            color: #79c0ff;
-            text-decoration: underline;
-        }}
-        .external-icon {{
-            font-size: 11px;
-            opacity: 0.7;
-        }}
-        .badge {{
-            display: inline-block;
-            padding: 4px 9px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
-        }}
-        .badge-new {{
-            background: linear-gradient(135deg, rgba(248, 81, 73, 0.3), rgba(241, 224, 90, 0.3));
-            color: #ff7b72;
-            border: 1px solid #f85149;
-        }}
-        .badge-days {{
-            background-color: rgba(63, 185, 80, 0.15);
-            color: #3fb950;
-            border: 1px solid rgba(63, 185, 80, 0.4);
-        }}
-        .badge-diamond {{
-            background: linear-gradient(135deg, rgba(188, 140, 255, 0.3), rgba(88, 166, 255, 0.3));
-            color: #e2c5ff;
-            border: 1px solid #bc8cff;
-        }}
-        .badge-gold {{
-            background-color: rgba(241, 224, 90, 0.2);
-            color: #f1e05a;
-            border: 1px solid rgba(241, 224, 90, 0.5);
-        }}
-        .badge-silver {{
-            background-color: rgba(139, 148, 158, 0.2);
-            color: #c9d1d9;
-            border: 1px solid rgba(139, 148, 158, 0.5);
-        }}
-        .badge-super {{ background-color: rgba(241, 224, 90, 0.15); color: #f1e05a; }}
-        .badge-high {{ background-color: rgba(63, 185, 80, 0.15); color: #3fb950; }}
-        .badge-normal {{ background-color: rgba(88, 166, 255, 0.15); color: #58a6ff; }}
-        .badge-vcp-good {{
-            background-color: rgba(63, 185, 80, 0.15);
-            color: #3fb950;
-            border: 1px solid rgba(63, 185, 80, 0.3);
-        }}
-        .badge-vcp-normal {{ background-color: rgba(210, 153, 34, 0.15); color: #d29922; }}
-        .badge-muted {{ background-color: rgba(139, 148, 158, 0.15); color: #8b949e; }}
-        .market-tag {{
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 500;
-        }}
-        .market-kospi {{ background: #233446; color: #79c0ff; }}
-        .market-kosdaq {{ background: #3d2a45; color: #d2a8ff; }}
-        .market-kosdaqglobal {{ background: #3c3222; color: #e3b341; }}
-        .text-center {{ text-align: center; }}
-        .text-right {{ text-align: right; }}
-        .text-danger {{ color: var(--accent-red); }}
-        .text-warning {{ color: #e3b341; }}
-        .text-success {{ color: var(--accent-green); }}
-        .text-muted {{ color: #8b949e; }}
-        .font-bold {{ font-weight: 600; }}
-        .font-mono {{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }}
-        .dataTables_wrapper .dataTables_length,
-        .dataTables_wrapper .dataTables_filter,
-        .dataTables_wrapper .dataTables_info,
-        .dataTables_wrapper .dataTables_paginate {{
-            color: #8b949e !important;
-            font-size: 13px;
-            margin-bottom: 12px;
-        }}
-        .dataTables_wrapper .dataTables_filter input {{
-            background: #21262d;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: #fff;
-            padding: 6px 10px;
-            margin-left: 8px;
-        }}
-        .dataTables_wrapper .dataTables_paginate .paginate_button {{
-            color: #8b949e !important;
-            border-radius: 4px !important;
-        }}
-        .dataTables_wrapper .dataTables_paginate .paginate_button.current {{
-            background: #21262d !important;
-            border-color: var(--border-color) !important;
-            color: #fff !important;
-        }}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🏆 마크 미너비니 SEPA 트렌드 템플릿 추천 대시보드</h1>
-            <p>
-                <strong>산출 일자:</strong> {today_str} |
-                <strong>조건 통과 종목:</strong> <span class="font-bold text-success">{len(df)}개</span> |
-                <strong>대상 시장:</strong> 코스피 + 코스닥 전체 |
-                <strong>정렬 기준:</strong> SEPA 종합 점수 (100점 만점) 내림차순
-            </p>
-            <div class="change-banner">
-                <div class="change-box change-new">
-                    🔥 <strong>오늘 신규 편입 종목 ({len(new_entrants)}개):</strong> {new_names}
-                </div>
-                <div class="change-box change-drop">
-                    🚨 <strong>전일 대비 이탈/탈락 종목 ({len(dropped_stocks)}개):</strong> {dropped_names}
-                </div>
-            </div>
-            <div class="score-info-box">
-                🎯 <strong>SEPA 종합 점수(100점 만점) 평가 가중치:</strong>
-                상대강도 모멘텀(35점) + 신고가 돌파 근접도(25점) + VCP 변동성 축소 패턴(20점) + 200일선 정배열 가속도(10점) + 거래대금 유동성(10점)
-            </div>
-        </div>
-
-        <div class="card">
-            <table id="screenerTable" class="display nowrap">
-                <thead>
-                    <tr>
-                        <th class="text-center">순위</th>
-                        <th>종목명 (코드)</th>
-                        <th class="text-center">시장</th>
-                        <th class="text-center">상태/연속</th>
-                        <th class="text-center">SEPA종합점수</th>
-                        <th class="text-right">시가총액</th>
-                        <th class="text-right">현재가</th>
-                        <th class="text-center">RS 상대강도</th>
-                        <th class="text-right">52주고점거리</th>
-                        <th class="text-right">52주저점상승</th>
-                        <th class="text-right">3개월수익</th>
-                        <th class="text-right">20일거래대금</th>
-                        <th class="text-center">VCP변동성</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {table_body}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script>
-        $(document).ready(function() {{
-            $('#screenerTable').DataTable({{
-                pageLength: 30,
-                order: [[4, 'desc']], // 4번 컬럼(SEPA종합점수) 기본 내림차순 정렬
-                language: {{
-                    search: "종목 검색:",
-                    lengthMenu: "_MENU_ 개씩 보기",
-                    info: "총 _TOTAL_개 중 _START_ ~ _END_ 표시",
-                    paginate: {{
-                        first: "처음",
-                        last: "마지막",
-                        next: "다음",
-                        previous: "이전"
-                    }}
-                }}
-            }});
-        }});
-    </script>
-</body>
-</html>
-"""
-    with open(filename, "w", encoding="utf-8") as f:
-        f.write(html_content)
-
-    try:
-        with open("index.html", "w", encoding="utf-8") as f_idx:
-            f_idx.write(html_content)
-    except Exception:
-        pass
-
-    print(f"🌐 인터랙티브 HTML 대시보드 생성 완료: {filename} (GitHub Pages용 index.html 동시 생성)")
-    return filename
+def load_latest_cache(market_type: str) -> tuple[pd.DataFrame, list, list]:
+    """저장된 최신 캐시를 불러옵니다."""
+    cache_file = os.path.join(HISTORY_DIR, f"latest_{market_type.lower()}.json")
+    if os.path.exists(cache_file):
+        try:
+            with open(cache_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                return pd.DataFrame(data.get("df", [])), data.get("new", []), data.get("drop", [])
+        except Exception:
+            pass
+    return pd.DataFrame(), [], []
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="마크 미너비니 SEPA 트렌드 템플릿 국내 주식 스크리너"
-    )
-    parser.add_argument("--market", type=str, default="ALL", choices=["ALL", "KOSPI", "KOSDAQ"])
-    parser.add_argument("--min-rs", type=int, default=70)
-    parser.add_argument("--min-val", type=float, default=5.0)
-    parser.add_argument("--min-price", type=int, default=1000)
-    parser.add_argument("--workers", type=int, default=20)
-    parser.add_argument("--no-browser", action="store_true")
+    parser = argparse.ArgumentParser(description="마크 미너비니 SEPA 글로벌 주식 스크리너 (한/미 통합)")
+    parser.add_argument("--market", type=str, default="KR", choices=["KR", "US", "ALL"], help="대상 시장: KR(국내), US(미국), ALL(전체)")
+    parser.add_argument("--min-rs", type=int, default=70, help="최소 RS 상대강도 점수 (기본 70)")
+    parser.add_argument("--min-cap", type=float, default=300_000_000, help="미국 주식 최소 시가총액 (기본 $300M = 3억 달러)")
+    parser.add_argument("--workers", type=int, default=20, help="병렬 다운로드 스레드 수")
+    parser.add_argument("--no-browser", action="store_true", help="브라우저 자동 열기 끄기")
 
     args = parser.parse_args()
+    today_str = datetime.now().strftime("%Y-%m-%d")
 
-    screened_df, new_entrants, dropped_stocks = run_minervini_screener(
-        market=args.market,
-        min_rs=args.min_rs,
-        min_trading_val=args.min_val,
-        min_price=args.min_price,
-        max_workers=args.workers,
+    kr_df, kr_new, kr_drop = pd.DataFrame(), [], []
+    us_df, us_new, us_drop = pd.DataFrame(), [], []
+
+    # 1. 국내 주식 스캔
+    if args.market in ["KR", "ALL"]:
+        kr_df, kr_new, kr_drop = run_kr_minervini_screener(min_rs=args.min_rs, max_workers=args.workers)
+        if not kr_df.empty:
+            print_kr_summary_table(kr_df, max_rows=25)
+            save_latest_cache("kr", kr_df, kr_new, kr_drop)
+            send_telegram_alert(today_str, len(kr_df), kr_df.to_dict(orient="records"), kr_new, kr_drop, market_name="국내 주식")
+    else:
+        kr_df, kr_new, kr_drop = load_latest_cache("kr")
+
+    # 2. 미국 주식 스캔
+    if args.market in ["US", "ALL"]:
+        us_df, us_new, us_drop = run_us_minervini_screener(min_rs=args.min_rs, min_marcap=args.min_cap, max_workers=args.workers)
+        if not us_df.empty:
+            print_us_summary_table(us_df, max_rows=25)
+            save_latest_cache("us", us_df, us_new, us_drop)
+            send_telegram_alert(today_str, len(us_df), us_df.to_dict(orient="records"), us_new, us_drop, market_name="미국 주식")
+    else:
+        us_df, us_new, us_drop = load_latest_cache("us")
+
+    # 3. 한/미 통합 대시보드 (index.html) 생성
+    dashboard_path = generate_unified_dashboard(
+        kr_df=kr_df, us_df=us_df,
+        kr_new=kr_new, us_new=us_new,
+        kr_drop=kr_drop, us_drop=us_drop,
+        output_path="index.html"
     )
 
-    if not screened_df.empty:
-        # 1. 콘솔 표 출력
-        print_summary_table(screened_df, max_rows=30)
+    # 4. 브라우저 오픈
+    if not args.no_browser:
+        try:
+            abs_html = os.path.abspath(dashboard_path)
+            print(f"👉 브라우저에서 통합 대시보드를 엽니다: {abs_html}")
+            webbrowser.open(f"file://{abs_html}")
+        except Exception:
+            pass
 
-        # 2. CSV 저장
-        export_to_csv(screened_df)
-
-        # 3. HTML 대시보드 생성 (신규 편입/이탈 배너 포함)
-        html_file = export_to_html_dashboard(screened_df, new_entrants, dropped_stocks)
-
-        # 4. 텔레그램 알림 발송 시도
-        today_str = datetime.now().strftime("%Y-%m-%d")
-        send_telegram_alert(
-            today_str=today_str,
-            total_passed=len(screened_df),
-            top_stocks=screened_df.to_dict(orient="records"),
-            new_entrants=new_entrants,
-            dropped_stocks=dropped_stocks,
-        )
-
-        # 5. 브라우저 오픈
-        if not args.no_browser:
-            try:
-                abs_html = os.path.abspath(html_file)
-                print(f"👉 브라우저에서 대시보드를 엽니다: {abs_html}")
-                webbrowser.open(f"file://{abs_html}")
-            except Exception as e:
-                print(f"브라우저 실행 중 오류: {e}")
-
-        # 6. GitHub 자동 동기화 (토큰 설정이 있으면 자동 실행)
-        if os.path.exists("github_config.json") or os.getenv("GITHUB_TOKEN"):
-            try:
-                from sync_to_github import sync_all_files
-                print("\n" + "-" * 60)
-                print("▶ GitHub 저장소로 최신 결과 자동 동기화를 진행합니다...")
-                sync_all_files()
-            except Exception as e:
-                print(f"GitHub 자동 동기화 중 오류: {e}")
-    else:
-        print("\n💡 조건에 맞는 종목이 없습니다. RS 기준을 낮추거나 거래대금 기준을 조정해보세요.")
+    # 5. GitHub 자동 동기화
+    if os.path.exists("github_config.json") or os.getenv("GITHUB_TOKEN"):
+        try:
+            from sync_to_github import sync_all_files
+            print("\n" + "-" * 60)
+            print("▶ GitHub 저장소로 통합 대시보드 자동 동기화를 진행합니다...")
+            sync_all_files()
+        except Exception as e:
+            print(f"GitHub 자동 동기화 중 오류: {e}")
 
 
 if __name__ == "__main__":
