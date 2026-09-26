@@ -256,7 +256,7 @@ def run_kr_minervini_screener(
     screened_df["sepa_grade"] = [s[1] for s in scores_grades]
     screened_df = screened_df.sort_values(by=["sepa_score", "rs_rating", "pct_from_52w_high"], ascending=[False, False, False]).reset_index(drop=True)
 
-    screened_df, new_e, dropped = track_daily_changes(screened_df, today_str)
+    screened_df, new_e, dropped = track_daily_changes(screened_df, today_str, market_type="KR")
     print(f"\n🎉 국내 증시 스크리닝 완료! ({time.time() - start_time:.1f}초, 통과: {len(screened_df)}개 | 신규: {len(new_e)}개 | 이탈: {len(dropped)}개)\n")
     return screened_df, new_e, dropped
 
