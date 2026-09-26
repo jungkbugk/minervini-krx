@@ -95,12 +95,21 @@ def analyze_single_position(pos: dict) -> dict | None:
         # 2. 고점 대비 트레일링 익절선 (-10%)
         trailing_stop_price = peak_price * 0.90
 
-        # 활성 스탑로스 결정
-        if max_return_pct >= 15.0:
-            # 15% 이상 수익이 났던 종목은 스탑을 최소 본전으로 올림
-            active_stop_price = max(buy_price * 1.01, trailing_stop_price)
+        # 3. 손절폭 대비 3배(3R = 3 * 7.5% = +22.5%) 수익 도달 시 본전 보호 스탑 상향
+        stop_risk_pct = 7.5
+        three_r_gain_pct = stop_risk_pct * 3.0  # +22.5%
+
+        if max_return_pct >= three_r_gain_pct:
+            # 3R 달성: 스탑을 최소 본전(매수가 + 0.5% 수수료 보전) 및 트레일링 스탑 중 높은 값으로 상향
+            active_stop_price = max(buy_price * 1.005, trailing_stop_price)
+            three_r_active = True
+        elif max_return_pct >= 15.0:
+            # 2R 달성: 고점 10% 트레일링 스탑 작동 (조기 본전 털림 방지를 위해 매수가보다 유연하게 적용)
+            active_stop_price = max(initial_stop_price, trailing_stop_price)
+            three_r_active = False
         else:
             active_stop_price = initial_stop_price
+            three_r_active = False
 
         signal = "🟢 홀딩 (추세 순항)"
         urgency = "SAFE"
@@ -124,11 +133,11 @@ def analyze_single_position(pos: dict) -> dict | None:
             urgency = "WARNING"
             action_plan = f"최고 수익 +{max_return_pct:.1f}% 달성 후 고점 대비 {pct_from_peak:.1f}% 반락. 수익 보호 위해 전량 매도."
 
-        # Rule 4: 본전 보호 스탑 (+12% 이상 올랐던 주식이 본전 근처로 반락)
-        elif max_return_pct >= 12.0 and current_return_pct <= 1.0:
-            signal = "🛡️ 본전 매도 (Break-Even)"
+        # Rule 4: 3R 본전 보호 스탑 (손절폭 3배인 +22.5% 이상 올랐던 주식이 본전 근처로 반락)
+        elif max_return_pct >= 22.5 and current_return_pct <= 1.0:
+            signal = "🛡️ 3R 본전 매도 (Break-Even)"
             urgency = "CRITICAL"
-            action_plan = "큰 수익 후 원금 침범 방지 원칙. 원금 보호 위해 본전에서 즉시 전량 매도."
+            action_plan = "손절폭 3배(+22.5%) 달성 후 매수가 근처로 반락. 원금 손실을 막기 위해 본전(0%)에서 즉시 전량 매도."
 
         # Rule 5: 클라이맥스 고점 분할 익절 (200일선 70%+ 과이격 & 3개월 80%+ 급등)
         elif ((current_price - ma200) / ma200 >= 0.70) and (pct_from_peak >= -3.0):
