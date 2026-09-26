@@ -324,6 +324,22 @@ def main() -> None:
     args = parser.parse_args()
     today_str = datetime.now().strftime("%Y-%m-%d")
 
+    # 0. 시장 레짐(Market Regime 50MA) 필터 진단
+    try:
+        from market_filter import get_market_regime
+        regime = get_market_regime(force_refresh=True)
+        kr_reg = regime.get("kr", {})
+        us_reg = regime.get("us", {})
+        print("\n" + "=" * 110)
+        print(" 🛡️ [마크 미너비니 시장 레짐 필터 (50일 이동평균선 감시)]")
+        print(f" • 🇰🇷 국내 증시 (KOSPI/KOSDAQ): {kr_reg.get('action', '')}")
+        print(f"   👉 행동 수칙: {kr_reg.get('message', '')}")
+        print(f" • 🇺🇸 미국 증시 (NASDAQ/SP500): {us_reg.get('action', '')}")
+        print(f"   👉 행동 수칙: {us_reg.get('message', '')}")
+        print("=" * 110 + "\n")
+    except Exception as e:
+        print(f"시장 레짐 진단 중 참고 오류: {e}")
+
     kr_df, kr_new, kr_drop = pd.DataFrame(), [], []
     us_df, us_new, us_drop = pd.DataFrame(), [], []
 
