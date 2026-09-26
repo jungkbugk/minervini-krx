@@ -929,6 +929,16 @@ def main() -> None:
                 webbrowser.open(f"file://{abs_html}")
             except Exception as e:
                 print(f"브라우저 실행 중 오류: {e}")
+
+        # 5. GitHub 자동 동기화 (설정 파일이나 토큰이 있으면 자동 실행)
+        if os.path.exists("github_config.json") or os.getenv("GITHUB_TOKEN"):
+            try:
+                from sync_to_github import sync_all_files
+                print("\n" + "-" * 60)
+                print("▶ GitHub 저장소로 최신 결과 자동 동기화를 진행합니다...")
+                sync_all_files()
+            except Exception as e:
+                print(f"GitHub 자동 동기화 중 오류: {e}")
     else:
         print("\n💡 조건에 맞는 종목이 없습니다. RS 기준을 낮추거나 거래대금 기준을 조정해보세요.")
 
