@@ -230,6 +230,14 @@ def generate_unified_dashboard(
     kr_drop = kr_drop or []
     us_drop = us_drop or []
 
+    # 국내 주식 시가총액 5,000억원 이상 필터 (고승률 62.7% 챔피언 전략)
+    if kr_df is not None and not kr_df.empty and "marcap" in kr_df.columns:
+        kr_df = kr_df[pd.to_numeric(kr_df["marcap"], errors="coerce") >= 500_000_000_000].reset_index(drop=True)
+    if kr_new:
+        kr_new = [s for s in kr_new if s.get("marcap", 0) >= 500_000_000_000]
+    if kr_drop:
+        kr_drop = [s for s in kr_drop if s.get("marcap", 0) >= 500_000_000_000]
+
     # 포트폴리오 및 저장소 정보 로드
     portfolio_data = []
     if os.path.exists("portfolio.json"):
