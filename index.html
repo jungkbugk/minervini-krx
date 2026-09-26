@@ -428,12 +428,13 @@
             <h1>🚀 마크 미너비니 SEPA 트렌드 템플릿 통합 대시보드</h1>
             <p>
                 <strong>업데이트:</strong> 2026년 09월 26일 |
-                <strong>국내 통과:</strong> <span class="text-success font-bold">77개</span> |
-                <strong>미국 통과:</strong> <span class="text-success font-bold">417개</span> |
+                <strong>국내 통과:</strong> <span class="text-success font-bold">77개</span> (<span style="color:#3fb950; font-weight:bold;">🟢 50MA 상회(정상)</span>) |
+                <strong>미국 통과:</strong> <span class="text-success font-bold">417개</span> (<span style="color:#3fb950; font-weight:bold;">🟢 50MA 상회(정상)</span>) |
                 <strong>보유 종목 감시:</strong> <span class="font-bold" style="color:#3fb950">3개 (경보 0건)</span>
             </p>
             <div class="score-info-box">
-                🎯 <strong>미너비니 원칙:</strong> 매수 타점 스크리너(1·2탭)로 최상위 모멘텀 종목을 잡고, 매도 감시 엔진(3탭)으로 <strong>-7~8% 손절 & 고점 10% 반락 시 이익보존 매도</strong>를 기계적으로 실행합니다.
+                🎯 <strong>미너비니 원칙:</strong> 매수 타점 스크리너(1·2탭)로 최상위 모멘텀 종목을 잡고, 매도 감시 엔진(3탭)으로 <strong>-7~8% 손절 & 고점 10% 반락 시 이익보존 매도</strong>를 기계적으로 실행합니다.<br>
+                🛡️ <strong>시장 필터:</strong> 지수 50일선 이탈(조정장) 시 <strong>신규 매수를 전면 중단하고 현금 100%를 보존</strong>하여 계좌 손실을 원천 방어합니다.
             </div>
         </div>
 
@@ -442,10 +443,12 @@
             <button class="tab-btn active" onclick="switchTab('kr')">
                 🇰🇷 국내 주식 스크리너 (KOSPI / KOSDAQ)
                 <span class="tab-badge">77개</span>
+                <span class="badge badge-safe" style="font-size:11px; margin-left:6px;">🟢 매수가능</span>
             </button>
             <button class="tab-btn" onclick="switchTab('us')">
                 🇺🇸 미국 주식 스크리너 (NASDAQ / NYSE)
                 <span class="tab-badge">417개</span>
+                <span class="badge badge-safe" style="font-size:11px; margin-left:6px;">🟢 매수가능</span>
             </button>
             <button class="tab-btn tab-sell-btn" onclick="switchTab('sell')">
                 🛡️ 내 보유종목 매도 감시 (Sell Monitor)
@@ -455,12 +458,61 @@
 
         <!-- 탭 1: 한국 주식 -->
         <div id="tab-kr" class="tab-content active">
+            
+    <div class="market-regime-alert" style="background:linear-gradient(135deg, rgba(63, 185, 80, 0.12), rgba(46, 160, 67, 0.2)); border:1.5px solid #2ea043; border-radius:12px; padding:18px 22px; margin-bottom:20px; ">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span style="background:#238636; color:#fff; font-size:13px; font-weight:bold; padding:5px 12px; border-radius:20px; letter-spacing:0.5px;">
+                    🟢 상승·안정 국면 (신규 매수 적합)
+                </span>
+                <span style="font-size:16px; font-weight:bold; color:#f0f6fc;">
+                    🛡️ 마크 미너비니 시장 레짐 필터 (Market Regime Filter)
+                </span>
+            </div>
+            <div style="font-size:12px; color:#8b949e; background:rgba(0,0,0,0.3); padding:4px 10px; border-radius:6px;">
+                💡 <strong>백테스트 검증:</strong> 50일선 하회 시 현금 유지 전략 ➡️ <strong>수익률 +58% ➔ +89% (+31%p) & 잦은 손절 23회 회피</strong>
+            </div>
+        </div>
+        
+        <p style="margin:0 0 14px 0; font-size:13.5px; line-height:1.6; color:#c9d1d9;">
+            <strong>[행동 수칙]</strong> 코스피/코스닥 지수가 모두 50일선 위에 안정적으로 안착해 있습니다. 미너비니 SEPA 주도주 돌파 매수 전략이 안전하게 작동하는 환경입니다.
+        </p>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            
+        <div style="background:rgba(63, 185, 80, 0.15); border:1px solid #3fb950; border-radius:8px; padding:10px 14px; flex:1; min-width:220px;">
+            <div style="font-size:12px; color:#8b949e; margin-bottom:4px; font-weight:600;">코스피 (KOSPI)</div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <span style="font-size:17px; font-weight:bold; color:#f0f6fc;">6,724.34</span>
+                <span style="font-size:13px; font-weight:bold; color:#3fb950;">📈 +0.28%</span>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:4px;">
+                50일선: <span style="color:#c9d1d9;">6,705.80</span> | <strong style="color:#3fb950;">50MA 상회</strong>
+            </div>
+        </div>
+        
+
+        <div style="background:rgba(63, 185, 80, 0.15); border:1px solid #3fb950; border-radius:8px; padding:10px 14px; flex:1; min-width:220px;">
+            <div style="font-size:12px; color:#8b949e; margin-bottom:4px; font-weight:600;">코스닥 (KOSDAQ)</div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <span style="font-size:17px; font-weight:bold; color:#f0f6fc;">821.67</span>
+                <span style="font-size:13px; font-weight:bold; color:#3fb950;">📈 +2.67%</span>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:4px;">
+                50일선: <span style="color:#c9d1d9;">800.28</span> | <strong style="color:#3fb950;">50MA 상회</strong>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+    
+            
             <div class="change-banner" style="margin-bottom: 16px;">
                 <div class="change-box change-new">
-                    🔥 <strong>오늘 신규 편입 (4개):</strong> <strong>슈프리마</strong>, <strong>디지털대성</strong>, <strong>서산</strong>, <strong>HD현대마린솔루션</strong>
+                    🔥 <strong>오늘 신규 편입 (0개):</strong> 없음
                 </div>
                 <div class="change-box change-drop">
-                    🚨 <strong>전일 대비 이탈 (10개):</strong> 팬오션, 혜인, 골프존홀딩스, SGC에너지, KT&G, 금호전기
+                    🚨 <strong>전일 대비 이탈 (0개):</strong> 없음
                 </div>
             </div>
             <div class="card">
@@ -2184,12 +2236,61 @@
 
         <!-- 탭 2: 미국 주식 -->
         <div id="tab-us" class="tab-content">
+            
+    <div class="market-regime-alert" style="background:linear-gradient(135deg, rgba(63, 185, 80, 0.12), rgba(46, 160, 67, 0.2)); border:1.5px solid #2ea043; border-radius:12px; padding:18px 22px; margin-bottom:20px; ">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span style="background:#238636; color:#fff; font-size:13px; font-weight:bold; padding:5px 12px; border-radius:20px; letter-spacing:0.5px;">
+                    🟢 상승·안정 국면 (신규 매수 적합)
+                </span>
+                <span style="font-size:16px; font-weight:bold; color:#f0f6fc;">
+                    🛡️ 마크 미너비니 시장 레짐 필터 (Market Regime Filter)
+                </span>
+            </div>
+            <div style="font-size:12px; color:#8b949e; background:rgba(0,0,0,0.3); padding:4px 10px; border-radius:6px;">
+                💡 <strong>백테스트 검증:</strong> 50일선 하회 시 현금 유지 전략 ➡️ <strong>수익률 +58% ➔ +89% (+31%p) & 잦은 손절 23회 회피</strong>
+            </div>
+        </div>
+        
+        <p style="margin:0 0 14px 0; font-size:13.5px; line-height:1.6; color:#c9d1d9;">
+            <strong>[행동 수칙]</strong> 미국 주요 지수가 50일선 위에 위치하여 상승 추세를 유지하고 있습니다.
+        </p>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            
+        <div style="background:rgba(63, 185, 80, 0.15); border:1px solid #3fb950; border-radius:8px; padding:10px 14px; flex:1; min-width:220px;">
+            <div style="font-size:12px; color:#8b949e; margin-bottom:4px; font-weight:600;">나스닥 (NASDAQ)</div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <span style="font-size:17px; font-weight:bold; color:#f0f6fc;">27,068.72</span>
+                <span style="font-size:13px; font-weight:bold; color:#3fb950;">📈 +3.44%</span>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:4px;">
+                50일선: <span style="color:#c9d1d9;">26,169.53</span> | <strong style="color:#3fb950;">50MA 상회</strong>
+            </div>
+        </div>
+        
+
+        <div style="background:rgba(63, 185, 80, 0.15); border:1px solid #3fb950; border-radius:8px; padding:10px 14px; flex:1; min-width:220px;">
+            <div style="font-size:12px; color:#8b949e; margin-bottom:4px; font-weight:600;">S&P 500</div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+                <span style="font-size:17px; font-weight:bold; color:#f0f6fc;">7,743.41</span>
+                <span style="font-size:13px; font-weight:bold; color:#3fb950;">📈 +1.41%</span>
+            </div>
+            <div style="font-size:11px; color:#8b949e; margin-top:4px;">
+                50일선: <span style="color:#c9d1d9;">7,636.09</span> | <strong style="color:#3fb950;">50MA 상회</strong>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+    
+            
             <div class="change-banner" style="margin-bottom: 16px;">
                 <div class="change-box change-new">
-                    🔥 <strong>오늘 신규 편입 (39개):</strong> <strong>Humana Inc.</strong>(HUM), <strong>ManpowerGroup Inc.</strong>(MAN), <strong>Sensient Technologies Corporation</strong>(SXT), <strong>Astera Labs  Inc.</strong>(ALAB), <strong>Mitsubishi UFJ Financial Group  Inc. ADR</strong>(MUFG), <strong>Crocs  Inc.</strong>(CROX)
+                    🔥 <strong>오늘 신규 편입 (0개):</strong> 없음
                 </div>
                 <div class="change-box change-drop">
-                    🚨 <strong>전일 대비 이탈 (43개):</strong> LandBridge Company LLC(LB), Seadrill Limited(SDRL), Korsana Biosciences  Inc.(KRSA), Anglogold Ashanti PLC(AU), Hut 8 Corp(HUT), United Fire Group Inc(UFCS)
+                    🚨 <strong>전일 대비 이탈 (0개):</strong> 없음
                 </div>
             </div>
             <div class="card">
