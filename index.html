@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마크 미너비니 SEPA 트렌드 템플릿 추천 대시보드</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --border-color: #30363d;
+            --text-main: #c9d1d9;
+            --text-heading: #f0f6fc;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-red: #f85149;
+            --accent-gold: #f1e05a;
+            --accent-purple: #bc8cff;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 24px;
+        }
+        .container {
+            max-width: 1480px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #1f2937, #111827);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        .header h1 {
+            margin: 0 0 8px 0;
+            font-size: 26px;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header p {
+            margin: 4px 0;
+            color: #8b949e;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .score-info-box {
+            background: rgba(88, 166, 255, 0.08);
+            border: 1px solid rgba(88, 166, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 14px;
+            font-size: 13px;
+            color: #c9d1d9;
+        }
+        .criteria-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        .crit-item {
+            font-size: 13px;
+            color: #8b949e;
+            background: rgba(255,255,255,0.02);
+            padding: 8px 12px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-blue);
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            overflow-x: auto;
+        }
+        table.dataTable {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            color: var(--text-main);
+        }
+        table.dataTable thead th {
+            background-color: #21262d !important;
+            color: var(--text-heading) !important;
+            border-bottom: 2px solid var(--border-color) !important;
+            padding: 12px 10px;
+            font-size: 13px;
+        }
+        table.dataTable tbody td {
+            padding: 10px 10px;
+            border-bottom: 1px solid #21262d;
+            font-size: 14px;
+        }
+        table.dataTable tbody tr:hover {
+            background-color: rgba(56, 139, 253, 0.08) !important;
+        }
+        .stock-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.15s ease;
+        }
+        .stock-link:hover {
+            color: #79c0ff;
+            text-decoration: underline;
+        }
+        .external-icon {
+            font-size: 11px;
+            opacity: 0.7;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 9px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .badge-diamond {
+            background: linear-gradient(135deg, rgba(188, 140, 255, 0.3), rgba(88, 166, 255, 0.3));
+            color: #e2c5ff;
+            border: 1px solid #bc8cff;
+        }
+        .badge-gold {
+            background-color: rgba(241, 224, 90, 0.2);
+            color: #f1e05a;
+            border: 1px solid rgba(241, 224, 90, 0.5);
+        }
+        .badge-silver {
+            background-color: rgba(139, 148, 158, 0.2);
+            color: #c9d1d9;
+            border: 1px solid rgba(139, 148, 158, 0.5);
+        }
+        .badge-super {
+            background-color: rgba(241, 224, 90, 0.15);
+            color: #f1e05a;
+        }
+        .badge-high {
+            background-color: rgba(63, 185, 80, 0.15);
+            color: #3fb950;
+        }
+        .badge-normal {
+            background-color: rgba(88, 166, 255, 0.15);
+            color: #58a6ff;
+        }
+        .badge-vcp-good {
+            background-color: rgba(63, 185, 80, 0.15);
+            color: #3fb950;
+            border: 1px solid rgba(63, 185, 80, 0.3);
+        }
+        .badge-vcp-normal {
+            background-color: rgba(210, 153, 34, 0.15);
+            color: #d29922;
+        }
+        .badge-muted {
+            background-color: rgba(139, 148, 158, 0.15);
+            color: #8b949e;
+        }
+        .market-tag {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .market-kospi { background: #233446; color: #79c0ff; }
+        .market-kosdaq { background: #3d2a45; color: #d2a8ff; }
+        .market-kosdaqglobal { background: #3c3222; color: #e3b341; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .text-danger { color: var(--accent-red); }
+        .text-warning { color: #e3b341; }
+        .text-success { color: var(--accent-green); }
+        .text-muted { color: #8b949e; }
+        .font-bold { font-weight: 600; }
+        .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_filter,
+        .dataTables_wrapper .dataTables_info,
+        .dataTables_wrapper .dataTables_paginate {
+            color: #8b949e !important;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+        .dataTables_wrapper .dataTables_filter input {
+            background: #21262d;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: #fff;
+            padding: 6px 10px;
+            margin-left: 8px;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            color: #8b949e !important;
+            border-radius: 4px !important;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background: #21262d !important;
+            border-color: var(--border-color) !important;
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 마크 미너비니 SEPA 트렌드 템플릿 추천 대시보드</h1>
+            <p>
+                <strong>산출 일자:</strong> 2026년 09월 26일 |
+                <strong>조건 통과 종목:</strong> <span class="font-bold text-success">77개</span> |
+                <strong>대상 시장:</strong> 코스피 + 코스닥 전체 |
+                <strong>정렬 기준:</strong> SEPA 종합 점수 (100점 만점) 내림차순
+            </p>
+            <div class="score-info-box">
+                🎯 <strong>SEPA 종합 점수(100점 만점) 평가 가중치:</strong>
+                상대강도 모멘텀(35점) + 신고가 돌파 근접도(25점) + VCP 변동성 축소 패턴(20점) + 200일선 정배열 가속도(10점) + 거래대금 유동성(10점)
+            </div>
+            <div class="criteria-box">
+                <div class="crit-item">① 주가 > 150일선 및 200일선 위치</div>
+                <div class="crit-item">② 150일선 > 200일선 (중장기 정배열)</div>
+                <div class="crit-item">③ 200일선 1개월(20일) 전 대비 상승 추세</div>
+                <div class="crit-item">④ 50일선 > 150일선 및 200일선 위치</div>
+                <div class="crit-item">⑤ 주가 > 50일선 (단기 추세 지지)</div>
+                <div class="crit-item">⑥ 52주 최저가 대비 +25% 이상 반등</div>
+                <div class="crit-item">⑦ 52주 최고가 대비 -25% 이내 근접</div>
+                <div class="crit-item">⑧ IBD 가중 상대강도(RS) 70점 이상</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <table id="screenerTable" class="display nowrap">
+                <thead>
+                    <tr>
+                        <th class="text-center">순위</th>
+                        <th>종목명 (코드)</th>
+                        <th class="text-center">시장</th>
+                        <th class="text-center">SEPA종합점수</th>
+                        <th class="text-right">시가총액</th>
+                        <th class="text-right">현재가</th>
+                        <th class="text-center">RS 상대강도</th>
+                        <th class="text-right">52주고점거리</th>
+                        <th class="text-right">52주저점상승</th>
+                        <th class="text-right">3개월수익</th>
+                        <th class="text-right">20일거래대금</th>
+                        <th class="text-center">VCP변동성</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+        <tr>
+            <td class="text-center font-bold">1</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=144960" target="_blank" class="stock-link">
+                    <strong>뉴파워프라즈마</strong> <small class="text-muted">(144960)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="98"><span class="badge badge-diamond">👑 98점</span></td>
+            <td class="text-right font-mono font-bold" data-order="558828660960">5,588억원</td>
+            <td class="text-right font-bold">12,780원</td>
+            <td class="text-center" data-order="97"><span class="badge badge-super">★ 97</span></td>
+            <td class="text-right text-danger font-bold" data-order="0.0">+0.0%</td>
+            <td class="text-right text-success font-bold" data-order="168.49">+168.5%</td>
+            <td class="text-right font-mono" data-order="79.5">+79.5%</td>
+            <td class="text-right font-mono" data-order="94.2">94.2억</td>
+            <td class="text-center" data-order="0.67"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.67)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">2</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=222800" target="_blank" class="stock-link">
+                    <strong>심텍</strong> <small class="text-muted">(222800)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaqglobal">KOSDAQ GLOBAL</span></td>
+            <td class="text-center" data-order="94"><span class="badge badge-diamond">👑 94점</span></td>
+            <td class="text-right font-mono font-bold" data-order="5753436637000">5조 7,534억</td>
+            <td class="text-right font-bold">149,400원</td>
+            <td class="text-center" data-order="98"><span class="badge badge-super">★ 98</span></td>
+            <td class="text-right text-danger font-bold" data-order="-5.02">-5.0%</td>
+            <td class="text-right text-success font-bold" data-order="412.52">+412.5%</td>
+            <td class="text-right font-mono" data-order="18.4">+18.4%</td>
+            <td class="text-right font-mono" data-order="1007.7">1007.7억</td>
+            <td class="text-center" data-order="0.78"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.78)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">3</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=000500" target="_blank" class="stock-link">
+                    <strong>가온전선</strong> <small class="text-muted">(000500)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="93"><span class="badge badge-diamond">👑 93점</span></td>
+            <td class="text-right font-mono font-bold" data-order="9484167829500">9조 4,841억</td>
+            <td class="text-right font-bold">318,000원</td>
+            <td class="text-center" data-order="99"><span class="badge badge-super">★ 99</span></td>
+            <td class="text-right text-danger font-bold" data-order="-2.45">-2.5%</td>
+            <td class="text-right text-success font-bold" data-order="965.68">+965.7%</td>
+            <td class="text-right font-mono" data-order="91.7">+91.7%</td>
+            <td class="text-right font-mono" data-order="971.4">971.4억</td>
+            <td class="text-center" data-order="0.98"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.98)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">4</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=064290" target="_blank" class="stock-link">
+                    <strong>인텍플러스</strong> <small class="text-muted">(064290)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="92"><span class="badge badge-diamond">👑 92점</span></td>
+            <td class="text-right font-mono font-bold" data-order="710075274400">7,100억원</td>
+            <td class="text-right font-bold">55,000원</td>
+            <td class="text-center" data-order="98"><span class="badge badge-super">★ 98</span></td>
+            <td class="text-right text-danger font-bold" data-order="-1.96">-2.0%</td>
+            <td class="text-right text-success font-bold" data-order="395.05">+395.1%</td>
+            <td class="text-right font-mono" data-order="33.8">+33.8%</td>
+            <td class="text-right font-mono" data-order="175.8">175.8억</td>
+            <td class="text-center" data-order="0.94"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.94)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">5</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=119850" target="_blank" class="stock-link">
+                    <strong>지엔씨에너지</strong> <small class="text-muted">(119850)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="92"><span class="badge badge-diamond">👑 92점</span></td>
+            <td class="text-right font-mono font-bold" data-order="922783794900">9,227억원</td>
+            <td class="text-right font-bold">56,100원</td>
+            <td class="text-center" data-order="97"><span class="badge badge-super">★ 97</span></td>
+            <td class="text-right text-danger font-bold" data-order="0.0">+0.0%</td>
+            <td class="text-right text-success font-bold" data-order="205.72">+205.7%</td>
+            <td class="text-right font-mono" data-order="184.8">+184.8%</td>
+            <td class="text-right font-mono" data-order="341.6">341.6억</td>
+            <td class="text-center" data-order="0.85"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.85)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">6</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=252990" target="_blank" class="stock-link">
+                    <strong>샘씨엔에스</strong> <small class="text-muted">(252990)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="92"><span class="badge badge-diamond">👑 92점</span></td>
+            <td class="text-right font-mono font-bold" data-order="1079706749770">1조 797억</td>
+            <td class="text-right font-bold">18,110원</td>
+            <td class="text-center" data-order="97"><span class="badge badge-super">★ 97</span></td>
+            <td class="text-right text-danger font-bold" data-order="-0.82">-0.8%</td>
+            <td class="text-right text-success font-bold" data-order="241.05">+241.1%</td>
+            <td class="text-right font-mono" data-order="41.9">+41.9%</td>
+            <td class="text-right font-mono" data-order="110.6">110.6억</td>
+            <td class="text-center" data-order="0.92"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.92)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">7</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=159010" target="_blank" class="stock-link">
+                    <strong>아스플로</strong> <small class="text-muted">(159010)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="90"><span class="badge badge-diamond">👑 90점</span></td>
+            <td class="text-right font-mono font-bold" data-order="397375222200">3,973억원</td>
+            <td class="text-right font-bold">29,400원</td>
+            <td class="text-center" data-order="99"><span class="badge badge-super">★ 99</span></td>
+            <td class="text-right text-danger font-bold" data-order="0.0">+0.0%</td>
+            <td class="text-right text-success font-bold" data-order="713.28">+713.3%</td>
+            <td class="text-right font-mono" data-order="69.9">+69.9%</td>
+            <td class="text-right font-mono" data-order="47.8">47.8억</td>
+            <td class="text-center" data-order="0.97"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.97)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">8</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=010950" target="_blank" class="stock-link">
+                    <strong>S-Oil</strong> <small class="text-muted">(010950)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="90"><span class="badge badge-diamond">👑 90점</span></td>
+            <td class="text-right font-mono font-bold" data-order="17517882435200">17조 5,178억</td>
+            <td class="text-right font-bold">156,500원</td>
+            <td class="text-center" data-order="96"><span class="badge badge-super">★ 96</span></td>
+            <td class="text-right text-danger font-bold" data-order="-5.67">-5.7%</td>
+            <td class="text-right text-success font-bold" data-order="170.76">+170.8%</td>
+            <td class="text-right font-mono" data-order="59.4">+59.4%</td>
+            <td class="text-right font-mono" data-order="680.8">680.8억</td>
+            <td class="text-center" data-order="1.0"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(1.00)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">9</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=131290" target="_blank" class="stock-link">
+                    <strong>티에스이</strong> <small class="text-muted">(131290)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="89"><span class="badge badge-gold">💎 89점</span></td>
+            <td class="text-right font-mono font-bold" data-order="3196752981000">3조 1,967억</td>
+            <td class="text-right font-bold">289,000원</td>
+            <td class="text-center" data-order="99"><span class="badge badge-super">★ 99</span></td>
+            <td class="text-right text-danger font-bold" data-order="-5.71">-5.7%</td>
+            <td class="text-right text-success font-bold" data-order="612.7">+612.7%</td>
+            <td class="text-right font-mono" data-order="32.6">+32.6%</td>
+            <td class="text-right font-mono" data-order="397.2">397.2억</td>
+            <td class="text-center" data-order="0.85"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.85)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">10</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=031980" target="_blank" class="stock-link">
+                    <strong>피에스케이홀딩스</strong> <small class="text-muted">(031980)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="89"><span class="badge badge-gold">💎 89점</span></td>
+            <td class="text-right font-mono font-bold" data-order="3518982864000">3조 5,189억</td>
+            <td class="text-right font-bold">163,200원</td>
+            <td class="text-center" data-order="98"><span class="badge badge-super">★ 98</span></td>
+            <td class="text-right text-danger font-bold" data-order="-4.0">-4.0%</td>
+            <td class="text-right text-success font-bold" data-order="322.8">+322.8%</td>
+            <td class="text-right font-mono" data-order="28.3">+28.3%</td>
+            <td class="text-right font-mono" data-order="277.1">277.1억</td>
+            <td class="text-center" data-order="0.91"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.91)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">11</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=417840" target="_blank" class="stock-link">
+                    <strong>저스템</strong> <small class="text-muted">(417840)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="89"><span class="badge badge-gold">💎 89점</span></td>
+            <td class="text-right font-mono font-bold" data-order="391929311480">3,919억원</td>
+            <td class="text-right font-bold">17,230원</td>
+            <td class="text-center" data-order="98"><span class="badge badge-super">★ 98</span></td>
+            <td class="text-right text-warning font-bold" data-order="-9.27">-9.3%</td>
+            <td class="text-right text-success font-bold" data-order="472.05">+472.1%</td>
+            <td class="text-right font-mono" data-order="20.4">+20.4%</td>
+            <td class="text-right font-mono" data-order="149.8">149.8억</td>
+            <td class="text-center" data-order="0.82"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.82)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">12</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=029460" target="_blank" class="stock-link">
+                    <strong>케이씨</strong> <small class="text-muted">(029460)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="89"><span class="badge badge-gold">💎 89점</span></td>
+            <td class="text-right font-mono font-bold" data-order="477740192250">4,777억원</td>
+            <td class="text-right font-bold">43,500원</td>
+            <td class="text-center" data-order="95"><span class="badge badge-super">★ 95</span></td>
+            <td class="text-right text-danger font-bold" data-order="-2.36">-2.4%</td>
+            <td class="text-right text-success font-bold" data-order="91.21">+91.2%</td>
+            <td class="text-right font-mono" data-order="48.5">+48.5%</td>
+            <td class="text-right font-mono" data-order="15.0">15.0억</td>
+            <td class="text-center" data-order="0.99"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.99)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">13</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=089860" target="_blank" class="stock-link">
+                    <strong>롯데렌탈</strong> <small class="text-muted">(089860)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="87"><span class="badge badge-gold">💎 87점</span></td>
+            <td class="text-right font-mono font-bold" data-order="1802761114200">1조 8,027억</td>
+            <td class="text-right font-bold">49,600원</td>
+            <td class="text-center" data-order="95"><span class="badge badge-super">★ 95</span></td>
+            <td class="text-right text-danger font-bold" data-order="-3.5">-3.5%</td>
+            <td class="text-right text-success font-bold" data-order="81.68">+81.7%</td>
+            <td class="text-right font-mono" data-order="80.4">+80.4%</td>
+            <td class="text-right font-mono" data-order="49.3">49.3억</td>
+            <td class="text-center" data-order="0.87"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.87)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">14</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=017890" target="_blank" class="stock-link">
+                    <strong>한국알콜</strong> <small class="text-muted">(017890)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="87"><span class="badge badge-gold">💎 87점</span></td>
+            <td class="text-right font-mono font-bold" data-order="318165257340">3,181억원</td>
+            <td class="text-right font-bold">15,420원</td>
+            <td class="text-center" data-order="92"><span class="badge badge-super">★ 92</span></td>
+            <td class="text-right text-danger font-bold" data-order="0.0">+0.0%</td>
+            <td class="text-right text-success font-bold" data-order="73.84">+73.8%</td>
+            <td class="text-right font-mono" data-order="39.4">+39.4%</td>
+            <td class="text-right font-mono" data-order="7.7">7.7억</td>
+            <td class="text-center" data-order="0.79"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.79)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">15</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=446540" target="_blank" class="stock-link">
+                    <strong>메가터치</strong> <small class="text-muted">(446540)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="86"><span class="badge badge-gold">💎 86점</span></td>
+            <td class="text-right font-mono font-bold" data-order="316962309900">3,169억원</td>
+            <td class="text-right font-bold">10,890원</td>
+            <td class="text-center" data-order="98"><span class="badge badge-super">★ 98</span></td>
+            <td class="text-right text-danger font-bold" data-order="0.0">+0.0%</td>
+            <td class="text-right text-success font-bold" data-order="231.51">+231.5%</td>
+            <td class="text-right font-mono" data-order="103.9">+103.9%</td>
+            <td class="text-right font-mono" data-order="77.3">77.3억</td>
+            <td class="text-center" data-order="1.09"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.09)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">16</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=094800" target="_blank" class="stock-link">
+                    <strong>맵스리얼티</strong> <small class="text-muted">(094800)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="86"><span class="badge badge-gold">💎 86점</span></td>
+            <td class="text-right font-mono font-bold" data-order="713896005390">7,138억원</td>
+            <td class="text-right font-bold">7,700원</td>
+            <td class="text-center" data-order="91"><span class="badge badge-super">★ 91</span></td>
+            <td class="text-right text-danger font-bold" data-order="-3.51">-3.5%</td>
+            <td class="text-right text-success font-bold" data-order="56.03">+56.0%</td>
+            <td class="text-right font-mono" data-order="32.3">+32.3%</td>
+            <td class="text-right font-mono" data-order="10.5">10.5억</td>
+            <td class="text-center" data-order="0.8"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.80)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">17</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=055550" target="_blank" class="stock-link">
+                    <strong>신한지주</strong> <small class="text-muted">(055550)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="86"><span class="badge badge-gold">💎 86점</span></td>
+            <td class="text-right font-mono font-bold" data-order="51310911122700">51조 3,109억</td>
+            <td class="text-right font-bold">110,100원</td>
+            <td class="text-center" data-order="89"><span class="badge badge-high">89</span></td>
+            <td class="text-right text-danger font-bold" data-order="-4.26">-4.3%</td>
+            <td class="text-right text-success font-bold" data-order="62.39">+62.4%</td>
+            <td class="text-right font-mono" data-order="16.5">+16.5%</td>
+            <td class="text-right font-mono" data-order="1235.9">1235.9억</td>
+            <td class="text-center" data-order="0.81"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.81)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">18</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=086790" target="_blank" class="stock-link">
+                    <strong>하나금융지주</strong> <small class="text-muted">(086790)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="86"><span class="badge badge-gold">💎 86점</span></td>
+            <td class="text-right font-mono font-bold" data-order="36066095021000">36조 660억</td>
+            <td class="text-right font-bold">133,700원</td>
+            <td class="text-center" data-order="89"><span class="badge badge-high">89</span></td>
+            <td class="text-right text-danger font-bold" data-order="-4.77">-4.8%</td>
+            <td class="text-right text-success font-bold" data-order="58.41">+58.4%</td>
+            <td class="text-right font-mono" data-order="17.3">+17.3%</td>
+            <td class="text-right font-mono" data-order="1024.8">1024.8억</td>
+            <td class="text-center" data-order="0.83"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.83)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">19</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=105560" target="_blank" class="stock-link">
+                    <strong>KB금융</strong> <small class="text-muted">(105560)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="86"><span class="badge badge-gold">💎 86점</span></td>
+            <td class="text-right font-mono font-bold" data-order="61431915528800">61조 4,319억</td>
+            <td class="text-right font-bold">174,100원</td>
+            <td class="text-center" data-order="87"><span class="badge badge-high">87</span></td>
+            <td class="text-right text-danger font-bold" data-order="-6.5">-6.5%</td>
+            <td class="text-right text-success font-bold" data-order="56.99">+57.0%</td>
+            <td class="text-right font-mono" data-order="14.6">+14.6%</td>
+            <td class="text-right font-mono" data-order="1996.6">1996.6억</td>
+            <td class="text-center" data-order="0.79"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.79)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">20</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=036930" target="_blank" class="stock-link">
+                    <strong>주성엔지니어링</strong> <small class="text-muted">(036930)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaqglobal">KOSDAQ GLOBAL</span></td>
+            <td class="text-center" data-order="85"><span class="badge badge-gold">💎 85점</span></td>
+            <td class="text-right font-mono font-bold" data-order="9737794849500">9조 7,377억</td>
+            <td class="text-right font-bold">209,500원</td>
+            <td class="text-center" data-order="99"><span class="badge badge-super">★ 99</span></td>
+            <td class="text-right text-warning font-bold" data-order="-16.37">-16.4%</td>
+            <td class="text-right text-success font-bold" data-order="692.06">+692.1%</td>
+            <td class="text-right font-mono" data-order="25.5">+25.5%</td>
+            <td class="text-right font-mono" data-order="2487.5">2487.5억</td>
+            <td class="text-center" data-order="0.77"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.77)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">21</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=161890" target="_blank" class="stock-link">
+                    <strong>한국콜마</strong> <small class="text-muted">(161890)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="85"><span class="badge badge-gold">💎 85점</span></td>
+            <td class="text-right font-mono font-bold" data-order="3469946319000">3조 4,699억</td>
+            <td class="text-right font-bold">146,700원</td>
+            <td class="text-center" data-order="96"><span class="badge badge-super">★ 96</span></td>
+            <td class="text-right text-warning font-bold" data-order="-9.28">-9.3%</td>
+            <td class="text-right text-success font-bold" data-order="140.1">+140.1%</td>
+            <td class="text-right font-mono" data-order="69.4">+69.4%</td>
+            <td class="text-right font-mono" data-order="463.3">463.3억</td>
+            <td class="text-center" data-order="0.95"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.95)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">22</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=003490" target="_blank" class="stock-link">
+                    <strong>대한항공</strong> <small class="text-muted">(003490)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="85"><span class="badge badge-gold">💎 85점</span></td>
+            <td class="text-right font-mono font-bold" data-order="11598949183500">11조 5,989억</td>
+            <td class="text-right font-bold">31,500원</td>
+            <td class="text-center" data-order="86"><span class="badge badge-high">86</span></td>
+            <td class="text-right text-danger font-bold" data-order="-0.47">-0.5%</td>
+            <td class="text-right text-success font-bold" data-order="50.0">+50.0%</td>
+            <td class="text-right font-mono" data-order="8.2">+8.2%</td>
+            <td class="text-right font-mono" data-order="867.8">867.8억</td>
+            <td class="text-center" data-order="0.96"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.96)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">23</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=096530" target="_blank" class="stock-link">
+                    <strong>씨젠</strong> <small class="text-muted">(096530)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaqglobal">KOSDAQ GLOBAL</span></td>
+            <td class="text-center" data-order="84"><span class="badge badge-gold">💎 84점</span></td>
+            <td class="text-right font-mono font-bold" data-order="1588969668000">1조 5,889억</td>
+            <td class="text-right font-bold">33,850원</td>
+            <td class="text-center" data-order="89"><span class="badge badge-high">89</span></td>
+            <td class="text-right text-danger font-bold" data-order="-5.05">-5.0%</td>
+            <td class="text-right text-success font-bold" data-order="54.92">+54.9%</td>
+            <td class="text-right font-mono" data-order="16.1">+16.1%</td>
+            <td class="text-right font-mono" data-order="105.6">105.6억</td>
+            <td class="text-center" data-order="0.84"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.84)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">24</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=002990" target="_blank" class="stock-link">
+                    <strong>금호건설</strong> <small class="text-muted">(002990)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="83"><span class="badge badge-gold">💎 83점</span></td>
+            <td class="text-right font-mono font-bold" data-order="484752261740">4,847억원</td>
+            <td class="text-right font-bold">13,040원</td>
+            <td class="text-center" data-order="98"><span class="badge badge-super">★ 98</span></td>
+            <td class="text-right text-warning font-bold" data-order="-24.67">-24.7%</td>
+            <td class="text-right text-success font-bold" data-order="298.17">+298.2%</td>
+            <td class="text-right font-mono" data-order="155.7">+155.7%</td>
+            <td class="text-right font-mono" data-order="1004.7">1004.7억</td>
+            <td class="text-center" data-order="0.57"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.57)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">25</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=005930" target="_blank" class="stock-link">
+                    <strong>삼성전자</strong> <small class="text-muted">(005930)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="83"><span class="badge badge-gold">💎 83점</span></td>
+            <td class="text-right font-mono font-bold" data-order="1669112542584000">1669조 1,125억</td>
+            <td class="text-right font-bold">286,500원</td>
+            <td class="text-center" data-order="97"><span class="badge badge-super">★ 97</span></td>
+            <td class="text-right text-warning font-bold" data-order="-20.97">-21.0%</td>
+            <td class="text-right text-success font-bold" data-order="290.33">+290.3%</td>
+            <td class="text-right font-mono" data-order="-20.1">-20.1%</td>
+            <td class="text-right font-mono" data-order="43819.5">43819.5억</td>
+            <td class="text-center" data-order="0.54"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.54)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">26</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=086670" target="_blank" class="stock-link">
+                    <strong>비엠티</strong> <small class="text-muted">(086670)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="83"><span class="badge badge-gold">💎 83점</span></td>
+            <td class="text-right font-mono font-bold" data-order="191668839350">1,916억원</td>
+            <td class="text-right font-bold">19,390원</td>
+            <td class="text-center" data-order="91"><span class="badge badge-super">★ 91</span></td>
+            <td class="text-right text-danger font-bold" data-order="0.0">+0.0%</td>
+            <td class="text-right text-success font-bold" data-order="77.89">+77.9%</td>
+            <td class="text-right font-mono" data-order="28.9">+28.9%</td>
+            <td class="text-right font-mono" data-order="8.3">8.3억</td>
+            <td class="text-center" data-order="0.85"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.85)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">27</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=032580" target="_blank" class="stock-link">
+                    <strong>피델릭스</strong> <small class="text-muted">(032580)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="82"><span class="badge badge-gold">💎 82점</span></td>
+            <td class="text-right font-mono font-bold" data-order="232587089280">2,325억원</td>
+            <td class="text-right font-bold">7,020원</td>
+            <td class="text-center" data-order="99"><span class="badge badge-super">★ 99</span></td>
+            <td class="text-right text-warning font-bold" data-order="-17.02">-17.0%</td>
+            <td class="text-right text-success font-bold" data-order="725.88">+725.9%</td>
+            <td class="text-right font-mono" data-order="39.6">+39.6%</td>
+            <td class="text-right font-mono" data-order="43.7">43.7억</td>
+            <td class="text-center" data-order="0.8"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.80)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">28</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=098120" target="_blank" class="stock-link">
+                    <strong>마이크로컨텍솔</strong> <small class="text-muted">(098120)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="82"><span class="badge badge-gold">💎 82점</span></td>
+            <td class="text-right font-mono font-bold" data-order="482140428000">4,821억원</td>
+            <td class="text-right font-bold">58,700원</td>
+            <td class="text-center" data-order="98"><span class="badge badge-super">★ 98</span></td>
+            <td class="text-right text-danger font-bold" data-order="0.0">+0.0%</td>
+            <td class="text-right text-success font-bold" data-order="268.95">+268.9%</td>
+            <td class="text-right font-mono" data-order="145.6">+145.6%</td>
+            <td class="text-right font-mono" data-order="75.0">75.0억</td>
+            <td class="text-center" data-order="1.25"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.25)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">29</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=006340" target="_blank" class="stock-link">
+                    <strong>대원전선</strong> <small class="text-muted">(006340)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="82"><span class="badge badge-gold">💎 82점</span></td>
+            <td class="text-right font-mono font-bold" data-order="1057810471840">1조 578억</td>
+            <td class="text-right font-bold">13,530원</td>
+            <td class="text-center" data-order="98"><span class="badge badge-super">★ 98</span></td>
+            <td class="text-right text-warning font-bold" data-order="-25.0">-25.0%</td>
+            <td class="text-right text-success font-bold" data-order="366.55">+366.6%</td>
+            <td class="text-right font-mono" data-order="36.7">+36.7%</td>
+            <td class="text-right font-mono" data-order="379.0">379.0억</td>
+            <td class="text-center" data-order="0.53"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.53)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">30</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=000810" target="_blank" class="stock-link">
+                    <strong>삼성화재</strong> <small class="text-muted">(000810)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="82"><span class="badge badge-gold">💎 82점</span></td>
+            <td class="text-right font-mono font-bold" data-order="28931562504000">28조 9,315억</td>
+            <td class="text-right font-bold">648,000원</td>
+            <td class="text-center" data-order="85"><span class="badge badge-high">85</span></td>
+            <td class="text-right text-warning font-bold" data-order="-11.23">-11.2%</td>
+            <td class="text-right text-success font-bold" data-order="48.45">+48.5%</td>
+            <td class="text-right font-mono" data-order="-0.5">-0.5%</td>
+            <td class="text-right font-mono" data-order="695.1">695.1억</td>
+            <td class="text-center" data-order="0.82"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.82)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">31</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=078930" target="_blank" class="stock-link">
+                    <strong>GS</strong> <small class="text-muted">(078930)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="81"><span class="badge badge-gold">💎 81점</span></td>
+            <td class="text-right font-mono font-bold" data-order="10283531296500">10조 2,835억</td>
+            <td class="text-right font-bold">110,600원</td>
+            <td class="text-center" data-order="96"><span class="badge badge-super">★ 96</span></td>
+            <td class="text-right text-warning font-bold" data-order="-14.4">-14.4%</td>
+            <td class="text-right text-success font-bold" data-order="149.1">+149.1%</td>
+            <td class="text-right font-mono" data-order="72.3">+72.3%</td>
+            <td class="text-right font-mono" data-order="509.6">509.6억</td>
+            <td class="text-center" data-order="0.93"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.93)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">32</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=051160" target="_blank" class="stock-link">
+                    <strong>지어소프트</strong> <small class="text-muted">(051160)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="81"><span class="badge badge-gold">💎 81점</span></td>
+            <td class="text-right font-mono font-bold" data-order="186312137200">1,863억원</td>
+            <td class="text-right font-bold">11,830원</td>
+            <td class="text-center" data-order="95"><span class="badge badge-super">★ 95</span></td>
+            <td class="text-right text-danger font-bold" data-order="-1.91">-1.9%</td>
+            <td class="text-right text-success font-bold" data-order="82.56">+82.6%</td>
+            <td class="text-right font-mono" data-order="81.7">+81.7%</td>
+            <td class="text-right font-mono" data-order="42.0">42.0억</td>
+            <td class="text-center" data-order="1.35"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.35)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">33</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=001450" target="_blank" class="stock-link">
+                    <strong>현대해상</strong> <small class="text-muted">(001450)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="81"><span class="badge badge-gold">💎 81점</span></td>
+            <td class="text-right font-mono font-bold" data-order="4053554287500">4조 535억</td>
+            <td class="text-right font-bold">47,350원</td>
+            <td class="text-center" data-order="93"><span class="badge badge-super">★ 93</span></td>
+            <td class="text-right text-warning font-bold" data-order="-11.5">-11.5%</td>
+            <td class="text-right text-success font-bold" data-order="79.02">+79.0%</td>
+            <td class="text-right font-mono" data-order="31.7">+31.7%</td>
+            <td class="text-right font-mono" data-order="237.0">237.0억</td>
+            <td class="text-center" data-order="0.96"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.96)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">34</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=096770" target="_blank" class="stock-link">
+                    <strong>SK이노베이션</strong> <small class="text-muted">(096770)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="80"><span class="badge badge-gold">💎 80점</span></td>
+            <td class="text-right font-mono font-bold" data-order="25222675969600">25조 2,226억</td>
+            <td class="text-right font-bold">148,700원</td>
+            <td class="text-center" data-order="92"><span class="badge badge-super">★ 92</span></td>
+            <td class="text-right text-danger font-bold" data-order="-3.13">-3.1%</td>
+            <td class="text-right text-success font-bold" data-order="66.15">+66.2%</td>
+            <td class="text-right font-mono" data-order="57.5">+57.5%</td>
+            <td class="text-right font-mono" data-order="1613.5">1613.5억</td>
+            <td class="text-center" data-order="1.06"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.06)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">35</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=228850" target="_blank" class="stock-link">
+                    <strong>레이언스</strong> <small class="text-muted">(228850)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="80"><span class="badge badge-gold">💎 80점</span></td>
+            <td class="text-right font-mono font-bold" data-order="131234920740">1,312억원</td>
+            <td class="text-right font-bold">7,920원</td>
+            <td class="text-center" data-order="91"><span class="badge badge-super">★ 91</span></td>
+            <td class="text-right text-danger font-bold" data-order="-6.16">-6.2%</td>
+            <td class="text-right text-success font-bold" data-order="61.8">+61.8%</td>
+            <td class="text-right font-mono" data-order="37.3">+37.3%</td>
+            <td class="text-right font-mono" data-order="5.2">5.2억</td>
+            <td class="text-center" data-order="1.0"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(1.00)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">36</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=101160" target="_blank" class="stock-link">
+                    <strong>월덱스</strong> <small class="text-muted">(101160)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="80"><span class="badge badge-gold">💎 80점</span></td>
+            <td class="text-right font-mono font-bold" data-order="510189683700">5,101억원</td>
+            <td class="text-right font-bold">30,900원</td>
+            <td class="text-center" data-order="85"><span class="badge badge-high">85</span></td>
+            <td class="text-right text-warning font-bold" data-order="-11.59">-11.6%</td>
+            <td class="text-right text-success font-bold" data-order="46.1">+46.1%</td>
+            <td class="text-right font-mono" data-order="10.4">+10.4%</td>
+            <td class="text-right font-mono" data-order="13.0">13.0억</td>
+            <td class="text-center" data-order="0.64"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.64)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">37</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=052860" target="_blank" class="stock-link">
+                    <strong>아이앤씨</strong> <small class="text-muted">(052860)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="79"><span class="badge badge-silver">⭐ 79점</span></td>
+            <td class="text-right font-mono font-bold" data-order="121315938660">1,213억원</td>
+            <td class="text-right font-bold">6,790원</td>
+            <td class="text-center" data-order="97"><span class="badge badge-super">★ 97</span></td>
+            <td class="text-right text-danger font-bold" data-order="-5.83">-5.8%</td>
+            <td class="text-right text-success font-bold" data-order="215.81">+215.8%</td>
+            <td class="text-right font-mono" data-order="73.4">+73.4%</td>
+            <td class="text-right font-mono" data-order="6.1">6.1억</td>
+            <td class="text-center" data-order="1.13"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.13)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">38</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=241770" target="_blank" class="stock-link">
+                    <strong>메카로</strong> <small class="text-muted">(241770)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="79"><span class="badge badge-silver">⭐ 79점</span></td>
+            <td class="text-right font-mono font-bold" data-order="424013824000">4,240억원</td>
+            <td class="text-right font-bold">41,050원</td>
+            <td class="text-center" data-order="95"><span class="badge badge-super">★ 95</span></td>
+            <td class="text-right text-warning font-bold" data-order="-14.39">-14.4%</td>
+            <td class="text-right text-success font-bold" data-order="214.08">+214.1%</td>
+            <td class="text-right font-mono" data-order="-5.6">-5.6%</td>
+            <td class="text-right font-mono" data-order="6.5">6.5억</td>
+            <td class="text-center" data-order="0.72"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.72)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">39</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=049430" target="_blank" class="stock-link">
+                    <strong>코메론</strong> <small class="text-muted">(049430)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="78"><span class="badge badge-silver">⭐ 78점</span></td>
+            <td class="text-right font-mono font-bold" data-order="209008800000">2,090억원</td>
+            <td class="text-right font-bold">23,000원</td>
+            <td class="text-center" data-order="92"><span class="badge badge-super">★ 92</span></td>
+            <td class="text-right text-danger font-bold" data-order="-1.5">-1.5%</td>
+            <td class="text-right text-success font-bold" data-order="122.44">+122.4%</td>
+            <td class="text-right font-mono" data-order="19.3">+19.3%</td>
+            <td class="text-right font-mono" data-order="7.1">7.1억</td>
+            <td class="text-center" data-order="1.15"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.15)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">40</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=122640" target="_blank" class="stock-link">
+                    <strong>예스티</strong> <small class="text-muted">(122640)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="78"><span class="badge badge-silver">⭐ 78점</span></td>
+            <td class="text-right font-mono font-bold" data-order="692842400000">6,928억원</td>
+            <td class="text-right font-bold">32,200원</td>
+            <td class="text-center" data-order="90"><span class="badge badge-super">★ 90</span></td>
+            <td class="text-right text-warning font-bold" data-order="-19.2">-19.2%</td>
+            <td class="text-right text-success font-bold" data-order="104.44">+104.4%</td>
+            <td class="text-right font-mono" data-order="-9.9">-9.9%</td>
+            <td class="text-right font-mono" data-order="117.2">117.2억</td>
+            <td class="text-center" data-order="0.69"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.69)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">41</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=003690" target="_blank" class="stock-link">
+                    <strong>코리안리</strong> <small class="text-muted">(003690)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="78"><span class="badge badge-silver">⭐ 78점</span></td>
+            <td class="text-right font-mono font-bold" data-order="2592497524770">2조 5,924억</td>
+            <td class="text-right font-bold">14,630원</td>
+            <td class="text-center" data-order="84"><span class="badge badge-high">84</span></td>
+            <td class="text-right text-danger font-bold" data-order="-5.43">-5.4%</td>
+            <td class="text-right text-success font-bold" data-order="39.87">+39.9%</td>
+            <td class="text-right font-mono" data-order="15.5">+15.5%</td>
+            <td class="text-right font-mono" data-order="34.1">34.1억</td>
+            <td class="text-center" data-order="0.81"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.81)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">42</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=294870" target="_blank" class="stock-link">
+                    <strong>IPARK현대산업개발</strong> <small class="text-muted">(294870)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="78"><span class="badge badge-silver">⭐ 78점</span></td>
+            <td class="text-right font-mono font-bold" data-order="1562003721000">1조 5,620억</td>
+            <td class="text-right font-bold">23,500원</td>
+            <td class="text-center" data-order="83"><span class="badge badge-high">83</span></td>
+            <td class="text-right text-danger font-bold" data-order="-5.43">-5.4%</td>
+            <td class="text-right text-success font-bold" data-order="36.55">+36.5%</td>
+            <td class="text-right font-mono" data-order="30.3">+30.3%</td>
+            <td class="text-right font-mono" data-order="31.6">31.6억</td>
+            <td class="text-center" data-order="0.81"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.81)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">43</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=007340" target="_blank" class="stock-link">
+                    <strong>DN오토모티브</strong> <small class="text-muted">(007340)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="77"><span class="badge badge-silver">⭐ 77점</span></td>
+            <td class="text-right font-mono font-bold" data-order="2802670433500">2조 8,026억</td>
+            <td class="text-right font-bold">47,700원</td>
+            <td class="text-center" data-order="92"><span class="badge badge-super">★ 92</span></td>
+            <td class="text-right text-warning font-bold" data-order="-24.04">-24.0%</td>
+            <td class="text-right text-success font-bold" data-order="115.84">+115.8%</td>
+            <td class="text-right font-mono" data-order="30.0">+30.0%</td>
+            <td class="text-right font-mono" data-order="54.4">54.4억</td>
+            <td class="text-center" data-order="0.68"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.68)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">44</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=236200" target="_blank" class="stock-link">
+                    <strong>슈프리마</strong> <small class="text-muted">(236200)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="77"><span class="badge badge-silver">⭐ 77점</span></td>
+            <td class="text-right font-mono font-bold" data-order="384981967200">3,849억원</td>
+            <td class="text-right font-bold">55,400원</td>
+            <td class="text-center" data-order="91"><span class="badge badge-super">★ 91</span></td>
+            <td class="text-right text-warning font-bold" data-order="-13.03">-13.0%</td>
+            <td class="text-right text-success font-bold" data-order="79.87">+79.9%</td>
+            <td class="text-right font-mono" data-order="36.3">+36.3%</td>
+            <td class="text-right font-mono" data-order="12.1">12.1억</td>
+            <td class="text-center" data-order="0.79"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.79)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">45</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=001820" target="_blank" class="stock-link">
+                    <strong>삼화콘덴서</strong> <small class="text-muted">(001820)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="76"><span class="badge badge-silver">⭐ 76점</span></td>
+            <td class="text-right font-mono font-bold" data-order="1527025500000">1조 5,270억</td>
+            <td class="text-right font-bold">146,900원</td>
+            <td class="text-center" data-order="98"><span class="badge badge-super">★ 98</span></td>
+            <td class="text-right text-warning font-bold" data-order="-22.72">-22.7%</td>
+            <td class="text-right text-success font-bold" data-order="419.08">+419.1%</td>
+            <td class="text-right font-mono" data-order="11.4">+11.4%</td>
+            <td class="text-right font-mono" data-order="1364.1">1364.1억</td>
+            <td class="text-center" data-order="0.99"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.99)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">46</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=192820" target="_blank" class="stock-link">
+                    <strong>코스맥스</strong> <small class="text-muted">(192820)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="76"><span class="badge badge-silver">⭐ 76점</span></td>
+            <td class="text-right font-mono font-bold" data-order="3087066448000">3조 870억</td>
+            <td class="text-right font-bold">270,500원</td>
+            <td class="text-center" data-order="94"><span class="badge badge-super">★ 94</span></td>
+            <td class="text-right text-warning font-bold" data-order="-10.73">-10.7%</td>
+            <td class="text-right text-success font-bold" data-order="86.68">+86.7%</td>
+            <td class="text-right font-mono" data-order="82.6">+82.6%</td>
+            <td class="text-right font-mono" data-order="355.6">355.6억</td>
+            <td class="text-center" data-order="1.08"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.08)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">47</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=006360" target="_blank" class="stock-link">
+                    <strong>GS건설</strong> <small class="text-muted">(006360)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="76"><span class="badge badge-silver">⭐ 76점</span></td>
+            <td class="text-right font-mono font-bold" data-order="2961119554000">2조 9,611억</td>
+            <td class="text-right font-bold">34,750원</td>
+            <td class="text-center" data-order="94"><span class="badge badge-super">★ 94</span></td>
+            <td class="text-right text-warning font-bold" data-order="-19.37">-19.4%</td>
+            <td class="text-right text-success font-bold" data-order="91.88">+91.9%</td>
+            <td class="text-right font-mono" data-order="43.0">+43.0%</td>
+            <td class="text-right font-mono" data-order="651.0">651.0억</td>
+            <td class="text-center" data-order="0.81"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.81)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">48</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=028050" target="_blank" class="stock-link">
+                    <strong>삼성E&A</strong> <small class="text-muted">(028050)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="76"><span class="badge badge-silver">⭐ 76점</span></td>
+            <td class="text-right font-mono font-bold" data-order="9672600000000">9조 6,726억</td>
+            <td class="text-right font-bold">49,600원</td>
+            <td class="text-center" data-order="93"><span class="badge badge-super">★ 93</span></td>
+            <td class="text-right text-warning font-bold" data-order="-22.98">-23.0%</td>
+            <td class="text-right text-success font-bold" data-order="113.33">+113.3%</td>
+            <td class="text-right font-mono" data-order="14.8">+14.8%</td>
+            <td class="text-right font-mono" data-order="874.3">874.3억</td>
+            <td class="text-center" data-order="0.83"><span class="badge badge-vcp-good">🟢 수축</span> <small class="text-muted">(0.83)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">49</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=317400" target="_blank" class="stock-link">
+                    <strong>자이에스앤디</strong> <small class="text-muted">(317400)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="75"><span class="badge badge-silver">⭐ 75점</span></td>
+            <td class="text-right font-mono font-bold" data-order="379293045600">3,792억원</td>
+            <td class="text-right font-bold">9,870원</td>
+            <td class="text-center" data-order="98"><span class="badge badge-super">★ 98</span></td>
+            <td class="text-right text-warning font-bold" data-order="-14.69">-14.7%</td>
+            <td class="text-right text-success font-bold" data-order="221.5">+221.5%</td>
+            <td class="text-right font-mono" data-order="192.0">+192.0%</td>
+            <td class="text-right font-mono" data-order="121.3">121.3억</td>
+            <td class="text-center" data-order="1.03"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.03)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">50</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=241710" target="_blank" class="stock-link">
+                    <strong>코스메카코리아</strong> <small class="text-muted">(241710)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaqglobal">KOSDAQ GLOBAL</span></td>
+            <td class="text-center" data-order="75"><span class="badge badge-silver">⭐ 75점</span></td>
+            <td class="text-right font-mono font-bold" data-order="1359564000000">1조 3,595억</td>
+            <td class="text-right font-bold">127,100원</td>
+            <td class="text-center" data-order="96"><span class="badge badge-super">★ 96</span></td>
+            <td class="text-right text-warning font-bold" data-order="-17.41">-17.4%</td>
+            <td class="text-right text-success font-bold" data-order="106.67">+106.7%</td>
+            <td class="text-right font-mono" data-order="98.9">+98.9%</td>
+            <td class="text-right font-mono" data-order="151.3">151.3억</td>
+            <td class="text-center" data-order="1.02"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.02)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">51</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=044820" target="_blank" class="stock-link">
+                    <strong>코스맥스비티아이</strong> <small class="text-muted">(044820)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="75"><span class="badge badge-silver">⭐ 75점</span></td>
+            <td class="text-right font-mono font-bold" data-order="251142534150">2,511억원</td>
+            <td class="text-right font-bold">25,800원</td>
+            <td class="text-center" data-order="95"><span class="badge badge-super">★ 95</span></td>
+            <td class="text-right text-warning font-bold" data-order="-7.86">-7.9%</td>
+            <td class="text-right text-success font-bold" data-order="114.46">+114.5%</td>
+            <td class="text-right font-mono" data-order="55.5">+55.5%</td>
+            <td class="text-right font-mono" data-order="7.5">7.5억</td>
+            <td class="text-center" data-order="1.03"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.03)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">52</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=071200" target="_blank" class="stock-link">
+                    <strong>인피니트헬스케어</strong> <small class="text-muted">(071200)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="74"><span class="badge badge-silver">⭐ 74점</span></td>
+            <td class="text-right font-mono font-bold" data-order="288366133560">2,883억원</td>
+            <td class="text-right font-bold">11,820원</td>
+            <td class="text-center" data-order="96"><span class="badge badge-super">★ 96</span></td>
+            <td class="text-right text-warning font-bold" data-order="-11.86">-11.9%</td>
+            <td class="text-right text-success font-bold" data-order="111.07">+111.1%</td>
+            <td class="text-right font-mono" data-order="89.1">+89.1%</td>
+            <td class="text-right font-mono" data-order="23.7">23.7억</td>
+            <td class="text-center" data-order="1.2"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.20)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">53</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=041960" target="_blank" class="stock-link">
+                    <strong>코미팜</strong> <small class="text-muted">(041960)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="74"><span class="badge badge-silver">⭐ 74점</span></td>
+            <td class="text-right font-mono font-bold" data-order="734989279850">7,349억원</td>
+            <td class="text-right font-bold">9,930원</td>
+            <td class="text-center" data-order="89"><span class="badge badge-high">89</span></td>
+            <td class="text-right text-danger font-bold" data-order="-3.69">-3.7%</td>
+            <td class="text-right text-success font-bold" data-order="68.59">+68.6%</td>
+            <td class="text-right font-mono" data-order="24.3">+24.3%</td>
+            <td class="text-right font-mono" data-order="25.9">25.9억</td>
+            <td class="text-center" data-order="1.14"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.14)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">54</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=453340" target="_blank" class="stock-link">
+                    <strong>현대그린푸드</strong> <small class="text-muted">(453340)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="74"><span class="badge badge-silver">⭐ 74점</span></td>
+            <td class="text-right font-mono font-bold" data-order="628000492580">6,280억원</td>
+            <td class="text-right font-bold">19,300원</td>
+            <td class="text-center" data-order="84"><span class="badge badge-high">84</span></td>
+            <td class="text-right text-danger font-bold" data-order="-1.28">-1.3%</td>
+            <td class="text-right text-success font-bold" data-order="30.14">+30.1%</td>
+            <td class="text-right font-mono" data-order="17.7">+17.7%</td>
+            <td class="text-right font-mono" data-order="6.6">6.6억</td>
+            <td class="text-center" data-order="0.91"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.91)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">55</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=011560" target="_blank" class="stock-link">
+                    <strong>세보엠이씨</strong> <small class="text-muted">(011560)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="73"><span class="badge badge-silver">⭐ 73점</span></td>
+            <td class="text-right font-mono font-bold" data-order="245062389600">2,450억원</td>
+            <td class="text-right font-bold">24,250원</td>
+            <td class="text-center" data-order="92"><span class="badge badge-super">★ 92</span></td>
+            <td class="text-right text-warning font-bold" data-order="-13.24">-13.2%</td>
+            <td class="text-right text-success font-bold" data-order="93.69">+93.7%</td>
+            <td class="text-right font-mono" data-order="15.8">+15.8%</td>
+            <td class="text-right font-mono" data-order="14.6">14.6억</td>
+            <td class="text-center" data-order="0.89"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.89)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">56</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=013700" target="_blank" class="stock-link">
+                    <strong>까뮤이앤씨</strong> <small class="text-muted">(013700)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="73"><span class="badge badge-silver">⭐ 73점</span></td>
+            <td class="text-right font-mono font-bold" data-order="93868553930">938억원</td>
+            <td class="text-right font-bold">1,588원</td>
+            <td class="text-center" data-order="90"><span class="badge badge-super">★ 90</span></td>
+            <td class="text-right text-warning font-bold" data-order="-14.12">-14.1%</td>
+            <td class="text-right text-success font-bold" data-order="58.01">+58.0%</td>
+            <td class="text-right font-mono" data-order="39.5">+39.5%</td>
+            <td class="text-right font-mono" data-order="11.2">11.2억</td>
+            <td class="text-center" data-order="0.94"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.94)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">57</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=068930" target="_blank" class="stock-link">
+                    <strong>디지털대성</strong> <small class="text-muted">(068930)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="73"><span class="badge badge-silver">⭐ 73점</span></td>
+            <td class="text-right font-mono font-bold" data-order="265683283200">2,656억원</td>
+            <td class="text-right font-bold">9,650원</td>
+            <td class="text-center" data-order="86"><span class="badge badge-high">86</span></td>
+            <td class="text-right text-danger font-bold" data-order="0.0">+0.0%</td>
+            <td class="text-right text-success font-bold" data-order="41.7">+41.7%</td>
+            <td class="text-right font-mono" data-order="35.0">+35.0%</td>
+            <td class="text-right font-mono" data-order="6.0">6.0억</td>
+            <td class="text-center" data-order="1.07"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.07)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">58</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=005830" target="_blank" class="stock-link">
+                    <strong>DB손해보험</strong> <small class="text-muted">(005830)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="72"><span class="badge badge-silver">⭐ 72점</span></td>
+            <td class="text-right font-mono font-bold" data-order="12091364425400">12조 913억</td>
+            <td class="text-right font-bold">184,000원</td>
+            <td class="text-center" data-order="88"><span class="badge badge-high">88</span></td>
+            <td class="text-right text-warning font-bold" data-order="-10.46">-10.5%</td>
+            <td class="text-right text-success font-bold" data-order="54.23">+54.2%</td>
+            <td class="text-right font-mono" data-order="35.3">+35.3%</td>
+            <td class="text-right font-mono" data-order="458.3">458.3억</td>
+            <td class="text-center" data-order="1.03"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.03)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">59</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=316140" target="_blank" class="stock-link">
+                    <strong>우리금융지주</strong> <small class="text-muted">(316140)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="72"><span class="badge badge-silver">⭐ 72점</span></td>
+            <td class="text-right font-mono font-bold" data-order="26045404789950">26조 454억</td>
+            <td class="text-right font-bold">35,500원</td>
+            <td class="text-center" data-order="86"><span class="badge badge-high">86</span></td>
+            <td class="text-right text-warning font-bold" data-order="-12.99">-13.0%</td>
+            <td class="text-right text-success font-bold" data-order="42.86">+42.9%</td>
+            <td class="text-right font-mono" data-order="22.2">+22.2%</td>
+            <td class="text-right font-mono" data-order="1129.9">1129.9억</td>
+            <td class="text-center" data-order="0.93"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.93)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">60</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=021240" target="_blank" class="stock-link">
+                    <strong>코웨이</strong> <small class="text-muted">(021240)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="72"><span class="badge badge-silver">⭐ 72점</span></td>
+            <td class="text-right font-mono font-bold" data-order="7062589114800">7조 625억</td>
+            <td class="text-right font-bold">99,700원</td>
+            <td class="text-center" data-order="81"><span class="badge badge-high">81</span></td>
+            <td class="text-right text-warning font-bold" data-order="-8.03">-8.0%</td>
+            <td class="text-right text-success font-bold" data-order="40.62">+40.6%</td>
+            <td class="text-right font-mono" data-order="14.6">+14.6%</td>
+            <td class="text-right font-mono" data-order="200.9">200.9억</td>
+            <td class="text-center" data-order="0.93"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.93)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">61</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=088350" target="_blank" class="stock-link">
+                    <strong>한화생명</strong> <small class="text-muted">(088350)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="71"><span class="badge badge-silver">⭐ 71점</span></td>
+            <td class="text-right font-mono font-bold" data-order="4898509200000">4조 8,985억</td>
+            <td class="text-right font-bold">5,680원</td>
+            <td class="text-center" data-order="92"><span class="badge badge-super">★ 92</span></td>
+            <td class="text-right text-warning font-bold" data-order="-13.94">-13.9%</td>
+            <td class="text-right text-success font-bold" data-order="93.2">+93.2%</td>
+            <td class="text-right font-mono" data-order="21.1">+21.1%</td>
+            <td class="text-right font-mono" data-order="296.5">296.5억</td>
+            <td class="text-center" data-order="1.08"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.08)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">62</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=090430" target="_blank" class="stock-link">
+                    <strong>아모레퍼시픽</strong> <small class="text-muted">(090430)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="71"><span class="badge badge-silver">⭐ 71점</span></td>
+            <td class="text-right font-mono font-bold" data-order="8335218157500">8조 3,352억</td>
+            <td class="text-right font-bold">142,200원</td>
+            <td class="text-center" data-order="87"><span class="badge badge-high">87</span></td>
+            <td class="text-right text-warning font-bold" data-order="-13.87">-13.9%</td>
+            <td class="text-right text-success font-bold" data-order="47.82">+47.8%</td>
+            <td class="text-right font-mono" data-order="45.5">+45.5%</td>
+            <td class="text-right font-mono" data-order="326.2">326.2억</td>
+            <td class="text-center" data-order="0.91"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.91)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">63</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=079650" target="_blank" class="stock-link">
+                    <strong>서산</strong> <small class="text-muted">(079650)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="70"><span class="badge badge-silver">⭐ 70점</span></td>
+            <td class="text-right font-mono font-bold" data-order="124800000000">1,248억원</td>
+            <td class="text-right font-bold">6,240원</td>
+            <td class="text-center" data-order="98"><span class="badge badge-super">★ 98</span></td>
+            <td class="text-right text-warning font-bold" data-order="-23.15">-23.1%</td>
+            <td class="text-right text-success font-bold" data-order="537.39">+537.4%</td>
+            <td class="text-right font-mono" data-order="9.7">+9.7%</td>
+            <td class="text-right font-mono" data-order="401.9">401.9억</td>
+            <td class="text-center" data-order="1.04"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.04)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">64</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=020120" target="_blank" class="stock-link">
+                    <strong>키다리스튜디오</strong> <small class="text-muted">(020120)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="70"><span class="badge badge-silver">⭐ 70점</span></td>
+            <td class="text-right font-mono font-bold" data-order="294656939700">2,946억원</td>
+            <td class="text-right font-bold">7,950원</td>
+            <td class="text-center" data-order="97"><span class="badge badge-super">★ 97</span></td>
+            <td class="text-right text-warning font-bold" data-order="-14.05">-14.1%</td>
+            <td class="text-right text-success font-bold" data-order="178.46">+178.5%</td>
+            <td class="text-right font-mono" data-order="163.7">+163.7%</td>
+            <td class="text-right font-mono" data-order="51.5">51.5억</td>
+            <td class="text-center" data-order="1.86"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.86)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">65</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=036800" target="_blank" class="stock-link">
+                    <strong>나이스정보통신</strong> <small class="text-muted">(036800)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="69"><span class="badge badge-silver">⭐ 69점</span></td>
+            <td class="text-right font-mono font-bold" data-order="337610000000">3,376억원</td>
+            <td class="text-right font-bold">7,470원</td>
+            <td class="text-center" data-order="92"><span class="badge badge-super">★ 92</span></td>
+            <td class="text-right text-warning font-bold" data-order="-9.01">-9.0%</td>
+            <td class="text-right text-success font-bold" data-order="71.72">+71.7%</td>
+            <td class="text-right font-mono" data-order="33.6">+33.6%</td>
+            <td class="text-right font-mono" data-order="12.1">12.1억</td>
+            <td class="text-center" data-order="1.34"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.34)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">66</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=092730" target="_blank" class="stock-link">
+                    <strong>네오팜</strong> <small class="text-muted">(092730)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="68"><span class="badge badge-silver">⭐ 68점</span></td>
+            <td class="text-right font-mono font-bold" data-order="379061939850">3,790억원</td>
+            <td class="text-right font-bold">23,650원</td>
+            <td class="text-center" data-order="89"><span class="badge badge-high">89</span></td>
+            <td class="text-right text-warning font-bold" data-order="-7.07">-7.1%</td>
+            <td class="text-right text-success font-bold" data-order="50.06">+50.1%</td>
+            <td class="text-right font-mono" data-order="39.6">+39.6%</td>
+            <td class="text-right font-mono" data-order="15.7">15.7억</td>
+            <td class="text-center" data-order="1.03"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.03)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">67</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=067290" target="_blank" class="stock-link">
+                    <strong>JW신약</strong> <small class="text-muted">(067290)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="67"><span class="badge badge-silver">⭐ 67점</span></td>
+            <td class="text-right font-mono font-bold" data-order="175956503420">1,759억원</td>
+            <td class="text-right font-bold">3,155원</td>
+            <td class="text-center" data-order="95"><span class="badge badge-super">★ 95</span></td>
+            <td class="text-right text-warning font-bold" data-order="-18.89">-18.9%</td>
+            <td class="text-right text-success font-bold" data-order="151.59">+151.6%</td>
+            <td class="text-right font-mono" data-order="37.5">+37.5%</td>
+            <td class="text-right font-mono" data-order="847.4">847.4억</td>
+            <td class="text-center" data-order="1.35"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.35)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">68</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=053260" target="_blank" class="stock-link">
+                    <strong>금강철강</strong> <small class="text-muted">(053260)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="67"><span class="badge badge-silver">⭐ 67점</span></td>
+            <td class="text-right font-mono font-bold" data-order="130291200000">1,302억원</td>
+            <td class="text-right font-bold">7,030원</td>
+            <td class="text-center" data-order="93"><span class="badge badge-super">★ 93</span></td>
+            <td class="text-right text-warning font-bold" data-order="-12.02">-12.0%</td>
+            <td class="text-right text-success font-bold" data-order="85.24">+85.2%</td>
+            <td class="text-right font-mono" data-order="33.1">+33.1%</td>
+            <td class="text-right font-mono" data-order="255.5">255.5억</td>
+            <td class="text-center" data-order="1.48"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.48)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">69</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=175330" target="_blank" class="stock-link">
+                    <strong>JB금융지주</strong> <small class="text-muted">(175330)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="66"><span class="badge badge-silver">⭐ 66점</span></td>
+            <td class="text-right font-mono font-bold" data-order="5623632993600">5조 6,236억</td>
+            <td class="text-right font-bold">30,250원</td>
+            <td class="text-center" data-order="85"><span class="badge badge-high">85</span></td>
+            <td class="text-right text-warning font-bold" data-order="-19.33">-19.3%</td>
+            <td class="text-right text-success font-bold" data-order="37.81">+37.8%</td>
+            <td class="text-right font-mono" data-order="27.6">+27.6%</td>
+            <td class="text-right font-mono" data-order="156.5">156.5억</td>
+            <td class="text-center" data-order="0.95"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.95)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">70</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=443060" target="_blank" class="stock-link">
+                    <strong>HD현대마린솔루션</strong> <small class="text-muted">(443060)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="66"><span class="badge badge-silver">⭐ 66점</span></td>
+            <td class="text-right font-mono font-bold" data-order="10715196940000">10조 7,151억</td>
+            <td class="text-right font-bold">240,000원</td>
+            <td class="text-center" data-order="82"><span class="badge badge-high">82</span></td>
+            <td class="text-right text-warning font-bold" data-order="-14.44">-14.4%</td>
+            <td class="text-right text-success font-bold" data-order="50.85">+50.9%</td>
+            <td class="text-right font-mono" data-order="6.0">+6.0%</td>
+            <td class="text-right font-mono" data-order="268.4">268.4억</td>
+            <td class="text-center" data-order="0.97"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.97)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">71</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=180640" target="_blank" class="stock-link">
+                    <strong>한진칼</strong> <small class="text-muted">(180640)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="63"><span class="badge badge-silver">⭐ 63점</span></td>
+            <td class="text-right font-mono font-bold" data-order="9353394727500">9조 3,533억</td>
+            <td class="text-right font-bold">140,500원</td>
+            <td class="text-center" data-order="84"><span class="badge badge-high">84</span></td>
+            <td class="text-right text-warning font-bold" data-order="-18.79">-18.8%</td>
+            <td class="text-right text-success font-bold" data-order="49.63">+49.6%</td>
+            <td class="text-right font-mono" data-order="16.2">+16.2%</td>
+            <td class="text-right font-mono" data-order="116.4">116.4억</td>
+            <td class="text-center" data-order="0.96"><span class="badge badge-vcp-normal">🟡 양호</span> <small class="text-muted">(0.96)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">72</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=000370" target="_blank" class="stock-link">
+                    <strong>한화손해보험</strong> <small class="text-muted">(000370)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="62"><span class="badge badge-silver">⭐ 62점</span></td>
+            <td class="text-right font-mono font-bold" data-order="888383143150">8,883억원</td>
+            <td class="text-right font-bold">7,690원</td>
+            <td class="text-center" data-order="88"><span class="badge badge-high">88</span></td>
+            <td class="text-right text-warning font-bold" data-order="-17.31">-17.3%</td>
+            <td class="text-right text-success font-bold" data-order="50.78">+50.8%</td>
+            <td class="text-right font-mono" data-order="28.4">+28.4%</td>
+            <td class="text-right font-mono" data-order="72.1">72.1억</td>
+            <td class="text-center" data-order="1.17"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.17)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">73</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=004770" target="_blank" class="stock-link">
+                    <strong>써니전자</strong> <small class="text-muted">(004770)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="62"><span class="badge badge-silver">⭐ 62점</span></td>
+            <td class="text-right font-mono font-bold" data-order="71192413190">711억원</td>
+            <td class="text-right font-bold">2,005원</td>
+            <td class="text-center" data-order="87"><span class="badge badge-high">87</span></td>
+            <td class="text-right text-warning font-bold" data-order="-15.58">-15.6%</td>
+            <td class="text-right text-success font-bold" data-order="41.4">+41.4%</td>
+            <td class="text-right font-mono" data-order="28.4">+28.4%</td>
+            <td class="text-right font-mono" data-order="93.9">93.9억</td>
+            <td class="text-center" data-order="1.93"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.93)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">74</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=457600" target="_blank" class="stock-link">
+                    <strong>벡트</strong> <small class="text-muted">(457600)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="61"><span class="badge badge-silver">⭐ 61점</span></td>
+            <td class="text-right font-mono font-bold" data-order="59559087500">595억원</td>
+            <td class="text-right font-bold">4,305원</td>
+            <td class="text-center" data-order="96"><span class="badge badge-super">★ 96</span></td>
+            <td class="text-right text-warning font-bold" data-order="-21.3">-21.3%</td>
+            <td class="text-right text-success font-bold" data-order="181.93">+181.9%</td>
+            <td class="text-right font-mono" data-order="98.4">+98.4%</td>
+            <td class="text-right font-mono" data-order="7.1">7.1억</td>
+            <td class="text-center" data-order="1.25"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.25)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">75</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=280360" target="_blank" class="stock-link">
+                    <strong>롯데웰푸드</strong> <small class="text-muted">(280360)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kospi">KOSPI</span></td>
+            <td class="text-center" data-order="56"><span class="badge badge-silver">⭐ 56점</span></td>
+            <td class="text-right font-mono font-bold" data-order="1144128548200">1조 1,441억</td>
+            <td class="text-right font-bold">125,000원</td>
+            <td class="text-center" data-order="83"><span class="badge badge-high">83</span></td>
+            <td class="text-right text-warning font-bold" data-order="-15.88">-15.9%</td>
+            <td class="text-right text-success font-bold" data-order="36.02">+36.0%</td>
+            <td class="text-right font-mono" data-order="34.7">+34.7%</td>
+            <td class="text-right font-mono" data-order="44.4">44.4억</td>
+            <td class="text-center" data-order="1.16"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.16)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">76</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=162300" target="_blank" class="stock-link">
+                    <strong>신스틸</strong> <small class="text-muted">(162300)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="53"><span class="badge badge-silver">⭐ 53점</span></td>
+            <td class="text-right font-mono font-bold" data-order="90407612760">904억원</td>
+            <td class="text-right font-bold">2,185원</td>
+            <td class="text-center" data-order="84"><span class="badge badge-high">84</span></td>
+            <td class="text-right text-warning font-bold" data-order="-23.6">-23.6%</td>
+            <td class="text-right text-success font-bold" data-order="56.07">+56.1%</td>
+            <td class="text-right font-mono" data-order="19.7">+19.7%</td>
+            <td class="text-right font-mono" data-order="132.9">132.9억</td>
+            <td class="text-center" data-order="1.41"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.41)</small></td>
+        </tr>
+        
+
+        <tr>
+            <td class="text-center font-bold">77</td>
+            <td>
+                <a href="https://finance.naver.com/item/main.naver?code=950190" target="_blank" class="stock-link">
+                    <strong>고스트스튜디오</strong> <small class="text-muted">(950190)</small>
+                    <span class="external-icon">↗</span>
+                </a>
+            </td>
+            <td class="text-center"><span class="market-tag market-kosdaq">KOSDAQ</span></td>
+            <td class="text-center" data-order="51"><span class="badge badge-silver">⭐ 51점</span></td>
+            <td class="text-right font-mono font-bold" data-order="125614619350">1,256억원</td>
+            <td class="text-right font-bold">9,680원</td>
+            <td class="text-center" data-order="75"><span class="badge badge-normal">75</span></td>
+            <td class="text-right text-warning font-bold" data-order="-13.8">-13.8%</td>
+            <td class="text-right text-success font-bold" data-order="34.44">+34.4%</td>
+            <td class="text-right font-mono" data-order="4.2">+4.2%</td>
+            <td class="text-right font-mono" data-order="14.6">14.6억</td>
+            <td class="text-center" data-order="1.35"><span class="badge badge-muted">⚪ 보통</span> <small class="text-muted">(1.35)</small></td>
+        </tr>
+        
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#screenerTable').DataTable({
+                pageLength: 30,
+                order: [[3, 'desc']], // 3번 컬럼(SEPA종합점수) 기본 내림차순 정렬
+                language: {
+                    search: "종목 검색:",
+                    lengthMenu: "_MENU_ 개씩 보기",
+                    info: "총 _TOTAL_개 중 _START_ ~ _END_ 표시",
+                    paginate: {
+                        first: "처음",
+                        last: "마지막",
+                        next: "다음",
+                        previous: "이전"
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
