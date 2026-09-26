@@ -1,4 +1,4 @@
-"""마크 미너비니 스크리너 히스토리 추적기 (연속 통과 일수, 신규 편입, 조건 이탈 종목 감지)"""
+"""마크 미너비니 스크리너 히스토리 추적기 (연속 통과 일수, 신규 편입, 조건 이탈 종목 감지 - 시장별 완전 분리)"""
 
 from __future__ import annotations
 
@@ -7,43 +7,61 @@ import os
 import pandas as pd
 
 HISTORY_DIR = "history"
-LOG_FILE = os.path.join(HISTORY_DIR, "history_log.json")
 
 
-def load_history_log() -> dict:
-    """누적 히스토리 로그를 불러옵니다."""
-    if os.path.exists(LOG_FILE):
+def get_log_file(market_type: str = "KR") -> str:
+    m = market_type.lower()
+    return os.path.join(HISTORY_DIR, f"history_{m}_log.json")
+
+
+def load_history_log(market_type: str = "KR") -> dict:
+    """누적 히스토리 로그를 시장별로 불러옵니다."""
+    log_file = get_log_file(market_type)
+    # 기존 단일 파일(history_log.json) 호환
+    if not os.path.exists(log_file) and market_type.upper() == "KR":
+        legacy_file = os.path.join(HISTORY_DIR, "history_log.json")
+        if os.path.exists(legacy_file):
+            log_file = legacy_file
+
+    if os.path.exists(log_file):
         try:
-            with open(LOG_FILE, "r", encoding="utf-8") as f:
+            with open(log_file, "r", encoding="utf-8") as f:
                 return json.load(f)
         except Exception:
             pass
     return {}
 
 
-def save_history_log(log_data: dict) -> None:
-    """누적 히스토리 로그를 저장합니다."""
+def save_history_log(log_data: dict, market_type: str = "KR") -> None:
+    """누적 히스토리 로그를 시장별로 저장합니다."""
     os.makedirs(HISTORY_DIR, exist_ok=True)
-    with open(LOG_FILE, "w", encoding="utf-8") as f:
+    log_file = get_log_file(market_type)
+    with open(log_file, "w", encoding="utf-8") as f:
         json.dump(log_data, f, ensure_ascii=False, indent=2)
 
 
 def track_daily_changes(
-    today_df: pd.DataFrame, today_str: str
+    today_df: pd.DataFrame, today_str: str, market_type: str = "KR"
 ) -> tuple[pd.DataFrame, list[dict], list[dict]]:
     """일자별 스크리닝 결과를 비교하여 신규 편입, 이탈 종목, 연속 통과 일수를 계산합니다.
     
+    Args:
+        today_df: 당일 스크리닝 통과 종목 데이터프레임
+        today_str: 'YYYY-MM-DD' 형식 일자
+        market_type: 'KR' (국내) 또는 'US' (미국)
+        
     Returns:
         (updated_df, new_entrants, dropped_stocks)
     """
     os.makedirs(HISTORY_DIR, exist_ok=True)
-    history_log = load_history_log()
+    m = market_type.upper()
+    history_log = load_history_log(m)
 
     # 직전 실행 정보 조회
     last_run_date = history_log.get("_last_run_date")
     active_stocks = history_log.get("active_stocks", {})  # {code: {"name": ..., "days": N, ...}}
 
-    current_codes = set(today_df["code"].tolist()) if not today_df.empty else set()
+    current_codes = set(today_df["code"].astype(str).tolist()) if not today_df.empty else set()
     prev_codes = set(active_stocks.keys())
 
     new_entrants = []
@@ -55,8 +73,8 @@ def track_daily_changes(
 
     # 1. 오늘 통과한 종목 분석 (신규 편입 또는 연속 유지)
     for _, row in today_df.iterrows():
-        code = row["code"]
-        name = row["name"]
+        code = str(row["code"])
+        name = str(row["name"])
         sepa_score = row.get("sepa_score", 0)
         close = row.get("close", 0)
         pct_high = row.get("pct_from_52w_high", 0)
@@ -107,16 +125,17 @@ def track_daily_changes(
         })
 
     # 3. DataFrame에 일수 및 상태 컬럼 추가
-    today_df["consecutive_days"] = today_df["code"].map(consecutive_days_map)
-    today_df["status_label"] = today_df["code"].map(status_label_map)
+    today_df["consecutive_days"] = today_df["code"].astype(str).map(consecutive_days_map)
+    today_df["status_label"] = today_df["code"].astype(str).map(status_label_map)
 
-    # 4. 일자별 CSV 저장 (히스토리 보관)
-    history_csv = os.path.join(HISTORY_DIR, f"minervini_screened_{today_str.replace('-', '')}.csv")
+    # 4. 일자별 CSV 저장 (시장별 분리 보관)
+    clean_date = today_str.replace("-", "")
+    history_csv = os.path.join(HISTORY_DIR, f"minervini_screened_{m.lower()}_{clean_date}.csv")
     today_df.to_csv(history_csv, index=False, encoding="utf-8-sig")
 
     # 5. 히스토리 로그 갱신
     history_log["_last_run_date"] = today_str
     history_log["active_stocks"] = new_active_stocks
-    save_history_log(history_log)
+    save_history_log(history_log, m)
 
     return today_df, new_entrants, dropped_stocks
