@@ -49,10 +49,54 @@ def format_marcap(val: float | int) -> str:
     return f"{eok:,}억원"
 
 
+def fetch_kr_stocks_from_naver(min_marcap: int = 500_000_000_000) -> pd.DataFrame:
+    """KRX 공시 사이트 접속 장애 시 네이버 증시 API를 통해 시총 5,000억원 이상 종목을 신속하게 수집합니다."""
+    import requests
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+    stocks = []
+    for mkt in ["KOSPI", "KOSDAQ"]:
+        page = 1
+        while True:
+            try:
+                url = f"https://m.stock.naver.com/api/stocks/marketValue/{mkt}?page={page}&pageSize=100"
+                r = requests.get(url, headers=headers, timeout=5)
+                if r.status_code != 200: break
+                items = r.json().get("stocks", [])
+                if not items: break
+                stop = False
+                for item in items:
+                    marcap = int(item.get("marketValueRaw") or 0)
+                    if marcap < min_marcap:
+                        stop = True
+                        break
+                    stocks.append({
+                        "Code": str(item["itemCode"]).zfill(6),
+                        "Name": item["stockName"],
+                        "Market": mkt,
+                        "Marcap": marcap,
+                        "Close": int(item.get("closePriceRaw") or 0)
+                    })
+                if stop or page >= 15:
+                    break
+                page += 1
+            except Exception:
+                break
+    return pd.DataFrame(stocks)
+
+
 def filter_kr_universe(min_price: int = 1000, min_marcap: int = 500_000_000_000) -> pd.DataFrame:
     """KRX 상장 종목 중 투자 부적합 종목(스팩, 우선주, ETF, 관리종목 등) 및 시총 5,000억원 미만을 필터링합니다."""
     print("▶ KRX 전체 종목 목록 수집 및 유니버스 필터링 중 (시총 5,000억 이상 대형/중형 주도주)...")
-    stocks = fdr.StockListing("KRX")
+    stocks = None
+    try:
+        stocks = fdr.StockListing("KRX")
+    except Exception as e:
+        print(f"  ⚠️ KRX 서버 응답 제한 감지. 고속 네이버 증시 API로 자동 전환합니다...")
+        stocks = fetch_kr_stocks_from_naver(min_marcap=min_marcap)
+
+    if stocks is None or stocks.empty:
+        stocks = fetch_kr_stocks_from_naver(min_marcap=min_marcap)
+
     stocks = stocks[stocks["Market"].isin(["KOSPI", "KOSDAQ", "KOSDAQ GLOBAL"])].copy()
 
     # 1. 시가총액 5,000억원 이상 필터 (승률 62.7% 고승률 주도주 전략)
@@ -217,6 +261,82 @@ def calculate_kr_sepa_score(row: pd.Series) -> tuple[int, str]:
     return total_score, grade
 
 
+def fetch_kr_investor_flow(codes: list[str]) -> dict[str, dict]:
+    """국내 선별 종목들의 최근 5일/20일 외인/기관 수급 및 지분율을 병렬 수집합니다."""
+    import requests
+    import pickle
+
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+
+    # 투신/사모 세부 캐시 로드 (있을 경우)
+    detailed_cache = {}
+    detailed_path = os.path.join(HISTORY_DIR, "detailed_investor_cache_2025.pkl")
+    if os.path.exists(detailed_path):
+        try:
+            with open(detailed_path, "rb") as f:
+                detailed_cache = pickle.load(f)
+        except Exception:
+            detailed_cache = {}
+
+    def fetch_single_flow(code: str) -> dict:
+        info = {
+            "code": code,
+            "foreign_5d": 0.0,
+            "organ_5d": 0.0,
+            "foreign_20d": 0.0,
+            "organ_20d": 0.0,
+            "foreign_hold_ratio": "-",
+            "consec_organ_sell": 0,
+            "trust_20d": None,
+            "pef_20d": None,
+        }
+        try:
+            url = f"https://m.stock.naver.com/api/stock/{code}/trend?page=1&pageSize=20"
+            r = requests.get(url, headers=headers, timeout=5)
+            if r.status_code == 200:
+                data = r.json()
+                if isinstance(data, list) and len(data) > 0:
+                    f_5d = sum(int(x.get("foreignerPureBuyQuant", "0").replace(",", "")) * int(x.get("closePrice", "0").replace(",", "")) for x in data[:5]) / 1e8
+                    o_5d = sum(int(x.get("organPureBuyQuant", "0").replace(",", "")) * int(x.get("closePrice", "0").replace(",", "")) for x in data[:5]) / 1e8
+                    f_20d = sum(int(x.get("foreignerPureBuyQuant", "0").replace(",", "")) * int(x.get("closePrice", "0").replace(",", "")) for x in data) / 1e8
+                    o_20d = sum(int(x.get("organPureBuyQuant", "0").replace(",", "")) * int(x.get("closePrice", "0").replace(",", "")) for x in data) / 1e8
+                    hold_ratio = data[0].get("foreignerHoldRatio", "-")
+
+                    consec_sell = 0
+                    for x in data:
+                        if int(x.get("organPureBuyQuant", "0").replace(",", "")) < 0:
+                            consec_sell += 1
+                        else:
+                            break
+
+                    info["foreign_5d"] = round(f_5d, 1)
+                    info["organ_5d"] = round(o_5d, 1)
+                    info["foreign_20d"] = round(f_20d, 1)
+                    info["organ_20d"] = round(o_20d, 1)
+                    info["foreign_hold_ratio"] = hold_ratio
+                    info["consec_organ_sell"] = consec_sell
+        except Exception:
+            pass
+
+        # 투신/사모 세부 데이터 확인
+        if code in detailed_cache:
+            df_c = detailed_cache[code]
+            if df_c is not None and not df_c.empty:
+                t_sum = round(float(df_c["투신"].iloc[-20:].sum() / 1e8), 1) if "투신" in df_c.columns else 0.0
+                p_sum = round(float(df_c["사모"].iloc[-20:].sum() / 1e8), 1) if "사모" in df_c.columns else 0.0
+                info["trust_20d"] = t_sum
+                info["pef_20d"] = p_sum
+
+        return info
+
+    flow_map = {}
+    with ThreadPoolExecutor(max_workers=min(12, len(codes) or 1)) as ex:
+        results = list(ex.map(fetch_single_flow, codes))
+        for res in results:
+            flow_map[res["code"]] = res
+    return flow_map
+
+
 def run_kr_minervini_screener(
     min_rs: int = 70, min_trading_val: float = 5.0, min_price: int = 1000, max_workers: int = 20
 ) -> tuple[pd.DataFrame, list[dict], list[dict]]:
@@ -260,6 +380,12 @@ def run_kr_minervini_screener(
     screened_df["sepa_grade"] = [s[1] for s in scores_grades]
     screened_df = screened_df.sort_values(by=["sepa_score", "rs_rating", "pct_from_52w_high"], ascending=[False, False, False]).reset_index(drop=True)
 
+    # 통과된 상위 종목들의 수급(외인/기관/투신/사모) 보조 정보 수집 (순위는 고승률 VCP 기준 그대로 유지)
+    print("▶ 선별된 주도주의 메이저 수급 동향(외인/기관/투신/사모) 보조 지표 수집 중...")
+    flow_map = fetch_kr_investor_flow(screened_df["code"].tolist())
+    for col in ["foreign_5d", "organ_5d", "foreign_20d", "organ_20d", "foreign_hold_ratio", "consec_organ_sell", "trust_20d", "pef_20d"]:
+        screened_df[col] = screened_df["code"].map(lambda c: flow_map.get(c, {}).get(col))
+
     screened_df, new_e, dropped = track_daily_changes(screened_df, today_str, market_type="KR")
     print(f"\n🎉 국내 증시 스크리닝 완료! ({time.time() - start_time:.1f}초, 통과: {len(screened_df)}개 | 신규: {len(new_e)}개 | 이탈: {len(dropped)}개)\n")
     return screened_df, new_e, dropped
@@ -281,13 +407,26 @@ def print_kr_summary_table(df: pd.DataFrame, max_rows: int = 25) -> None:
     display_df["20일거래대금"] = display_df["avg_trading_val_20d"].apply(lambda x: f"{x:.1f}억")
     display_df["VCP축소"] = display_df["vcp_ratio"].apply(lambda x: "🟢 수축" if x < 0.85 else ("🟡 양호" if x <= 1.0 else "⚪ 보통"))
 
-    cols = ["순위", "종목", "market", "상태/연속", "추천등급", "종합점수", "시가총액", "현재가(원)", "RS점수", "52주고점대비", "20일거래대금", "VCP축소"]
-    renamed = display_df.rename(columns={"market": "시장"})[["순위", "종목", "시장", "상태/연속", "추천등급", "종합점수", "시가총액", "현재가(원)", "RS점수", "52주고점대비", "20일거래대금", "VCP축소"]]
-    print("=" * 140)
+    def format_flow_label(r):
+        f5 = float(r.get("foreign_5d") or 0)
+        o5 = float(r.get("organ_5d") or 0)
+        cs = int(r.get("consec_organ_sell") or 0)
+        if f5 > 0 and o5 > 0: return "🔥 쌍끌이"
+        elif o5 > 0: return "🟢 기관매수"
+        elif f5 > 0: return "🔵 외인매수"
+        elif cs >= 3: return f"⚠️ 기관{cs}일매도"
+        elif o5 < 0 and f5 < 0: return "⚪ 개인매수"
+        return "⚪ 관망"
+
+    display_df["메이저수급"] = display_df.apply(format_flow_label, axis=1)
+
+    cols = ["순위", "종목", "market", "상태/연속", "추천등급", "종합점수", "시가총액", "현재가(원)", "RS점수", "52주고점대비", "20일거래대금", "VCP축소", "메이저수급"]
+    renamed = display_df.rename(columns={"market": "시장"})[["순위", "종목", "시장", "상태/연속", "추천등급", "종합점수", "시가총액", "현재가(원)", "RS점수", "52주고점대비", "20일거래대금", "VCP축소", "메이저수급"]]
+    print("=" * 150)
     print(f" 🏆 마크 미너비니 SEPA 국내 주식 상위 추천 종목 (상위 {len(display_df)}개 표시) 🏆")
-    print("=" * 140)
+    print("=" * 150)
     print(tabulate(renamed, headers="keys", tablefmt="simple", showindex=False))
-    print("=" * 140)
+    print("=" * 150)
 
 
 def save_latest_cache(market_type: str, df: pd.DataFrame, new_e: list, drop: list) -> None:
