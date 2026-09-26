@@ -11,6 +11,7 @@ import urllib.parse
 import webbrowser
 
 import FinanceDataReader as fdr
+import pandas as pd
 
 # Windows 콘솔 UTF-8 설정
 if sys.stdout.encoding != "utf-8":
