@@ -322,6 +322,7 @@ def main() -> None:
     parser.add_argument("--market", type=str, default="KR", choices=["KR", "US", "ALL"], help="대상 시장: KR(국내), US(미국), ALL(전체)")
     parser.add_argument("--min-rs", type=int, default=70, help="최소 RS 상대강도 점수 (기본 70)")
     parser.add_argument("--min-cap", type=float, default=300_000_000, help="미국 주식 최소 시가총액 (기본 $300M = 3억 달러)")
+    parser.add_argument("--min-val", type=float, default=5.0, help="미국 주식 최소 주가 (기본 $5.0 이상)")
     parser.add_argument("--workers", type=int, default=20, help="병렬 다운로드 스레드 수")
     parser.add_argument("--no-browser", action="store_true", help="브라우저 자동 열기 끄기")
 
@@ -359,7 +360,7 @@ def main() -> None:
 
     # 2. 미국 주식 스캔
     if args.market in ["US", "ALL"]:
-        us_df, us_new, us_drop = run_us_minervini_screener(min_rs=args.min_rs, min_marcap=args.min_cap, max_workers=args.workers)
+        us_df, us_new, us_drop = run_us_minervini_screener(min_rs=args.min_rs, min_marcap=args.min_cap, min_price=args.min_val, max_workers=args.workers)
         if not us_df.empty:
             print_us_summary_table(us_df, max_rows=25)
             save_latest_cache("us", us_df, us_new, us_drop)
