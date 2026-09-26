@@ -36,8 +36,9 @@ def format_us_volume(val: float) -> str:
 
 def build_tab_rows(df: pd.DataFrame, is_us: bool = False) -> str:
     """각 시장별 매수 스크리닝 테이블 행 HTML을 생성합니다."""
+    colspan = "13" if is_us else "14"
     if df.empty:
-        return '<tr><td colspan="13" class="text-center py-4">조건을 통과한 종목이 없습니다.</td></tr>'
+        return f'<tr><td colspan="{colspan}" class="text-center py-4">조건을 통과한 종목이 없습니다.</td></tr>'
 
     rows_html = []
     for idx, r in df.iterrows():
@@ -66,6 +67,7 @@ def build_tab_rows(df: pd.DataFrame, is_us: bool = False) -> str:
             price_str = f"${float(r['close']):,.2f}"
             marcap_str = format_us_marcap(r.get("marcap", 0))
             trading_val_str = format_us_volume(r.get("avg_trading_val_20d", 0))
+            flow_cell = ""
         else:
             chart_url = f"https://finance.naver.com/item/main.naver?code={code}"
             link_html = f"""
@@ -77,6 +79,40 @@ def build_tab_rows(df: pd.DataFrame, is_us: bool = False) -> str:
             price_str = f"{int(r['close']):,}원"
             marcap_str = format_kr_marcap(r.get("marcap", 0))
             trading_val_str = f"{float(r.get('avg_trading_val_20d', 0)):.1f}억"
+
+            # 국내 주식 스마트머니(외인/기관/투신/사모) 보조 지표 배지
+            f_5d = float(r.get("foreign_5d") or 0)
+            o_5d = float(r.get("organ_5d") or 0)
+            f_20d = float(r.get("foreign_20d") or 0)
+            o_20d = float(r.get("organ_20d") or 0)
+            hold_ratio = str(r.get("foreign_hold_ratio") or "-")
+            consec_sell = int(r.get("consec_organ_sell") or 0)
+            t_20d = r.get("trust_20d")
+            p_20d = r.get("pef_20d")
+
+            if f_5d > 0 and o_5d > 0:
+                flow_badge = '<span class="badge" style="background:rgba(235,87,87,0.22); color:#ff7b72; border:1px solid #f85149;">🔥 쌍끌이 매수</span>'
+            elif o_5d > 0:
+                flow_badge = '<span class="badge" style="background:rgba(63,185,80,0.2); color:#3fb950; border:1px solid #2ea043;">🟢 기관 순매수</span>'
+            elif f_5d > 0:
+                flow_badge = '<span class="badge" style="background:rgba(88,166,255,0.2); color:#58a6ff; border:1px solid #388bfd;">🔵 외인 순매수</span>'
+            elif consec_sell >= 3:
+                flow_badge = f'<span class="badge" style="background:rgba(248,81,73,0.25); color:#ff7b72; border:1px solid #f85149;">⚠️ 기관 {consec_sell}일 매도</span>'
+            elif o_5d < 0 and f_5d < 0:
+                flow_badge = '<span class="badge" style="background:rgba(139,148,158,0.2); color:#8b949e; border:1px solid #484f58;">⚪ 개인 매수</span>'
+            else:
+                flow_badge = '<span class="badge" style="background:rgba(139,148,158,0.15); color:#8b949e;">⚪ 관망</span>'
+
+            f_5d_str = f"+{f_5d:,.0f}억" if f_5d > 0 else f"{f_5d:,.0f}억"
+            o_5d_str = f"+{o_5d:,.0f}억" if o_5d > 0 else f"{o_5d:,.0f}억"
+            sub_text = f"<small class='text-muted' style='display:block; font-size:11px; margin-top:3px;'>외 {f_5d_str} | 기 {o_5d_str}</small>"
+
+            tooltip_parts = [f"최근 20일 누적: 외인 {f_20d:+,.0f}억 / 기관 {o_20d:+,.0f}억", f"외인 지분율: {hold_ratio}"]
+            if t_20d is not None and pd.notna(t_20d) and (t_20d != 0 or (p_20d is not None and p_20d != 0)):
+                tooltip_parts.append(f"투신(20일): {t_20d:+,.0f}억, 사모(20일): {p_20d:+,.0f}억")
+            tooltip = " | ".join(tooltip_parts)
+
+            flow_cell = f'<td class="text-center" data-order="{f_5d + o_5d}" title="{tooltip}">{flow_badge}{sub_text}</td>'
 
         status_badge = (
             f'<span class="badge badge-new">{status_label}</span>'
@@ -125,6 +161,7 @@ def build_tab_rows(df: pd.DataFrame, is_us: bool = False) -> str:
             <td class="text-right font-mono" data-order="{roc_3m}">{roc_3m:+.1f}%</td>
             <td class="text-right font-mono">{trading_val_str}</td>
             <td class="text-center" data-order="{vcp}">{vcp_badge} <small class="text-muted">({vcp:.2f})</small></td>
+            {flow_cell}
         </tr>
         """
         rows_html.append(row)
@@ -799,7 +836,8 @@ def generate_unified_dashboard(
                 1. <strong>중대형 주도주 집중:</strong> 시가총액 5,000억원 이상 기관/외인 수급이 단단한 주도 업종(조선, 방산, 전력, 바이오 등) 집중 공략<br>
                 2. <strong>추격 매수 엄격 금지 (Ext ≤ 1.08):</strong> 20일선에서 8% 이상 과열 급등한 종목은 매수하지 않고, <strong>20일선 눌림목 & VCP 변동성 수축(≤0.88)</strong> 타점에서만 진입<br>
                 3. <strong>개별 시장 레짐 연동:</strong> 코스피 종목은 코스피 50일선 위, 코스닥 종목은 코스닥 50일선 위에서만 매수<br>
-                4. <strong>3R 본전 보호:</strong> 손절폭(-7.5%)의 3배인 +22.5% 수익 달성 시 스탑을 매수가로 올려 원금을 영구 차단하고 큰 시세를 끝까지 향유
+                4. <strong>3R 본전 보호:</strong> 손절폭(-7.5%)의 3배인 +22.5% 수익 달성 시 스탑을 매수가로 올려 원금을 영구 차단하고 큰 시세를 끝까지 향유<br>
+                5. <strong>스마트머니 수급 참고(UI):</strong> 종목 우측 <strong>[메이저 수급]</strong> 컬럼에서 외인/기관 <strong>🔥 쌍끌이 매수</strong> 또는 <strong>🟢 기관 매수</strong> 동반 종목은 돌파 지지력이 우수하므로 매수 분할 진입 시 긍정적 보조 지표로 참고하세요. (반대로 메이저 기관 3일 이상 연속 매도 ⚠️ 종목은 추격 매수 자제)
             </div>
             <div class="change-banner" style="margin-bottom: 16px;">
                 <div class="change-box change-new">
@@ -826,6 +864,7 @@ def generate_unified_dashboard(
                             <th class="text-right">3개월수익</th>
                             <th class="text-right">20일거래대금</th>
                             <th class="text-center">VCP변동성</th>
+                            <th class="text-center">메이저 수급 (5일)</th>
                         </tr>
                     </thead>
                     <tbody>
