@@ -153,3 +153,23 @@ def send_telegram_alert(
     except Exception as e:
         print(f"❌ 텔레그램 발송 중 네트워크 오류: {e}")
         return False
+
+
+def send_telegram_text(text: str) -> bool:
+    """임의의 텍스트 메시지를 텔레그램으로 즉시 발송합니다."""
+    token, chat_id = load_telegram_config()
+    if not token or not chat_id:
+        return False
+
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    payload = {
+        "chat_id": chat_id,
+        "text": text,
+        "disable_web_page_preview": True,
+    }
+    try:
+        r = requests.post(url, json=payload, timeout=10)
+        return r.status_code == 200
+    except Exception:
+        return False
+
