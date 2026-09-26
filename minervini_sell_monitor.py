@@ -151,6 +151,26 @@ def analyze_single_position(pos: dict) -> dict | None:
             urgency = "INFO"
             action_plan = "단기 모멘텀 둔화. 50일선 지지 여부를 주시하며 1/3 분할 매도 고려."
 
+        # 메이저 기관 수급 이탈 체크 (국내 주식 참고용)
+        if market == "KR":
+            try:
+                import requests
+                url = f"https://m.stock.naver.com/api/stock/{code}/trend?page=1&pageSize=10"
+                r_flow = requests.get(url, headers={"User-Agent": "Mozilla/5.0"}, timeout=3)
+                if r_flow.status_code == 200:
+                    d_list = r_flow.json()
+                    if isinstance(d_list, list) and d_list:
+                        cs = 0
+                        for d in d_list:
+                            if int(d.get("organPureBuyQuant", "0").replace(",", "")) < 0:
+                                cs += 1
+                            else:
+                                break
+                        if cs >= 3:
+                            action_plan += f" ⚠️ [수급 주의] 기관 {cs}일 연속 매도세 — 트레일링 스탑 준수."
+            except Exception:
+                pass
+
         return {
             "code": code,
             "name": name,
