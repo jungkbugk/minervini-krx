@@ -569,5 +569,5 @@ def generate_unified_dashboard(
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(html_content)
 
-    print(f"🌐 한/미 통합 대시보드 생성 완료: {output_path}")
+    print(f"[*] 한/미 통합 대시보드 생성 완료: {output_path}")
     return output_path
