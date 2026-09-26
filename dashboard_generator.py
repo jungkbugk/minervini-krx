@@ -268,6 +268,51 @@ def generate_unified_dashboard(
     sell_signals = sell_signals or []
     urgent_sell_count = sum(1 for s in sell_signals if s.get("urgency") in ["CRITICAL", "WARNING"])
 
+    # 시장 레짐 필터 데이터 로드
+    try:
+        from market_filter import get_market_regime, build_market_regime_banner
+        regime_data = get_market_regime()
+    except Exception:
+        regime_data = {}
+
+    kr_regime = regime_data.get("kr", {})
+    us_regime = regime_data.get("us", {})
+    kr_can_buy = kr_regime.get("can_buy", True)
+    us_can_buy = us_regime.get("can_buy", True)
+
+    kr_regime_banner = build_market_regime_banner(regime_data, "KR") if "build_market_regime_banner" in locals() else ""
+    us_regime_banner = build_market_regime_banner(regime_data, "US") if "build_market_regime_banner" in locals() else ""
+
+    kr_tab_badge = '<span class="badge badge-safe" style="font-size:11px; margin-left:6px;">🟢 매수가능</span>' if kr_can_buy else '<span class="badge badge-critical" style="font-size:11px; margin-left:6px;">🚨 조정장(매수금지)</span>'
+    us_tab_badge = '<span class="badge badge-safe" style="font-size:11px; margin-left:6px;">🟢 매수가능</span>' if us_can_buy else '<span class="badge badge-critical" style="font-size:11px; margin-left:6px;">🚨 조정장(매수금지)</span>'
+
+    kr_regime_summary = '<span style="color:#3fb950; font-weight:bold;">🟢 50MA 상회(정상)</span>' if kr_can_buy else '<span style="color:#f85149; font-weight:bold;">🚨 50MA 하회(조정장)</span>'
+    us_regime_summary = '<span style="color:#3fb950; font-weight:bold;">🟢 50MA 상회(정상)</span>' if us_can_buy else '<span style="color:#f85149; font-weight:bold;">🚨 50MA 하회(조정장)</span>'
+
+    kr_block_warning = "" if kr_can_buy else """
+    <div style="background:rgba(248,81,73,0.18); border:2px solid #f85149; border-radius:10px; padding:14px 18px; margin-bottom:16px; color:#ff7b72; display:flex; align-items:center; gap:12px;">
+        <span style="font-size:24px;">🚫</span>
+        <div>
+            <strong style="font-size:15px; color:#fff;">[신규 매수 차단 알림] 코스피/코스닥 지수 50일선 이탈 — 현금 100% 보존 구간</strong>
+            <p style="margin:4px 0 0 0; font-size:13px; color:#c9d1d9;">
+                현재 국내 시장 지수가 50일 이동평균선 아래로 하회하여 하방 압력이 높습니다. 아래 통과 종목들은 <strong>관심 종목(Watchlist)</strong>으로만 등록하시고, <strong>지수가 50일선을 회복할 때까지 신규 매수를 자제하세요.</strong>
+            </p>
+        </div>
+    </div>
+    """
+
+    us_block_warning = "" if us_can_buy else """
+    <div style="background:rgba(248,81,73,0.18); border:2px solid #f85149; border-radius:10px; padding:14px 18px; margin-bottom:16px; color:#ff7b72; display:flex; align-items:center; gap:12px;">
+        <span style="font-size:24px;">🚫</span>
+        <div>
+            <strong style="font-size:15px; color:#fff;">[신규 매수 차단 알림] 미국 지수 50일선 이탈 — 현금 관망 권장</strong>
+            <p style="margin:4px 0 0 0; font-size:13px; color:#c9d1d9;">
+                현재 미국 시장 지수가 50일 이동평균선 아래로 하회하고 있습니다. 지수가 50일선을 회복하기 전까지는 신규 매수를 자제하고 리스크를 관리하세요.
+            </p>
+        </div>
+    </div>
+    """
+
     kr_rows = build_tab_rows(kr_df, is_us=False)
     us_rows = build_tab_rows(us_df, is_us=True)
     sell_rows = build_sell_rows(sell_signals)
@@ -709,12 +754,13 @@ def generate_unified_dashboard(
             <h1>🚀 마크 미너비니 SEPA 트렌드 템플릿 통합 대시보드</h1>
             <p>
                 <strong>업데이트:</strong> {today_str} |
-                <strong>국내 통과:</strong> <span class="text-success font-bold">{len(kr_df)}개</span> |
-                <strong>미국 통과:</strong> <span class="text-success font-bold">{len(us_df)}개</span> |
+                <strong>국내 통과:</strong> <span class="text-success font-bold">{len(kr_df)}개</span> ({kr_regime_summary}) |
+                <strong>미국 통과:</strong> <span class="text-success font-bold">{len(us_df)}개</span> ({us_regime_summary}) |
                 <strong>보유 종목 감시:</strong> <span class="font-bold" style="color:{sell_badge_bg}">{len(sell_signals)}개 (경보 {urgent_sell_count}건)</span>
             </p>
             <div class="score-info-box">
-                🎯 <strong>미너비니 원칙:</strong> 매수 타점 스크리너(1·2탭)로 최상위 모멘텀 종목을 잡고, 매도 감시 엔진(3탭)으로 <strong>-7~8% 손절 & 고점 10% 반락 시 이익보존 매도</strong>를 기계적으로 실행합니다.
+                🎯 <strong>미너비니 원칙:</strong> 매수 타점 스크리너(1·2탭)로 최상위 모멘텀 종목을 잡고, 매도 감시 엔진(3탭)으로 <strong>-7~8% 손절 & 고점 10% 반락 시 이익보존 매도</strong>를 기계적으로 실행합니다.<br>
+                🛡️ <strong>시장 필터:</strong> 지수 50일선 이탈(조정장) 시 <strong>신규 매수를 전면 중단하고 현금 100%를 보존</strong>하여 계좌 손실을 원천 방어합니다.
             </div>
         </div>
 
@@ -723,10 +769,12 @@ def generate_unified_dashboard(
             <button class="tab-btn active" onclick="switchTab('kr')">
                 🇰🇷 국내 주식 스크리너 (KOSPI / KOSDAQ)
                 <span class="tab-badge">{len(kr_df)}개</span>
+                {kr_tab_badge}
             </button>
             <button class="tab-btn" onclick="switchTab('us')">
                 🇺🇸 미국 주식 스크리너 (NASDAQ / NYSE)
                 <span class="tab-badge">{len(us_df)}개</span>
+                {us_tab_badge}
             </button>
             <button class="tab-btn tab-sell-btn" onclick="switchTab('sell')">
                 🛡️ 내 보유종목 매도 감시 (Sell Monitor)
@@ -736,6 +784,8 @@ def generate_unified_dashboard(
 
         <!-- 탭 1: 한국 주식 -->
         <div id="tab-kr" class="tab-content active">
+            {kr_regime_banner}
+            {kr_block_warning}
             <div class="change-banner" style="margin-bottom: 16px;">
                 <div class="change-box change-new">
                     🔥 <strong>오늘 신규 편입 ({len(kr_new)}개):</strong> {kr_new_text}
@@ -772,6 +822,8 @@ def generate_unified_dashboard(
 
         <!-- 탭 2: 미국 주식 -->
         <div id="tab-us" class="tab-content">
+            {us_regime_banner}
+            {us_block_warning}
             <div class="change-banner" style="margin-bottom: 16px;">
                 <div class="change-box change-new">
                     🔥 <strong>오늘 신규 편입 ({len(us_new)}개):</strong> {us_new_text}
@@ -1220,6 +1272,13 @@ def generate_unified_dashboard(
 """
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(html_content)
+
+    if output_path == "index.html":
+        try:
+            with open("minervini_dashboard.html", "w", encoding="utf-8") as f:
+                f.write(html_content)
+        except Exception:
+            pass
 
     print(f"[*] 한/미 스크리너 및 매도 감시 통합 대시보드 생성 완료: {output_path}")
     return output_path
