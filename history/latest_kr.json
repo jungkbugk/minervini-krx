@@ -698,7 +698,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "096530",
@@ -768,7 +768,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "094800",
@@ -873,7 +873,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "192820",
@@ -1048,7 +1048,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "278540",
@@ -1083,7 +1083,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "446770",
@@ -1118,7 +1118,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "007340",
@@ -1188,7 +1188,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "495850",
@@ -1223,7 +1223,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "495050",
@@ -1258,7 +1258,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "028050",
@@ -1328,7 +1328,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "381180",
@@ -1363,7 +1363,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "122640",
@@ -1433,7 +1433,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "041960",
@@ -1503,7 +1503,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "497570",
@@ -1538,7 +1538,7 @@
       "trust_20d": NaN,
       "pef_20d": NaN,
       "consecutive_days": 1,
-      "status_label": "🔥 NEW (1일)"
+      "status_label": "🟢 1일 연속"
     },
     {
       "code": "005830",
@@ -1716,429 +1716,7 @@
       "status_label": "🟢 8일 연속"
     }
   ],
-  "new": [
-    {
-      "code": "315960",
-      "name": "RISE 대형고배당10TR",
-      "close": 79760,
-      "sepa_score": 76,
-      "pct_from_52w_high": -24.15,
-      "vcp_ratio": 0.5,
-      "marcap": 522428000000
-    },
-    {
-      "code": "102780",
-      "name": "KODEX 삼성그룹",
-      "close": 26800,
-      "sepa_score": 74,
-      "pct_from_52w_high": -22.91,
-      "vcp_ratio": 0.53,
-      "marcap": 3425040000000
-    },
-    {
-      "code": "310970",
-      "name": "TIGER MSCI Korea TR",
-      "close": 50960,
-      "sepa_score": 73,
-      "pct_from_52w_high": -23.94,
-      "vcp_ratio": 0.52,
-      "marcap": 4734184000000
-    },
-    {
-      "code": "315930",
-      "name": "KODEX Top5PlusTR",
-      "close": 81010,
-      "sepa_score": 71,
-      "pct_from_52w_high": -23.88,
-      "vcp_ratio": 0.5,
-      "marcap": 972120000000
-    },
-    {
-      "code": "278540",
-      "name": "KODEX MSCI Korea TR",
-      "close": 40370,
-      "sepa_score": 71,
-      "pct_from_52w_high": -23.93,
-      "vcp_ratio": 0.53,
-      "marcap": 2486792000000
-    },
-    {
-      "code": "446770",
-      "name": "ACE 글로벌반도체TOP4 Plus",
-      "close": 81045,
-      "sepa_score": 69,
-      "pct_from_52w_high": -22.7,
-      "vcp_ratio": 0.56,
-      "marcap": 1629004500000
-    },
-    {
-      "code": "496080",
-      "name": "TIGER 코리아밸류업",
-      "close": 32790,
-      "sepa_score": 68,
-      "pct_from_52w_high": -21.61,
-      "vcp_ratio": 0.51,
-      "marcap": 503326500000
-    },
-    {
-      "code": "495850",
-      "name": "KODEX 코리아밸류업",
-      "close": 32750,
-      "sepa_score": 68,
-      "pct_from_52w_high": -21.7,
-      "vcp_ratio": 0.52,
-      "marcap": 681200000000
-    },
-    {
-      "code": "495050",
-      "name": "RISE 코리아밸류업",
-      "close": 32920,
-      "sepa_score": 68,
-      "pct_from_52w_high": -22.06,
-      "vcp_ratio": 0.5,
-      "marcap": 972786000000
-    },
-    {
-      "code": "472150",
-      "name": "TIGER 배당커버드콜액티브",
-      "close": 21290,
-      "sepa_score": 67,
-      "pct_from_52w_high": -22.57,
-      "vcp_ratio": 0.5,
-      "marcap": 2707875100000
-    },
-    {
-      "code": "381180",
-      "name": "TIGER 미국필라델피아반도체나스닥",
-      "close": 44795,
-      "sepa_score": 67,
-      "pct_from_52w_high": -22.43,
-      "vcp_ratio": 0.6,
-      "marcap": 6103318750000
-    },
-    {
-      "code": "390390",
-      "name": "KODEX 미국반도체",
-      "close": 56000,
-      "sepa_score": 66,
-      "pct_from_52w_high": -19.31,
-      "vcp_ratio": 0.64,
-      "marcap": 1352400000000
-    },
-    {
-      "code": "456600",
-      "name": "TIME 글로벌AI인공지능액티브",
-      "close": 60300,
-      "sepa_score": 65,
-      "pct_from_52w_high": -20.96,
-      "vcp_ratio": 0.59,
-      "marcap": 2161152000000
-    },
-    {
-      "code": "497570",
-      "name": "TIGER 미국필라델피아AI반도체나스닥",
-      "close": 22570,
-      "sepa_score": 65,
-      "pct_from_52w_high": -17.97,
-      "vcp_ratio": 0.64,
-      "marcap": 1128500000000
-    }
-  ],
-  "drop": [
-    {
-      "code": "294870",
-      "name": "IPARK현대산업개발",
-      "consecutive_days": 4,
-      "last_close": 23500,
-      "last_score": 78
-    },
-    {
-      "code": "032580",
-      "name": "피델릭스",
-      "consecutive_days": 3,
-      "last_close": 7020,
-      "last_score": 82
-    },
-    {
-      "code": "049430",
-      "name": "코메론",
-      "consecutive_days": 10,
-      "last_close": 23000,
-      "last_score": 78
-    },
-    {
-      "code": "051160",
-      "name": "지어소프트",
-      "consecutive_days": 10,
-      "last_close": 11830,
-      "last_score": 81
-    },
-    {
-      "code": "044820",
-      "name": "코스맥스비티아이",
-      "consecutive_days": 9,
-      "last_close": 25800,
-      "last_score": 75
-    },
-    {
-      "code": "053260",
-      "name": "금강철강",
-      "consecutive_days": 10,
-      "last_close": 7030,
-      "last_score": 67
-    },
-    {
-      "code": "004770",
-      "name": "써니전자",
-      "consecutive_days": 10,
-      "last_close": 2005,
-      "last_score": 62
-    },
-    {
-      "code": "020120",
-      "name": "키다리스튜디오",
-      "consecutive_days": 10,
-      "last_close": 7950,
-      "last_score": 70
-    },
-    {
-      "code": "241770",
-      "name": "메카로",
-      "consecutive_days": 10,
-      "last_close": 41050,
-      "last_score": 79
-    },
-    {
-      "code": "067290",
-      "name": "JW신약",
-      "consecutive_days": 10,
-      "last_close": 3155,
-      "last_score": 67
-    },
-    {
-      "code": "092730",
-      "name": "네오팜",
-      "consecutive_days": 10,
-      "last_close": 23650,
-      "last_score": 68
-    },
-    {
-      "code": "052860",
-      "name": "아이앤씨",
-      "consecutive_days": 10,
-      "last_close": 6790,
-      "last_score": 79
-    },
-    {
-      "code": "002990",
-      "name": "금호건설",
-      "consecutive_days": 10,
-      "last_close": 13040,
-      "last_score": 83
-    },
-    {
-      "code": "236200",
-      "name": "슈프리마",
-      "consecutive_days": 1,
-      "last_close": 55400,
-      "last_score": 77
-    },
-    {
-      "code": "068930",
-      "name": "디지털대성",
-      "consecutive_days": 1,
-      "last_close": 9650,
-      "last_score": 73
-    },
-    {
-      "code": "013700",
-      "name": "까뮤이앤씨",
-      "consecutive_days": 10,
-      "last_close": 1588,
-      "last_score": 73
-    },
-    {
-      "code": "162300",
-      "name": "신스틸",
-      "consecutive_days": 2,
-      "last_close": 2185,
-      "last_score": 53
-    },
-    {
-      "code": "457600",
-      "name": "벡트",
-      "consecutive_days": 10,
-      "last_close": 4305,
-      "last_score": 61
-    },
-    {
-      "code": "175330",
-      "name": "JB금융지주",
-      "consecutive_days": 5,
-      "last_close": 30250,
-      "last_score": 66
-    },
-    {
-      "code": "443060",
-      "name": "HD현대마린솔루션",
-      "consecutive_days": 1,
-      "last_close": 240000,
-      "last_score": 66
-    },
-    {
-      "code": "017890",
-      "name": "한국알콜",
-      "consecutive_days": 10,
-      "last_close": 15420,
-      "last_score": 87
-    },
-    {
-      "code": "029460",
-      "name": "케이씨",
-      "consecutive_days": 5,
-      "last_close": 43500,
-      "last_score": 89
-    },
-    {
-      "code": "036800",
-      "name": "나이스정보통신",
-      "consecutive_days": 10,
-      "last_close": 7470,
-      "last_score": 69
-    },
-    {
-      "code": "079650",
-      "name": "서산",
-      "consecutive_days": 1,
-      "last_close": 6240,
-      "last_score": 70
-    },
-    {
-      "code": "317400",
-      "name": "자이에스앤디",
-      "consecutive_days": 10,
-      "last_close": 9870,
-      "last_score": 75
-    },
-    {
-      "code": "228850",
-      "name": "레이언스",
-      "consecutive_days": 4,
-      "last_close": 7920,
-      "last_score": 80
-    },
-    {
-      "code": "280360",
-      "name": "롯데웰푸드",
-      "consecutive_days": 7,
-      "last_close": 125000,
-      "last_score": 56
-    },
-    {
-      "code": "180640",
-      "name": "한진칼",
-      "consecutive_days": 10,
-      "last_close": 140500,
-      "last_score": 63
-    },
-    {
-      "code": "098120",
-      "name": "마이크로컨텍솔",
-      "consecutive_days": 10,
-      "last_close": 58700,
-      "last_score": 82
-    },
-    {
-      "code": "071200",
-      "name": "인피니트헬스케어",
-      "consecutive_days": 8,
-      "last_close": 11820,
-      "last_score": 74
-    },
-    {
-      "code": "086670",
-      "name": "비엠티",
-      "consecutive_days": 10,
-      "last_close": 19390,
-      "last_score": 83
-    },
-    {
-      "code": "101160",
-      "name": "월덱스",
-      "consecutive_days": 3,
-      "last_close": 30900,
-      "last_score": 80
-    },
-    {
-      "code": "000810",
-      "name": "삼성화재",
-      "consecutive_days": 10,
-      "last_close": 648000,
-      "last_score": 82
-    },
-    {
-      "code": "417840",
-      "name": "저스템",
-      "consecutive_days": 10,
-      "last_close": 17230,
-      "last_score": 89
-    },
-    {
-      "code": "159010",
-      "name": "아스플로",
-      "consecutive_days": 10,
-      "last_close": 29400,
-      "last_score": 90
-    },
-    {
-      "code": "453340",
-      "name": "현대그린푸드",
-      "consecutive_days": 3,
-      "last_close": 19300,
-      "last_score": 74
-    },
-    {
-      "code": "011560",
-      "name": "세보엠이씨",
-      "consecutive_days": 10,
-      "last_close": 24250,
-      "last_score": 73
-    },
-    {
-      "code": "446540",
-      "name": "메가터치",
-      "consecutive_days": 10,
-      "last_close": 10890,
-      "last_score": 86
-    },
-    {
-      "code": "003490",
-      "name": "대한항공",
-      "consecutive_days": 10,
-      "last_close": 31500,
-      "last_score": 85
-    },
-    {
-      "code": "021240",
-      "name": "코웨이",
-      "consecutive_days": 10,
-      "last_close": 99700,
-      "last_score": 72
-    },
-    {
-      "code": "003690",
-      "name": "코리안리",
-      "consecutive_days": 10,
-      "last_close": 14630,
-      "last_score": 78
-    },
-    {
-      "code": "950190",
-      "name": "고스트스튜디오",
-      "consecutive_days": 6,
-      "last_close": 9680,
-      "last_score": 51
-    }
-  ],
-  "updated_at": "2026-09-26 15:05"
+  "new": [],
+  "drop": [],
+  "updated_at": "2026-09-26 16:20"
 }
