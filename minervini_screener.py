@@ -39,14 +39,10 @@ HISTORY_DIR = "history"
 
 
 def format_marcap(val: float | int) -> str:
-    """시가총액(원)을 'X조 Y,YYY억원' 형태로 변환합니다."""
+    """시가총액(원)을 억 단위 숫자로 변환합니다."""
     if pd.isna(val) or val <= 0: return "-"
-    val = int(val)
-    cho = val // 1_000_000_000_000
-    eok = (val % 1_000_000_000_000) // 100_000_000
-    if cho > 0:
-        return f"{cho}조 {eok:,}억" if eok > 0 else f"{cho}조"
-    return f"{eok:,}억원"
+    eok = round(float(val) / 100_000_000)
+    return f"{eok:,}"
 
 
 def fetch_kr_stocks_from_naver(min_marcap: int = 500_000_000_000) -> pd.DataFrame:
@@ -98,6 +94,7 @@ def filter_kr_universe(min_price: int = 1000, min_marcap: int = 500_000_000_000)
         stocks = fetch_kr_stocks_from_naver(min_marcap=min_marcap)
 
     stocks = stocks[stocks["Market"].isin(["KOSPI", "KOSDAQ", "KOSDAQ GLOBAL"])].copy()
+    stocks["Market"] = stocks["Market"].replace({"KOSDAQ GLOBAL": "KOSDAQ"})
 
     # 1. 시가총액 5,000억원 이상 필터 (승률 62.7% 고승률 주도주 전략)
     if "Marcap" in stocks.columns and min_marcap > 0:
@@ -400,7 +397,7 @@ def print_kr_summary_table(df: pd.DataFrame, max_rows: int = 25) -> None:
     display_df["상태/연속"] = display_df["status_label"]
     display_df["추천등급"] = display_df["sepa_grade"]
     display_df["종합점수"] = display_df["sepa_score"].apply(lambda x: f"{x}점")
-    display_df["시가총액"] = display_df["marcap"].apply(format_marcap)
+    display_df["시총(억)"] = display_df["marcap"].apply(format_marcap)
     display_df["현재가(원)"] = display_df["close"].apply(lambda x: f"{x:,}")
     display_df["RS점수"] = display_df["rs_rating"].apply(lambda x: f"{x}점")
     display_df["52주고점대비"] = display_df["pct_from_52w_high"].apply(lambda x: f"{x:+.1f}%")
@@ -420,8 +417,7 @@ def print_kr_summary_table(df: pd.DataFrame, max_rows: int = 25) -> None:
 
     display_df["메이저수급"] = display_df.apply(format_flow_label, axis=1)
 
-    cols = ["순위", "종목", "market", "상태/연속", "추천등급", "종합점수", "시가총액", "현재가(원)", "RS점수", "52주고점대비", "20일거래대금", "VCP축소", "메이저수급"]
-    renamed = display_df.rename(columns={"market": "시장"})[["순위", "종목", "시장", "상태/연속", "추천등급", "종합점수", "시가총액", "현재가(원)", "RS점수", "52주고점대비", "20일거래대금", "VCP축소", "메이저수급"]]
+    renamed = display_df.rename(columns={"market": "시장"})[["순위", "종목", "시장", "상태/연속", "추천등급", "종합점수", "시총(억)", "현재가(원)", "RS점수", "52주고점대비", "20일거래대금", "VCP축소", "메이저수급"]]
     print("=" * 150)
     print(f" 🏆 마크 미너비니 SEPA 국내 주식 상위 추천 종목 (상위 {len(display_df)}개 표시) 🏆")
     print("=" * 150)
