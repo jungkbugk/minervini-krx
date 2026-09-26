@@ -49,11 +49,15 @@ def format_marcap(val: float | int) -> str:
     return f"{eok:,}억원"
 
 
-def filter_kr_universe(min_price: int = 1000) -> pd.DataFrame:
-    """KRX 상장 종목 중 투자 부적합 종목(스팩, 우선주, ETF, 관리종목 등)을 필터링합니다."""
-    print("▶ KRX 전체 종목 목록 수집 및 유니버스 필터링 중...")
+def filter_kr_universe(min_price: int = 1000, min_marcap: int = 500_000_000_000) -> pd.DataFrame:
+    """KRX 상장 종목 중 투자 부적합 종목(스팩, 우선주, ETF, 관리종목 등) 및 시총 5,000억원 미만을 필터링합니다."""
+    print("▶ KRX 전체 종목 목록 수집 및 유니버스 필터링 중 (시총 5,000억 이상 대형/중형 주도주)...")
     stocks = fdr.StockListing("KRX")
     stocks = stocks[stocks["Market"].isin(["KOSPI", "KOSDAQ", "KOSDAQ GLOBAL"])].copy()
+
+    # 1. 시가총액 5,000억원 이상 필터 (승률 62.7% 고승률 주도주 전략)
+    if "Marcap" in stocks.columns and min_marcap > 0:
+        stocks = stocks[pd.to_numeric(stocks["Marcap"], errors="coerce") >= min_marcap].copy()
 
     stocks["Code"] = stocks["Code"].astype(str).str.zfill(6)
     stocks = stocks[stocks["Code"].str.endswith("0")].copy()
@@ -74,7 +78,7 @@ def filter_kr_universe(min_price: int = 1000) -> pd.DataFrame:
         stocks = stocks[pd.to_numeric(stocks["Close"], errors="coerce") >= min_price].copy()
 
     stocks = stocks.reset_index(drop=True)
-    print(f"  ✓ 필터링 완료: 대상 종목 총 {len(stocks):,}개 (스팩/우선주/관리종목/동전주 제외)")
+    print(f"  ✓ 필터링 완료: 대상 종목 총 {len(stocks):,}개 (시총 5,000억 이상 & 스팩/우선주/관리종목 제외)")
     return stocks
 
 
