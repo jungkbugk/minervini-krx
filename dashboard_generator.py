@@ -461,7 +461,7 @@ def build_kis_holdings_cards_and_rows(kis_info: dict) -> tuple[str, str]:
             </p>
         </div>
         """
-        empty_row = '<tr><td colspan="9" class="text-center py-4" style="color:#8b949e;">현재 한국투자증권 실전 계좌에 보유 중인 주식이 없습니다 (현금 100% 보존 대기).</td></tr>'
+        empty_row = ''
         return empty_banner, empty_row
 
     cards = []
@@ -535,7 +535,7 @@ def build_kis_holdings_cards_and_rows(kis_info: dict) -> tuple[str, str]:
 def build_sell_rows(sell_signals: list[dict]) -> str:
     """내 보유 종목 매도 감시 테이블 행 HTML을 생성합니다."""
     if not sell_signals:
-        return '<tr><td colspan="13" class="text-center py-4">등록된 보유 종목이 없습니다. 상단의 <strong>[➕ 보유 종목 추가]</strong> 버튼을 눌러 보유 종목을 등록하세요.</td></tr>'
+        return ''
 
     rows_html = []
     for idx, r in enumerate(sell_signals):
@@ -1640,6 +1640,11 @@ def generate_unified_dashboard(
         }
 
         $(document).ready(function() {
+            // DataTables 경고 팝업 원천 차단
+            if ($.fn.dataTable) {
+                $.fn.dataTable.ext.errMode = 'none';
+            }
+
             const tableKR = $('#tableKR').DataTable({
                 pageLength: 25,
                 order: [[4, 'desc']],
@@ -1647,6 +1652,7 @@ def generate_unified_dashboard(
                     search: "국내 종목 검색:",
                     lengthMenu: "_MENU_ 개씩 보기",
                     info: "총 _TOTAL_개 중 _START_ ~ _END_ 표시",
+                    emptyTable: "조건을 만족하는 국내 스크리닝 종목이 없습니다.",
                     paginate: { first: "처음", last: "마지막", next: "다음", previous: "이전" }
                 }
             });
@@ -1658,6 +1664,7 @@ def generate_unified_dashboard(
                     search: "미국 티커 검색:",
                     lengthMenu: "_MENU_ 개씩 보기",
                     info: "총 _TOTAL_개 중 _START_ ~ _END_ 표시",
+                    emptyTable: "조건을 만족하는 미국 스크리닝 종목이 없습니다.",
                     paginate: { first: "처음", last: "마지막", next: "다음", previous: "이전" }
                 }
             });
@@ -1669,6 +1676,7 @@ def generate_unified_dashboard(
                     search: "보유 종목 검색:",
                     lengthMenu: "_MENU_ 개씩 보기",
                     info: "총 _TOTAL_개 중 _START_ ~ _END_ 표시",
+                    emptyTable: "현재 등록된 매도 감시 보유 종목이 없습니다.",
                     paginate: { first: "처음", last: "마지막", next: "다음", previous: "이전" }
                 }
             });
@@ -1679,6 +1687,7 @@ def generate_unified_dashboard(
                     search: "실전 종목 검색:",
                     lengthMenu: "_MENU_ 개씩 보기",
                     info: "총 _TOTAL_개 중 _START_ ~ _END_ 표시",
+                    emptyTable: "현재 한국투자증권 실전 계좌에 보유 중인 주식이 없습니다 (현금 100% 보존 대기).",
                     paginate: { first: "처음", last: "마지막", next: "다음", previous: "이전" }
                 }
             });
