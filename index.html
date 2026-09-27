@@ -2,75 +2,213 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마크 미너비니 SEPA 통합 관제 대시보드 (매수 스크리너 & 매도 감시)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0d1117">
+    <title>마크 미너비니 SEPA 통합 관제 대시보드 | 모바일 & 한투 실전 계좌</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <style>
         :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --border-color: #30363d;
-            --text-main: #c9d1d9;
-            --text-heading: #f0f6fc;
-            --accent-blue: #58a6ff;
-            --accent-green: #3fb950;
-            --accent-red: #f85149;
-            --accent-gold: #f1e05a;
-            --accent-purple: #bc8cff;
+            --bg-color: #0a0d12;
+            --card-bg: #131822;
+            --card-hover: #1a2230;
+            --border-color: #273142;
+            --text-main: #cbd5e1;
+            --text-heading: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+            --accent-gold: #f59e0b;
+            --accent-purple: #a855f7;
+            --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
         }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
-            padding: 24px;
-        }
-        .container {
-            max-width: 1560px;
-            margin: 0 auto;
-        }
-        .header {
-            background: linear-gradient(135deg, #1f2937, #111827);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        }
-        .header h1 {
-            margin: 0 0 8px 0;
-            font-size: 26px;
-            color: var(--text-heading);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .header p {
-            margin: 4px 0;
-            color: #8b949e;
-            font-size: 14px;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+            padding: 16px 12px;
             line-height: 1.5;
         }
-        /* Tab Navigation */
-        .tab-nav {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
         }
-        .tab-btn {
-            background: #21262d;
-            color: #8b949e;
+
+        /* 상단 유틸리티 내비게이션 */
+        .top-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(19, 24, 34, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--border-color);
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            border-radius: 12px;
+            padding: 10px 16px;
+            margin-bottom: 14px;
+            font-size: 13px;
+        }
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: var(--text-heading);
+        }
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+        .nav-links {
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+        .btn-link {
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: var(--accent-blue);
+            text-decoration: none;
+            padding: 5px 11px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-link:hover, .btn-link:active {
+            background: rgba(56, 189, 248, 0.25);
+            color: #fff;
+        }
+        .btn-silver {
+            background: rgba(245, 158, 11, 0.12);
+            border-color: rgba(245, 158, 11, 0.35);
+            color: var(--accent-gold);
+        }
+        .btn-silver:hover { background: rgba(245, 158, 11, 0.25); }
+
+        /* 메인 헤더 영역 */
+        .header {
+            background: linear-gradient(135deg, #172033 0%, #0d131f 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px 22px;
+            margin-bottom: 16px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        .header h1 {
+            color: var(--text-heading);
+            font-size: 21px;
+            font-weight: 800;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+        }
+        .badge-medal {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+        .header p {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        /* 4대 지표 카드 그리드 (모바일 2x2 완벽 정렬) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .metric-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 16px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .metric-card .title {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .metric-card .value {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-heading);
+            margin-bottom: 2px;
+            letter-spacing: -0.5px;
+        }
+        .metric-card .sub {
+            font-size: 11px;
+            color: var(--accent-green);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 탭 네비게이션 (Sticky) */
+        .tab-nav {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 6px 0;
+            margin-bottom: 16px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            position: sticky;
+            top: 8px;
+            z-index: 100;
+            background: rgba(10, 13, 18, 0.85);
+            backdrop-filter: blur(8px);
+        }
+        .tab-nav::-webkit-scrollbar { display: none; }
+        .tab-btn {
+            flex: 0 0 auto;
+            background: var(--card-bg);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
         .tab-btn:hover {
             color: #fff;
@@ -78,73 +216,113 @@
         }
         .tab-btn.active {
             background: var(--accent-blue);
-            color: #fff;
+            color: #0a0d12;
             border-color: var(--accent-blue);
-            box-shadow: 0 0 12px rgba(88, 166, 255, 0.4);
+            font-weight: 700;
         }
         .tab-btn.tab-sell-btn.active {
-            background: linear-gradient(135deg, #da3633, #b62324);
-            border-color: #f85149;
-            box-shadow: 0 0 12px rgba(248, 81, 73, 0.4);
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #fff;
+            border-color: #ef4444;
         }
-        .tab-badge {
-            background: rgba(0,0,0,0.25);
-            padding: 2px 8px;
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* 모바일 카드 뷰 */
+        .stock-cards-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .stock-mobile-card {
+            background: #161e2e;
+            border: 1px solid var(--border-color);
             border-radius: 12px;
-            font-size: 12px;
+            padding: 12px 14px;
         }
-        .tab-content {
-            display: none;
+        .card-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
         }
-        .tab-content.active {
-            display: block;
-        }
-        .change-banner {
+        .card-metric-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-            margin-top: 14px;
-        }
-        .change-box {
-            padding: 12px 16px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            background: rgba(0, 0, 0, 0.25);
             border-radius: 8px;
+            padding: 8px 10px;
+            margin: 6px 0;
+            font-size: 11px;
+        }
+        .metric-item-label { color: var(--text-muted); margin-bottom: 2px; }
+        .metric-item-val { font-weight: 700; color: var(--text-heading); font-size: 13px; }
+        .card-bottom-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* 뱃지 태그 */
+        .tag {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .tag-green { background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.4); }
+        .tag-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
+        .tag-gold { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
+        .tag-red { background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4); }
+        .tag-purple { background: rgba(168, 85, 247, 0.15); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.4); }
+
+        /* 20년 백테스트 그리드 */
+        .backtest-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .bt-card {
+            background: #161e2e;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px;
+        }
+        .bt-card.winner {
+            border-color: rgba(245, 158, 11, 0.5);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), #161e2e);
+        }
+        .bt-title {
             font-size: 13px;
-            line-height: 1.5;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        .change-new {
-            background: rgba(248, 81, 73, 0.1);
-            border: 1px solid rgba(248, 81, 73, 0.4);
-            color: #ff7b72;
+        .bt-stat-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            padding: 4px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
         }
-        .change-drop {
-            background: rgba(139, 148, 158, 0.1);
-            border: 1px solid rgba(139, 148, 158, 0.4);
-            color: #8b949e;
-        }
-        .score-info-box {
-            background: rgba(88, 166, 255, 0.08);
-            border: 1px solid rgba(88, 166, 255, 0.3);
-            border-radius: 8px;
-            padding: 12px 16px;
-            margin-top: 14px;
-            font-size: 13px;
-            color: #c9d1d9;
-        }
-        .sell-info-box {
-            background: rgba(248, 81, 73, 0.08);
-            border: 1px solid rgba(248, 81, 73, 0.3);
-            border-radius: 8px;
-            padding: 14px 18px;
-            margin-bottom: 16px;
-            font-size: 13px;
-            color: #c9d1d9;
-            line-height: 1.6;
-        }
+
+        /* 데스크톱 카드 및 테이블 */
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 20px;
+            padding: 16px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             overflow-x: auto;
         }
@@ -154,19 +332,19 @@
             color: var(--text-main);
         }
         table.dataTable thead th {
-            background-color: #21262d !important;
-            color: var(--text-heading) !important;
+            background-color: #1a2230 !important;
+            color: var(--accent-blue) !important;
             border-bottom: 2px solid var(--border-color) !important;
-            padding: 12px 10px;
-            font-size: 13px;
+            padding: 10px 8px;
+            font-size: 12px;
         }
         table.dataTable tbody td {
-            padding: 10px 10px;
-            border-bottom: 1px solid #21262d;
-            font-size: 14px;
+            padding: 8px 8px;
+            border-bottom: 1px solid #1f2937;
+            font-size: 13px;
         }
         table.dataTable tbody tr:hover {
-            background-color: rgba(56, 139, 253, 0.08) !important;
+            background-color: rgba(56, 189, 248, 0.08) !important;
         }
         .stock-link {
             color: var(--accent-blue);
@@ -175,393 +353,157 @@
             align-items: center;
             gap: 4px;
         }
-        .stock-link:hover {
-            color: #79c0ff;
-            text-decoration: underline;
-        }
-        .finviz-link {
-            text-decoration: none;
-            margin-left: 4px;
-            opacity: 0.7;
-        }
-        .finviz-link:hover { opacity: 1; }
-        .badge {
-            display: inline-block;
-            padding: 4px 9px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-        .badge-new {
-            background: linear-gradient(135deg, rgba(248, 81, 73, 0.3), rgba(241, 224, 90, 0.3));
-            color: #ff7b72;
-            border: 1px solid #f85149;
-        }
-        .badge-days {
-            background-color: rgba(63, 185, 80, 0.15);
-            color: #3fb950;
-            border: 1px solid rgba(63, 185, 80, 0.4);
-        }
-        .badge-diamond {
-            background: linear-gradient(135deg, rgba(188, 140, 255, 0.3), rgba(88, 166, 255, 0.3));
-            color: #e2c5ff;
-            border: 1px solid #bc8cff;
-        }
-        .badge-gold {
-            background-color: rgba(241, 224, 90, 0.2);
-            color: #f1e05a;
-            border: 1px solid rgba(241, 224, 90, 0.5);
-        }
-        .badge-silver {
-            background-color: rgba(139, 148, 158, 0.2);
-            color: #c9d1d9;
-            border: 1px solid var(--border-color);
-        }
-        .badge-super {
-            background-color: rgba(241, 224, 90, 0.25);
-            color: #f1e05a;
-            border: 1px solid #f1e05a;
-        }
-        .badge-high {
-            background-color: rgba(63, 185, 80, 0.2);
-            color: #3fb950;
-        }
-        .badge-normal {
-            background-color: rgba(88, 166, 255, 0.15);
-            color: #58a6ff;
-        }
-        .badge-vcp-good {
-            background-color: rgba(63, 185, 80, 0.2);
-            color: #3fb950;
-            border: 1px solid rgba(63, 185, 80, 0.4);
-        }
-        .badge-vcp-normal {
-            background-color: rgba(241, 224, 90, 0.15);
-            color: #f1e05a;
-        }
-        .badge-critical {
-            background: rgba(248, 81, 73, 0.25);
-            color: #ff7b72;
-            border: 1px solid #f85149;
-        }
-        .badge-warning {
-            background: rgba(241, 224, 90, 0.2);
-            color: #f1e05a;
-            border: 1px solid #d29922;
-        }
-        .badge-info {
-            background: rgba(88, 166, 255, 0.2);
-            color: #58a6ff;
-            border: 1px solid #388bfd;
-        }
-        .badge-safe {
-            background: rgba(63, 185, 80, 0.2);
-            color: #3fb950;
-            border: 1px solid #2ea043;
-        }
-        .market-tag {
-            font-size: 11px;
-            font-weight: 700;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-        .market-kospi { background: rgba(88, 166, 255, 0.2); color: #58a6ff; }
-        .market-kosdaq { background: rgba(241, 224, 90, 0.2); color: #f1e05a; }
-        .market-nasdaq { background: rgba(63, 185, 80, 0.2); color: #3fb950; }
-        .market-nyse { background: rgba(188, 140, 255, 0.2); color: #bc8cff; }
-        .market-kr { background: rgba(88, 166, 255, 0.2); color: #58a6ff; }
-        .market-us { background: rgba(63, 185, 80, 0.2); color: #3fb950; }
+        .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+        .font-bold { font-weight: bold; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
         .text-success { color: var(--accent-green); }
         .text-danger { color: var(--accent-red); }
         .text-warning { color: var(--accent-gold); }
-        .text-muted { color: #8b949e; }
-        .text-center { text-align: center; }
-        .text-right { text-align: right; }
-        .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
-        .font-bold { font-weight: 700; }
-        .sell-toolbar {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-        }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            border: 1px solid var(--border-color);
-            background: #21262d;
-            color: var(--text-main);
-            transition: all 0.2s ease;
-        }
-        .btn:hover {
-            color: #fff;
-            border-color: var(--accent-blue);
-        }
-        .btn-green {
-            background: #238636;
-            color: #fff;
-            border-color: rgba(240,246,252,0.1);
-        }
-        .btn-green:hover {
-            background: #2ea043;
-        }
-        .btn-del {
-            background: transparent;
-            border: 1px solid rgba(248, 81, 73, 0.4);
-            color: #ff7b72;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-del:hover {
-            background: rgba(248, 81, 73, 0.2);
-            border-color: #f85149;
-        }
-        /* Modals */
+        .text-muted { color: var(--text-muted); }
+
+        /* 모달 스타일 */
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(3px);
-            z-index: 10000;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
             align-items: center;
             justify-content: center;
         }
+        .modal-overlay.active { display: flex; }
         .modal-box {
-            background: #161b22;
+            background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 24px;
             width: 90%;
             max-width: 480px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            color: var(--text-main);
-            box-sizing: border-box;
         }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 18px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-        }
-        .modal-header h3 {
-            margin: 0;
-            font-size: 18px;
-            color: var(--text-heading);
-        }
-        .modal-close {
-            background: none;
-            border: none;
-            color: #8b949e;
-            font-size: 22px;
-            cursor: pointer;
-        }
-        .modal-close:hover {
-            color: #fff;
-        }
-        .form-row {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-        .form-field {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-        .form-field label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #8b949e;
-        }
-        .form-input {
-            background: #0d1117;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: #c9d1d9;
-            padding: 8px 12px;
-            font-size: 14px;
-            outline: none;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .form-input:focus {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.3);
-        }
-        .toast-box {
+
+        /* 토스트 알림 */
+        #toast {
             position: fixed;
             bottom: 24px;
-            right: 24px;
-            padding: 14px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.6);
-            z-index: 20000;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(34, 197, 94, 0.95);
+            color: #000;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
             display: none;
-            color: #fff;
+            z-index: 1000;
         }
-        .badge-sector {
-            font-size: 11px;
-            font-weight: 600;
-            padding: 2px 6px;
-            border-radius: 4px;
-            background: rgba(88, 166, 255, 0.15);
-            color: #58a6ff;
-            border: 1px solid rgba(88, 166, 255, 0.3);
-            margin-left: 6px;
-            white-space: nowrap;
-            display: inline-block;
-            vertical-align: middle;
-        }
-        .badge-sector-etf {
-            background: rgba(188, 140, 255, 0.15);
-            color: #bc8cff;
-            border-color: rgba(188, 140, 255, 0.3);
-        }
+
         @media (max-width: 768px) {
-            body {
-                padding: 10px 8px;
-            }
-            .container {
-                padding: 0;
-            }
-            .header {
-                padding: 14px 12px;
-                margin-bottom: 14px;
-            }
-            .header h1 {
-                font-size: 18px;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 4px;
-            }
-            .header p {
-                font-size: 12px;
-            }
-            .score-info-box, .sell-info-box {
-                font-size: 12px;
-                padding: 10px 12px;
-            }
-            .tab-nav {
-                gap: 6px;
-                margin-bottom: 14px;
-            }
-            .tab-btn {
-                padding: 10px 12px;
-                font-size: 13px;
-                width: 100%;
-                justify-content: space-between;
-                box-sizing: border-box;
-            }
-            .card {
-                padding: 10px 6px;
-                border-radius: 8px;
-                -webkit-overflow-scrolling: touch;
-            }
-            .col-desktop {
-                display: none !important;
-            }
-            table.dataTable thead th {
-                padding: 8px 6px !important;
-                font-size: 12px !important;
-                white-space: nowrap;
-            }
-            table.dataTable tbody td {
-                padding: 8px 6px !important;
-                font-size: 12px !important;
-                white-space: nowrap;
-            }
-            .badge {
-                padding: 2px 6px;
-                font-size: 11px;
-            }
-            .badge-sector {
-                font-size: 10px;
-                padding: 1px 5px;
-                margin-left: 4px;
-            }
-            .dataTables_wrapper .dataTables_filter {
-                float: none !important;
-                text-align: left !important;
-                margin-bottom: 10px;
-            }
-            .dataTables_wrapper .dataTables_filter input {
-                width: 100% !important;
-                box-sizing: border-box;
-                margin-left: 0 !important;
-                margin-top: 4px;
-                padding: 6px 10px;
-            }
-            .dataTables_wrapper .dataTables_length {
-                float: none !important;
-                margin-bottom: 8px;
-                font-size: 12px;
-            }
-            .dataTables_wrapper .dataTables_info,
-            .dataTables_wrapper .dataTables_paginate {
-                float: none !important;
-                text-align: center !important;
-                font-size: 12px;
-                margin-top: 8px;
-            }
+            body { padding: 10px 8px; }
+            .header h1 { font-size: 18px; }
+            .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .metric-card { padding: 12px; }
+            .metric-card .value { font-size: 18px; }
+            .backtest-grid { grid-template-columns: 1fr; }
+            .card { display: none; } /* 모바일 기본: 카드 뷰 우선 */
+            .stock-cards-list { display: flex; }
+        }
+        @media (min-width: 769px) {
+            .stock-cards-list { display: none; } /* 데스크톱 기본: 테이블 뷰 우선 */
+            .card { display: block; }
         }
     </style>
 </head>
 <body>
+    <div id="toast">복사 완료!</div>
+
     <div class="container">
+        <!-- 상단 유틸리티 내비게이션 바 -->
+        <div class="top-navbar">
+            <div class="brand-badge">
+                <span class="live-dot"></span>
+                <span>🥇 Mark Minervini SEPA KRX</span>
+            </div>
+            <div class="nav-links">
+                <a href="https://jungkbugk.github.io/PeterLynch/" target="_blank" class="btn-link btn-silver" title="피터 린치 미국 퀀트 대시보드 바로가기">
+                    🥈 미장 피터린치
+                </a>
+                <button onclick="toggleMobileView()" class="btn-link" title="카드 뷰와 테이블 뷰 전환">
+                    📱/💻 보기전환
+                </button>
+                <button onclick="copyCurrentUrl()" class="btn-link" title="주소 복사">
+                    📋 공유
+                </button>
+                <button onclick="location.reload()" class="btn-link" title="새로고침">
+                    🔄 새로고침
+                </button>
+            </div>
+        </div>
+
         <!-- 헤더 영역 -->
         <div class="header">
-            <h1>🚀 마크 미너비니 SEPA 트렌드 템플릿 통합 대시보드</h1>
+            <h1>
+                <span>마크 미너비니 SEPA 트렌드 템플릿 통합 대시보드</span>
+                <span class="badge-medal">🥇 20년 백테스트 금메달 (CAGR 27.6%)</span>
+            </h1>
             <p>
-                <strong>업데이트:</strong> 2026년 09월 26일 |
+                <strong>동기화:</strong> 2026년 09월 27일 15:10 |
                 <strong>국내 통과:</strong> <span class="text-success font-bold">49개</span> (<span style="color:#3fb950; font-weight:bold;">🟢 50MA 상회(정상)</span>) |
-                <strong>미국 통과:</strong> <span class="text-success font-bold">417개</span> (<span style="color:#3fb950; font-weight:bold;">🟢 50MA 상회(정상)</span>) |
-                <strong>보유 종목 감시:</strong> <span class="font-bold" style="color:#3fb950">3개 (경보 0건)</span>
+                <strong>한투 계좌:</strong> <span style="color:#58a6ff; font-weight:bold;">10111722-01 (실전투자 연동)</span> |
+                <strong>매도 감시:</strong> <span class="font-bold" style="color:#3fb950">3개 (경보 0건)</span>
             </p>
-            <div class="score-info-box">
-                🎯 <strong>미너비니 원칙:</strong> 매수 타점 스크리너(1·2탭)로 최상위 모멘텀 종목을 잡고, 매도 감시 엔진(3탭)으로 <strong>-7~8% 손절 & 고점 10% 반락 시 이익보존 매도</strong>를 기계적으로 실행합니다.<br>
-                🛡️ <strong>시장 필터:</strong> 지수 50일선 이탈(조정장) 시 <strong>신규 매수를 전면 중단하고 현금 100%를 보존</strong>하여 계좌 손실을 원천 방어합니다.
+        </div>
+
+        <!-- 4대 핵심 지표 카드 (모바일 2x2 완벽 대응) -->
+        <div class="cards-grid">
+            <div class="metric-card">
+                <div class="title">💰 한투 실전 총 평가자산</div>
+                <div class="value">₩5,000,000</div>
+                <div class="sub">10111722-01 실전 계좌 정상 연동</div>
+            </div>
+            <div class="metric-card">
+                <div class="title">💵 주문가능 원화 예수금</div>
+                <div class="value" style="color: var(--accent-green);">₩5,000,000</div>
+                <div class="sub">슬롯당 125만원(4슬롯) 매수 대기</div>
+            </div>
+            <div class="metric-card">
+                <div class="title">🚦 시장 레짐 (KOSPI/KOSDAQ)</div>
+                <div class="value" style="color: var(--accent-blue);">🟢 매수 허용</div>
+                <div class="sub">지수 50일 이동평균선 상회 구간</div>
+            </div>
+            <div class="metric-card">
+                <div class="title">📊 20개년 실증 수익률</div>
+                <div class="value" style="color: var(--accent-gold);">+19,704.7%</div>
+                <div class="sub">CAGR 27.57% (원금 198배 🥇 1위)</div>
             </div>
         </div>
 
         <!-- 탭 네비게이션 버튼 -->
         <div class="tab-nav">
             <button class="tab-btn active" onclick="switchTab('kr')">
-                🇰🇷 국내 주식 스크리너 (KOSPI / KOSDAQ)
-                <span class="tab-badge">49개</span>
-                <span class="badge badge-safe" style="font-size:11px; margin-left:6px;">🟢 매수가능</span>
+                🇰🇷 국내 주식 스크리너
+                <span class="tag tag-blue">49개</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('kis')">
+                🏦 한투 실전 계좌 잔고
+                <span class="tag tag-gold">0종목</span>
             </button>
             <button class="tab-btn" onclick="switchTab('us')">
-                🇺🇸 미국 주식 스크리너 (NASDAQ / NYSE)
-                <span class="tab-badge">417개</span>
-                <span class="badge badge-safe" style="font-size:11px; margin-left:6px;">🟢 매수가능</span>
+                🇺🇸 미국 주식 스크리너
+                <span class="tag tag-blue">417개</span>
             </button>
             <button class="tab-btn tab-sell-btn" onclick="switchTab('sell')">
-                🛡️ 내 보유종목 매도 감시 (Sell Monitor)
-                <span class="tab-badge" style="background:#3fb950; color:#fff;">3개</span>
+                🛡️ 관심종목 매도 감시
+                <span class="tag" style="background:#3fb950; color:#fff;">3개</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('backtest')">
+                📊 20년 백테스트 실증
+                <span class="tag tag-gold">🥇 금메달</span>
             </button>
         </div>
 
-        <!-- 탭 1: 한국 주식 -->
+        <!-- 탭 1: 한국 주식 스크리너 -->
         <div id="tab-kr" class="tab-content active">
             
     <div class="market-regime-alert" style="background:linear-gradient(135deg, rgba(63, 185, 80, 0.12), rgba(46, 160, 67, 0.2)); border:1.5px solid #2ea043; border-radius:12px; padding:18px 22px; margin-bottom:20px; ">
@@ -612,23 +554,921 @@
     </div>
     
             
-            <div style="background:rgba(63,185,80,0.08); border:1px solid rgba(63,185,80,0.25); border-radius:8px; padding:12px 18px; margin-bottom:16px; font-size:13px; color:#c9d1d9; line-height:1.6;">
-                🇰🇷 <strong>국내 주식 고승률(62.7%) & 고수익(+188%) 실전 매매 가이드:</strong><br>
-                1. <strong>중대형 주도주 집중:</strong> 시가총액 5,000억원 이상 기관/외인 수급이 단단한 주도 업종(조선, 방산, 전력, 바이오 등) 집중 공략<br>
-                2. <strong>추격 매수 엄격 금지 (Ext ≤ 1.08):</strong> 20일선에서 8% 이상 과열 급등한 종목은 매수하지 않고, <strong>20일선 눌림목 & VCP 변동성 수축(≤0.88)</strong> 타점에서만 진입<br>
-                3. <strong>개별 시장 레짐 연동:</strong> 코스피 종목은 코스피 50일선 위, 코스닥 종목은 코스닥 50일선 위에서만 매수<br>
-                4. <strong>3R 본전 보호:</strong> 손절폭(-7.5%)의 3배인 +22.5% 수익 달성 시 스탑을 매수가로 올려 원금을 영구 차단하고 큰 시세를 끝까지 향유<br>
-                5. <strong>스마트머니 수급 참고(UI):</strong> 종목 우측 <strong>[메이저 수급]</strong> 컬럼에서 외인/기관 <strong>🔥 쌍끌이 매수</strong> 또는 <strong>🟢 기관 매수</strong> 동반 종목은 돌파 지지력이 우수하므로 매수 분할 진입 시 긍정적 보조 지표로 참고하세요. (반대로 메이저 기관 3일 이상 연속 매도 ⚠️ 종목은 추격 매수 자제)
-            </div>
-            <div class="change-banner" style="margin-bottom: 16px;">
-                <div class="change-box change-new">
+            
+            <div class="change-banner" style="display:flex; gap:10px; margin-bottom:12px;">
+                <div style="flex:1; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:8px; padding:10px 12px; font-size:12px; color:#ff7b72;">
                     🔥 <strong>오늘 신규 편입 (0개):</strong> 없음
                 </div>
-                <div class="change-box change-drop">
+                <div style="flex:1; background:rgba(148,163,184,0.1); border:1px solid rgba(148,163,184,0.3); border-radius:8px; padding:10px 12px; font-size:12px; color:#94a3b8;">
                     🚨 <strong>전일 대비 이탈 (0개):</strong> 없음
                 </div>
             </div>
-            <div class="card">
+
+            <!-- 스마트폰 카드 뷰 -->
+            <div class="stock-cards-list" id="krMobileCards">
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#1</span>
+                    <strong style="color:#58a6ff; font-size:15px;">뉴파워프라즈마</strong>
+                    <span style="font-size:11px; color:#8b949e;">(144960)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">반도체</span>
+                </div>
+                <span class="tag tag-gold">👑 98점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">12,780원 <small style="font-size:10px; color:#8b949e;">(5,584억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">+0.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 95</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-red">🔥 쌍끌이</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=144960" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#2</span>
+                    <strong style="color:#58a6ff; font-size:15px;">심텍</strong>
+                    <span style="font-size:11px; color:#8b949e;">(222800)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">전자장비</span>
+                </div>
+                <span class="tag tag-gold">👑 94점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">149,400원 <small style="font-size:10px; color:#8b949e;">(57,496억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-5.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 97</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-blue">🔵 외인순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=222800" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#3</span>
+                    <strong style="color:#58a6ff; font-size:15px;">가온전선</strong>
+                    <span style="font-size:11px; color:#8b949e;">(000500)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">전기장비</span>
+                </div>
+                <span class="tag tag-gold">👑 93점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">318,000원 <small style="font-size:10px; color:#8b949e;">(94,693억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-2.5%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 99</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-red">🔥 쌍끌이</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=000500" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#4</span>
+                    <strong style="color:#58a6ff; font-size:15px;">인텍플러스</strong>
+                    <span style="font-size:11px; color:#8b949e;">(064290)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">반도체</span>
+                </div>
+                <span class="tag tag-gold">👑 92점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">55,000원 <small style="font-size:10px; color:#8b949e;">(7,127억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-2.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 97</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-blue">🔵 외인순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=064290" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#5</span>
+                    <strong style="color:#58a6ff; font-size:15px;">지엔씨에너지</strong>
+                    <span style="font-size:11px; color:#8b949e;">(119850)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">전기장비</span>
+                </div>
+                <span class="tag tag-gold">👑 92점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">56,100원 <small style="font-size:10px; color:#8b949e;">(9,228억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">+0.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 95</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-red">🔥 쌍끌이</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=119850" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#6</span>
+                    <strong style="color:#58a6ff; font-size:15px;">샘씨엔에스</strong>
+                    <span style="font-size:11px; color:#8b949e;">(252990)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">반도체</span>
+                </div>
+                <span class="tag tag-gold">👑 92점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">18,110원 <small style="font-size:10px; color:#8b949e;">(10,905억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-0.8%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 95</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-red">🔥 쌍끌이</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=252990" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#7</span>
+                    <strong style="color:#58a6ff; font-size:15px;">티에스이</strong>
+                    <span style="font-size:11px; color:#8b949e;">(131290)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">반도체</span>
+                </div>
+                <span class="tag tag-blue">💎 89점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">289,000원 <small style="font-size:10px; color:#8b949e;">(31,968억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-5.7%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 98</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-green">🟢 기관순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=131290" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#8</span>
+                    <strong style="color:#58a6ff; font-size:15px;">피에스케이홀딩스</strong>
+                    <span style="font-size:11px; color:#8b949e;">(031980)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">반도체</span>
+                </div>
+                <span class="tag tag-blue">💎 89점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">163,200원 <small style="font-size:10px; color:#8b949e;">(35,190억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-4.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 96</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-blue">🔵 외인순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=031980" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#9</span>
+                    <strong style="color:#58a6ff; font-size:15px;">S-Oil</strong>
+                    <span style="font-size:11px; color:#8b949e;">(010950)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">정유/에너지</span>
+                </div>
+                <span class="tag tag-blue">💎 86점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">156,500원 <small style="font-size:10px; color:#8b949e;">(176,192억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-5.7%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 92</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-red">🔥 쌍끌이</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=010950" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#10</span>
+                    <strong style="color:#58a6ff; font-size:15px;">주성엔지니어링</strong>
+                    <span style="font-size:11px; color:#8b949e;">(036930)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">반도체</span>
+                </div>
+                <span class="tag tag-blue">💎 85점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">209,500원 <small style="font-size:10px; color:#8b949e;">(97,378억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-16.4%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 99</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-green">🟢 기관순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=036930" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#11</span>
+                    <strong style="color:#58a6ff; font-size:15px;">롯데렌탈</strong>
+                    <span style="font-size:11px; color:#8b949e;">(089860)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">운송/물류</span>
+                </div>
+                <span class="tag tag-blue">💎 83점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">49,600원 <small style="font-size:10px; color:#8b949e;">(18,009억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-3.5%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 90</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-green">🟢 기관순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=089860" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#12</span>
+                    <strong style="color:#58a6ff; font-size:15px;">대원전선</strong>
+                    <span style="font-size:11px; color:#8b949e;">(006340)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">전기장비</span>
+                </div>
+                <span class="tag tag-blue">💎 82점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">13,530원 <small style="font-size:10px; color:#8b949e;">(10,609억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-25.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 97</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-red">🔥 쌍끌이</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=006340" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#13</span>
+                    <strong style="color:#58a6ff; font-size:15px;">한국콜마</strong>
+                    <span style="font-size:11px; color:#8b949e;">(161890)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">화장품</span>
+                </div>
+                <span class="tag tag-blue">💎 81점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">146,700원 <small style="font-size:10px; color:#8b949e;">(34,629억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-9.3%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 93</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-blue">🔵 외인순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=161890" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#14</span>
+                    <strong style="color:#58a6ff; font-size:15px;">삼성전자</strong>
+                    <span style="font-size:11px; color:#8b949e;">(005930)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">반도체</span>
+                </div>
+                <span class="tag tag-blue">💎 79점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">286,500원 <small style="font-size:10px; color:#8b949e;">(16,749,588억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-21.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 94</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-red">🔥 쌍끌이</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=005930" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#15</span>
+                    <strong style="color:#58a6ff; font-size:15px;">신한지주</strong>
+                    <span style="font-size:11px; color:#8b949e;">(055550)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">은행</span>
+                </div>
+                <span class="tag tag-blue">💎 78점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">110,100원 <small style="font-size:10px; color:#8b949e;">(516,865억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-4.3%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag" style="background:#21262d; color:#c9d1d9;">★ 76</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-green">🟢 기관순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=055550" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#16</span>
+                    <strong style="color:#58a6ff; font-size:15px;">하나금융지주</strong>
+                    <span style="font-size:11px; color:#8b949e;">(086790)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">은행</span>
+                </div>
+                <span class="tag tag-blue">💎 78점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">133,700원 <small style="font-size:10px; color:#8b949e;">(362,287억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-4.8%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag" style="background:#21262d; color:#c9d1d9;">★ 75</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-green">🟢 기관순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=086790" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#17</span>
+                    <strong style="color:#58a6ff; font-size:15px;">GS</strong>
+                    <span style="font-size:11px; color:#8b949e;">(078930)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">정유/에너지</span>
+                </div>
+                <span class="tag tag-blue">💎 77점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">110,600원 <small style="font-size:10px; color:#8b949e;">(102,742억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-14.4%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 93</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-blue">🔵 외인순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=078930" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#18</span>
+                    <strong style="color:#58a6ff; font-size:15px;">현대해상</strong>
+                    <span style="font-size:11px; color:#8b949e;">(001450)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">보험</span>
+                </div>
+                <span class="tag tag-blue">💎 77점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">47,350원 <small style="font-size:10px; color:#8b949e;">(40,365억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-11.5%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 85</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-blue">🔵 외인순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=001450" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#19</span>
+                    <strong style="color:#58a6ff; font-size:15px;">삼화콘덴서</strong>
+                    <span style="font-size:11px; color:#8b949e;">(001820)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">전기제품</span>
+                </div>
+                <span class="tag tag-blue">💎 76점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">146,900원 <small style="font-size:10px; color:#8b949e;">(15,270억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-22.7%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 98</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-blue">🔵 외인순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=001820" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#20</span>
+                    <strong style="color:#58a6ff; font-size:15px;">RISE 대형고배당10TR</strong>
+                    <span style="font-size:11px; color:#8b949e;">(315960)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">ETF</span>
+                </div>
+                <span class="tag tag-blue">💎 76점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">79,760원 <small style="font-size:10px; color:#8b949e;">(5,224억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-24.1%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 90</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-red">🔥 쌍끌이</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=315960" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#21</span>
+                    <strong style="color:#58a6ff; font-size:15px;">씨젠</strong>
+                    <span style="font-size:11px; color:#8b949e;">(096530)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">바이오</span>
+                </div>
+                <span class="tag tag-blue">💎 76점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">33,850원 <small style="font-size:10px; color:#8b949e;">(15,820억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-5.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag" style="background:#21262d; color:#c9d1d9;">★ 75</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-red">🔥 쌍끌이</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=096530" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#22</span>
+                    <strong style="color:#58a6ff; font-size:15px;">KODEX 삼성그룹</strong>
+                    <span style="font-size:11px; color:#8b949e;">(102780)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">ETF</span>
+                </div>
+                <span class="tag tag-blue">💎 74점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">26,800원 <small style="font-size:10px; color:#8b949e;">(34,250억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-22.9%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 85</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-red">🔥 쌍끌이</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=102780" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#23</span>
+                    <strong style="color:#58a6ff; font-size:15px;">맵스리얼티</strong>
+                    <span style="font-size:11px; color:#8b949e;">(094800)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">리츠/부동산</span>
+                </div>
+                <span class="tag tag-blue">💎 74점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">7,700원 <small style="font-size:10px; color:#8b949e;">(7,148억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-3.5%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag" style="background:#21262d; color:#c9d1d9;">★ 78</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-red">🔥 쌍끌이</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=094800" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#24</span>
+                    <strong style="color:#58a6ff; font-size:15px;">KB금융</strong>
+                    <span style="font-size:11px; color:#8b949e;">(105560)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">은행</span>
+                </div>
+                <span class="tag tag-blue">💎 74점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">174,100원 <small style="font-size:10px; color:#8b949e;">(617,511억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-6.5%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag" style="background:#21262d; color:#c9d1d9;">★ 72</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-green">🟢 기관순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=105560" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#25</span>
+                    <strong style="color:#58a6ff; font-size:15px;">TIGER MSCI Korea TR</strong>
+                    <span style="font-size:11px; color:#8b949e;">(310970)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">ETF</span>
+                </div>
+                <span class="tag tag-blue">💎 73점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">50,960원 <small style="font-size:10px; color:#8b949e;">(47,342억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-23.9%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 87</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-red">🔥 쌍끌이</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=310970" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#26</span>
+                    <strong style="color:#58a6ff; font-size:15px;">코스맥스</strong>
+                    <span style="font-size:11px; color:#8b949e;">(192820)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">화장품</span>
+                </div>
+                <span class="tag tag-blue">💎 72점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">270,500원 <small style="font-size:10px; color:#8b949e;">(30,700억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-10.7%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 88</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-blue">🔵 외인순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=192820" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#27</span>
+                    <strong style="color:#58a6ff; font-size:15px;">GS건설</strong>
+                    <span style="font-size:11px; color:#8b949e;">(006360)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">건설</span>
+                </div>
+                <span class="tag tag-blue">💎 72점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">34,750원 <small style="font-size:10px; color:#8b949e;">(29,740억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-19.4%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 86</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag" style="background:#21262d; color:#8b949e;">⚪ 관망</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=006360" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#28</span>
+                    <strong style="color:#58a6ff; font-size:15px;">SK이노베이션</strong>
+                    <span style="font-size:11px; color:#8b949e;">(096770)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">정유/에너지</span>
+                </div>
+                <span class="tag tag-blue">💎 72점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">148,700원 <small style="font-size:10px; color:#8b949e;">(251,381억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-3.1%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag" style="background:#21262d; color:#c9d1d9;">★ 80</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-red">🔥 쌍끌이</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=096770" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#29</span>
+                    <strong style="color:#58a6ff; font-size:15px;">코스메카코리아</strong>
+                    <span style="font-size:11px; color:#8b949e;">(241710)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">화장품</span>
+                </div>
+                <span class="tag tag-blue">💎 71점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">127,100원 <small style="font-size:10px; color:#8b949e;">(13,574억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-17.4%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 92</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-blue">🔵 외인순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=241710" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#30</span>
+                    <strong style="color:#58a6ff; font-size:15px;">KODEX Top5PlusTR</strong>
+                    <span style="font-size:11px; color:#8b949e;">(315930)</span>
+                    <span class="tag tag-blue" style="margin-left:4px; font-size:10px;">ETF</span>
+                </div>
+                <span class="tag tag-blue">💎 71점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 / 시총</div>
+                    <div class="metric-item-val">81,010원 <small style="font-size:10px; color:#8b949e;">(9,721억)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-23.9%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 88</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div>메이저 수급: <span class="tag tag-green">🟢 기관순매수</span></div>
+                <div><a href="https://finance.naver.com/item/main.naver?code=315930" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">네이버 증권 차트 ↗</a></div>
+            </div>
+        </div>
+        </div>
+
+            <!-- 데스크톱 테이블 뷰 -->
+            <div class="card" id="krTableCard">
                 <table id="tableKR" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
@@ -1830,7 +2670,61 @@
             </div>
         </div>
 
-        <!-- 탭 2: 미국 주식 -->
+        <!-- 탭 2: 한국투자증권 실전 계좌 (10111722-01) -->
+        <div id="tab-kis" class="tab-content">
+            <div style="background:#131822; border:1px solid var(--border-color); border-radius:12px; padding:16px 20px; margin-bottom:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                    <div>
+                        <h3 style="color:#f8fafc; font-size:16px; font-weight:700; display:flex; align-items:center; gap:8px;">
+                            <span>🏦 한국투자증권 Open API 실전 계좌 연동 현황</span>
+                            <span class="tag tag-green">🟢 실시간 정상</span>
+                        </h3>
+                        <p style="color:#94a3b8; font-size:12px; margin-top:4px;">
+                            계좌번호: <strong style="color:#58a6ff;">10111722-01</strong> | 모드: <strong>실전투자</strong> | 통화: <strong>원화(KRW)</strong>
+                        </p>
+                    </div>
+                    <div>
+                        <span class="tag tag-gold" style="font-size:12px; padding:4px 10px;">예수금: ₩5,000,000</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 스마트폰 카드 뷰 -->
+            
+        <div style="background:rgba(88,166,255,0.06); border:1px solid rgba(88,166,255,0.25); border-radius:12px; padding:24px 20px; text-align:center; margin-bottom:16px;">
+            <div style="font-size:32px; margin-bottom:8px;">🏦</div>
+            <h4 style="color:#f0f6fc; margin-bottom:6px; font-size:16px;">한국투자증권 실전 계좌(10111722-01) 보유 주식이 없습니다</h4>
+            <p style="color:#8b949e; font-size:13px; line-height:1.6; margin:0 auto; max-width:650px;">
+                현재 <strong>원화 현금 5,000,000원(100%)</strong>이 안전하게 예수금으로 보존되어 대기 중입니다.<br>
+                국내 증시 개장 시 마크 미너비니 SEPA 최우수 주도주 돌파 신호가 감지되면 <strong>슬롯당 125만원(총 4슬롯)</strong>씩 기계적 분할 매수가 집행됩니다.
+            </p>
+        </div>
+        
+
+            <!-- 데스크톱 테이블 뷰 -->
+            <div class="card" id="kisTableCard">
+                <table id="tableKis" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="text-center">순번</th>
+                            <th>종목명 (코드)</th>
+                            <th class="text-right">보유수량</th>
+                            <th class="text-right">매수가</th>
+                            <th class="text-right">현재가</th>
+                            <th class="text-right">수익률</th>
+                            <th class="text-right">평가손익</th>
+                            <th class="text-right">평가금액</th>
+                            <th class="text-center">상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="9" class="text-center py-4" style="color:#8b949e;">현재 한국투자증권 실전 계좌에 보유 중인 주식이 없습니다 (현금 100% 보존 대기).</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 탭 3: 미국 주식 스크리너 -->
         <div id="tab-us" class="tab-content">
             
     <div class="market-regime-alert" style="background:linear-gradient(135deg, rgba(63, 185, 80, 0.12), rgba(46, 160, 67, 0.2)); border:1.5px solid #2ea043; border-radius:12px; padding:18px 22px; margin-bottom:20px; ">
@@ -1881,22 +2775,882 @@
     </div>
     
             
-            <div style="background:rgba(88,166,255,0.08); border:1px solid rgba(88,166,255,0.25); border-radius:8px; padding:12px 18px; margin-bottom:16px; font-size:13px; color:#c9d1d9; line-height:1.6;">
-                🇺🇸 <strong>미국 주식 고승률(48%) 실전 매매 가이드:</strong><br>
-                1. <strong>대형 우량주 집중:</strong> 기관 수급이 보장된 S&P 500 / NASDAQ 대형주 위주 공략 (초소형 페니주 휩소 배제)<br>
-                2. <strong>추격 매수 금지 (Ext ≤ 1.06):</strong> 20일선에서 6% 이상 과열된 종목은 매수하지 않고, <strong>변동성 수축(VCP ≤ 0.90) 구간</strong>에서만 진입<br>
-                3. <strong>어닝 룰렛 회피:</strong> 분기 실적 발표 전 수익 쿠션(+10% 이상)이 없으면 비중을 절반 이상 축소하여 밤사이 갭하락 위험 차단<br>
-                4. <strong>3R 본전 보호:</strong> 손절폭(-7.5%)의 3배인 +22.5% 수익 달성 시 스탑을 매수가로 상향하여 원금 영구 보호
-            </div>
-            <div class="change-banner" style="margin-bottom: 16px;">
-                <div class="change-box change-new">
-                    🔥 <strong>오늘 신규 편입 (39개):</strong> <strong>Humana Inc.</strong>(HUM), <strong>ManpowerGroup Inc.</strong>(MAN), <strong>Sensient Technologies Corporation</strong>(SXT), <strong>Astera Labs  Inc.</strong>(ALAB), <strong>Mitsubishi UFJ Financial Group  Inc. ADR</strong>(MUFG), <strong>Crocs  Inc.</strong>(CROX)
+
+            <!-- 스마트폰 카드 뷰 -->
+            <div class="stock-cards-list" id="usMobileCards">
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#1</span>
+                    <strong style="color:#f59e0b; font-size:15px;">HZO</strong>
+                    <span style="font-size:11px; color:#8b949e;">(MarineMax Inc)</span>
                 </div>
-                <div class="change-box change-drop">
-                    🚨 <strong>전일 대비 이탈 (43개):</strong> LandBridge Company LLC(LB), Seadrill Limited(SDRL), Korsana Biosciences  Inc.(KRSA), Anglogold Ashanti PLC(AU), Hut 8 Corp(HUT), United Fire Group Inc(UFCS)
+                <span class="tag tag-gold">👑 99점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$52.44 <small style="font-size:10px; color:#8b949e;">($1.16B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-0.2%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 96</span> <span class="tag tag-green">🟢 수축</span></div>
                 </div>
             </div>
-            <div class="card">
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=HZO" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=HZO" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#2</span>
+                    <strong style="color:#f59e0b; font-size:15px;">AMD</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Advanced Micro Dev)</span>
+                </div>
+                <span class="tag tag-gold">👑 97점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$630.63 <small style="font-size:10px; color:#8b949e;">($1.03T)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">+0.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 98</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=AMD" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=AMD" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#3</span>
+                    <strong style="color:#f59e0b; font-size:15px;">ASX</strong>
+                    <span style="font-size:11px; color:#8b949e;">(ASE Technology Hol)</span>
+                </div>
+                <span class="tag tag-gold">👑 97점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$44.31 <small style="font-size:10px; color:#8b949e;">($97.43B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-2.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 97</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=ASX" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=ASX" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#4</span>
+                    <strong style="color:#f59e0b; font-size:15px;">AGEN</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Agenus Inc)</span>
+                </div>
+                <span class="tag tag-gold">👑 94점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$8.54 <small style="font-size:10px; color:#8b949e;">($384.5M)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-1.8%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 98</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=AGEN" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=AGEN" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#5</span>
+                    <strong style="color:#f59e0b; font-size:15px;">ABCL</strong>
+                    <span style="font-size:11px; color:#8b949e;">(AbCellera Biologic)</span>
+                </div>
+                <span class="tag tag-gold">👑 93점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$12.70 <small style="font-size:10px; color:#8b949e;">($4.11B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-0.2%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 98</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=ABCL" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=ABCL" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#6</span>
+                    <strong style="color:#f59e0b; font-size:15px;">SMTC</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Semtech Corporatio)</span>
+                </div>
+                <span class="tag tag-gold">👑 93점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$182.30 <small style="font-size:10px; color:#8b949e;">($17.01B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-1.5%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 97</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=SMTC" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=SMTC" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#7</span>
+                    <strong style="color:#f59e0b; font-size:15px;">ADPT</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Adaptive Biotechno)</span>
+                </div>
+                <span class="tag tag-gold">👑 93점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$29.43 <small style="font-size:10px; color:#8b949e;">($4.70B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-0.5%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 96</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=ADPT" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=ADPT" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#8</span>
+                    <strong style="color:#f59e0b; font-size:15px;">HNGE</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Hinge Health  Inc.)</span>
+                </div>
+                <span class="tag tag-gold">👑 93점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$95.57 <small style="font-size:10px; color:#8b949e;">($7.71B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">+0.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 95</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=HNGE" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=HNGE" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#9</span>
+                    <strong style="color:#f59e0b; font-size:15px;">SMTI</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Sanara Medtech Inc)</span>
+                </div>
+                <span class="tag tag-gold">👑 93점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$35.06 <small style="font-size:10px; color:#8b949e;">($322.1M)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-0.6%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 90</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=SMTI" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=SMTI" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#10</span>
+                    <strong style="color:#f59e0b; font-size:15px;">KEYS</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Keysight Technolog)</span>
+                </div>
+                <span class="tag tag-gold">👑 93점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$362.15 <small style="font-size:10px; color:#8b949e;">($61.65B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-3.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 90</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=KEYS" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=KEYS" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#11</span>
+                    <strong style="color:#f59e0b; font-size:15px;">FEIM</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Frequency Electron)</span>
+                </div>
+                <span class="tag tag-gold">👑 92점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$88.43 <small style="font-size:10px; color:#8b949e;">($996.9M)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-0.6%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 96</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=FEIM" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=FEIM" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#12</span>
+                    <strong style="color:#f59e0b; font-size:15px;">CRSR</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Corsair Gaming Inc)</span>
+                </div>
+                <span class="tag tag-gold">👑 92점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$13.66 <small style="font-size:10px; color:#8b949e;">($1.48B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-4.8%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 96</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=CRSR" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=CRSR" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#13</span>
+                    <strong style="color:#f59e0b; font-size:15px;">PSNL</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Personalis  Inc.)</span>
+                </div>
+                <span class="tag tag-gold">👑 92점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$16.46 <small style="font-size:10px; color:#8b949e;">($1.76B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-10.4%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 96</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=PSNL" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=PSNL" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#14</span>
+                    <strong style="color:#f59e0b; font-size:15px;">ALNT</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Allient Inc)</span>
+                </div>
+                <span class="tag tag-gold">👑 92점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$116.01 <small style="font-size:10px; color:#8b949e;">($1.97B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">+0.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 95</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=ALNT" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=ALNT" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#15</span>
+                    <strong style="color:#f59e0b; font-size:15px;">PGEN</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Precigen  Inc.)</span>
+                </div>
+                <span class="tag tag-gold">👑 92점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$7.75 <small style="font-size:10px; color:#8b949e;">($2.77B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-1.8%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 95</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=PGEN" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=PGEN" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#16</span>
+                    <strong style="color:#f59e0b; font-size:15px;">ATKR</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Atkore Inc.)</span>
+                </div>
+                <span class="tag tag-gold">👑 92점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$94.57 <small style="font-size:10px; color:#8b949e;">($3.19B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">+0.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 89</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=ATKR" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=ATKR" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#17</span>
+                    <strong style="color:#f59e0b; font-size:15px;">ITGR</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Integer Holdings C)</span>
+                </div>
+                <span class="tag tag-gold">👑 92점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$126.34 <small style="font-size:10px; color:#8b949e;">($4.30B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-0.1%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 88</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=ITGR" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=ITGR" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#18</span>
+                    <strong style="color:#f59e0b; font-size:15px;">ARX</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Accelerant Holding)</span>
+                </div>
+                <span class="tag tag-gold">👑 91점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$19.75 <small style="font-size:10px; color:#8b949e;">($4.29B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-0.7%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 88</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=ARX" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=ARX" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#19</span>
+                    <strong style="color:#f59e0b; font-size:15px;">BZH</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Beazer Homes USA  )</span>
+                </div>
+                <span class="tag tag-gold">👑 91점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$33.37 <small style="font-size:10px; color:#8b949e;">($890.3M)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-2.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 88</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=BZH" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=BZH" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#20</span>
+                    <strong style="color:#f59e0b; font-size:15px;">MU</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Micron Technology )</span>
+                </div>
+                <span class="tag tag-gold">👑 90점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$1082.28 <small style="font-size:10px; color:#8b949e;">($1.22T)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-10.8%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 99</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=MU" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=MU" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#21</span>
+                    <strong style="color:#f59e0b; font-size:15px;">LITE</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Lumentum Holdings )</span>
+                </div>
+                <span class="tag tag-gold">👑 90점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$941.65 <small style="font-size:10px; color:#8b949e;">($84.47B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-10.6%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 98</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=LITE" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=LITE" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#22</span>
+                    <strong style="color:#f59e0b; font-size:15px;">IMOS</strong>
+                    <span style="font-size:11px; color:#8b949e;">(ChipMOS Technologi)</span>
+                </div>
+                <span class="tag tag-gold">👑 90점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$71.78 <small style="font-size:10px; color:#8b949e;">($2.51B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-5.3%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 97</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=IMOS" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=IMOS" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#23</span>
+                    <strong style="color:#f59e0b; font-size:15px;">COHU</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Cohu  Inc.)</span>
+                </div>
+                <span class="tag tag-gold">👑 90점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$67.00 <small style="font-size:10px; color:#8b949e;">($3.17B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-9.3%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 97</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=COHU" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=COHU" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#24</span>
+                    <strong style="color:#f59e0b; font-size:15px;">NESR</strong>
+                    <span style="font-size:11px; color:#8b949e;">(National Energy Se)</span>
+                </div>
+                <span class="tag tag-gold">👑 90점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$32.13 <small style="font-size:10px; color:#8b949e;">($3.24B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">-11.5%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 95</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=NESR" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=NESR" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#25</span>
+                    <strong style="color:#f59e0b; font-size:15px;">DDOG</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Datadog Inc)</span>
+                </div>
+                <span class="tag tag-gold">👑 90점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$268.13 <small style="font-size:10px; color:#8b949e;">($96.28B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-7.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 94</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=DDOG" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=DDOG" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#26</span>
+                    <strong style="color:#f59e0b; font-size:15px;">SAFT</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Safety Insurance G)</span>
+                </div>
+                <span class="tag tag-gold">👑 90점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$103.51 <small style="font-size:10px; color:#8b949e;">($1.52B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-0.3%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 87</span> <span class="tag tag-green">🟢 수축</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=SAFT" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=SAFT" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#27</span>
+                    <strong style="color:#f59e0b; font-size:15px;">BFLY</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Butterfly Network )</span>
+                </div>
+                <span class="tag tag-blue">💎 89점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$9.39 <small style="font-size:10px; color:#8b949e;">($2.50B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-5.4%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 98</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=BFLY" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=BFLY" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#28</span>
+                    <strong style="color:#f59e0b; font-size:15px;">HBB</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Hamilton Beach Bra)</span>
+                </div>
+                <span class="tag tag-blue">💎 89점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$37.26 <small style="font-size:10px; color:#8b949e;">($500.9M)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-0.1%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 97</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=HBB" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=HBB" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#29</span>
+                    <strong style="color:#f59e0b; font-size:15px;">TH</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Target Hospitality)</span>
+                </div>
+                <span class="tag tag-blue">💎 89점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$20.58 <small style="font-size:10px; color:#8b949e;">($2.05B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">-4.1%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 95</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=TH" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=TH" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-purple" style="margin-right:4px;">#30</span>
+                    <strong style="color:#f59e0b; font-size:15px;">AVT</strong>
+                    <span style="font-size:11px; color:#8b949e;">(Avnet Inc)</span>
+                </div>
+                <span class="tag tag-blue">💎 89점</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재 주가</div>
+                    <div class="metric-item-val">$103.08 <small style="font-size:10px; color:#8b949e;">($8.46B)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">52주 고점거리</div>
+                    <div class="metric-item-val" style="color:#ff7b72;">+0.0%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">RS / VCP</div>
+                    <div class="metric-item-val"><span class="tag tag-green">★ 93</span> <span class="tag tag-blue">🟡 양호</span></div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div><a href="https://www.tradingview.com/chart/?symbol=AVT" target="_blank" style="color:#58a6ff; text-decoration:none; font-size:11px;">TradingView 차트 ↗</a></div>
+                <div><a href="https://finviz.com/quote.ashx?t=AVT" target="_blank" style="color:#f59e0b; text-decoration:none; font-size:11px;">Finviz 재무 ↗</a></div>
+            </div>
+        </div>
+        </div>
+
+            <!-- 데스크톱 테이블 뷰 -->
+            <div class="card" id="usTableCard">
                 <table id="tableUS" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
@@ -11929,34 +13683,107 @@
             </div>
         </div>
 
-        <!-- 탭 3: 보유 종목 매도 감시 -->
+        <!-- 탭 4: 관심종목 매도 감시 -->
         <div id="tab-sell" class="tab-content">
-            <div class="sell-info-box">
-                🛡️ <strong>마크 미너비니 핵심 매도 원칙 가이드:</strong><br>
-                1. <strong>손실 통제 (1R Cut):</strong> 매수가 대비 -7~8% 하락 시 어떤 이유도 묻지 않고 <strong>기계적 전량 손절</strong>합니다.<br>
-                2. <strong>본전 보호 (3R Break-Even):</strong> 손절폭(-7.5%)의 3배인 <strong>+22.5% 이상 상승했던 종목은 스탑을 매수가로 상향</strong>하여 원금 손실 위험을 0%로 영구 차단합니다 (정상적인 8~10% 눌림목에서의 조기 탈락 방지).<br>
-                3. <strong>이익 보존:</strong> +20% 이상 큰 시세가 난 종목은 <strong>고점 대비 -10% 반락 시 트레일링 익절</strong>하여 수익을 확정 짓습니다.<br>
-                4. <strong>실적 발표 갭다운 회피:</strong> 실적 발표 전 수익 쿠션(+10% 이상)이 없는 종목은 위험 축소 또는 단기 급락 시 조기 차단합니다.<br>
-                5. <strong>클라이맥스:</strong> 200일선 70%+ 수직 급등 시 <strong>강세 구간에서 보유 물량의 1/2을 분할 매도</strong>합니다.<br>
-                <small class="text-muted">👉 보유 종목 관리: 아래 <strong>[➕ 새 보유 종목 추가]</strong> / 테이블 우측 <strong>[🗑️ 삭제]</strong> 버튼으로 웹에서 바로 관리할 수 있습니다.</small>
+            <div style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3); border-radius:10px; padding:14px 18px; margin-bottom:14px; font-size:12px; color:#cbd5e1; line-height:1.6;">
+                🛡️ <strong>마크 미너비니 핵심 매도 규칙:</strong><br>
+                1. <strong>초기 손절 (1R Cut):</strong> 매수가 대비 -7~8% 하락 시 기계적 전량 손절하여 원금 보존<br>
+                2. <strong>추세 완주 (+20% 도달 시):</strong> 3R 이상 수익 구간에서는 조기 매도하지 않고 <strong>50일선 트레일링 스탑</strong>으로 대시세를 끝까지 향유<br>
+                3. <strong>고점 반락:</strong> 최고점 대비 -10% 이상 하락 시 수익 확정 익절
             </div>
 
-            <div class="sell-toolbar">
-                <button class="btn btn-green font-bold" onclick="openAddModal()">
-                    ➕ 새 보유 종목 추가
-                </button>
-                <button class="btn" onclick="openGhSyncModal()">
-                    ⚙️ GitHub 클라우드 직접 연동 <span id="ghSyncBadge" class="badge" style="font-size:11px; margin-left:4px;">확인 중...</span>
-                </button>
-                <a href="http://localhost:5050" target="_blank" class="btn" style="text-decoration:none;">
-                    💻 PC 로컬 웹 관리자 열기
-                </a>
-                <button class="btn" onclick="exportPortfolioJson()">
-                    📥 portfolio.json 다운로드
-                </button>
+            <!-- 스마트폰 카드 뷰 -->
+            <div class="stock-cards-list" id="sellMobileCards">
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-gold" style="margin-right:4px;">#1</span>
+                    <strong style="color:#58a6ff; font-size:15px;">샘씨엔에스</strong>
+                    <span style="font-size:11px; color:#8b949e;">(252990)</span>
+                    <span class="tag tag-blue" style="margin-left:4px;">KR</span>
+                </div>
+                <span class="tag tag-green">🟢 홀딩 (추세 순항)</span>
             </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 (매수가)</div>
+                    <div class="metric-item-val">18,110원 <small style="font-size:10px; color:#8b949e;">(18,080원)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">현재 손익률</div>
+                    <div class="metric-item-val" style="color:#3fb950;">+0.17%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">권장 스탑선</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">16,724원</div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div style="font-size:12px; color:#c9d1d9;">💡 정상 상승 추세 유지 중. 손절선 유지하며 홀딩.</div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-gold" style="margin-right:4px;">#2</span>
+                    <strong style="color:#58a6ff; font-size:15px;">대한항공</strong>
+                    <span style="font-size:11px; color:#8b949e;">(003490)</span>
+                    <span class="tag tag-blue" style="margin-left:4px;">KR</span>
+                </div>
+                <span class="tag tag-green">🟢 홀딩 (추세 순항)</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 (매수가)</div>
+                    <div class="metric-item-val">31,500원 <small style="font-size:10px; color:#8b949e;">(30,550원)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">현재 손익률</div>
+                    <div class="metric-item-val" style="color:#3fb950;">+3.11%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">권장 스탑선</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">28,258원</div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div style="font-size:12px; color:#c9d1d9;">💡 정상 상승 추세 유지 중. 손절선 유지하며 홀딩.</div>
+            </div>
+        </div>
+        
+        <div class="stock-mobile-card">
+            <div class="card-top-row">
+                <div>
+                    <span class="tag tag-gold" style="margin-right:4px;">#3</span>
+                    <strong style="color:#58a6ff; font-size:15px;">신한지주</strong>
+                    <span style="font-size:11px; color:#8b949e;">(055550)</span>
+                    <span class="tag tag-blue" style="margin-left:4px;">KR</span>
+                </div>
+                <span class="tag tag-green">🟢 홀딩 (추세 순항)</span>
+            </div>
+            <div class="card-metric-row">
+                <div>
+                    <div class="metric-item-label">현재가 (매수가)</div>
+                    <div class="metric-item-val">110,100원 <small style="font-size:10px; color:#8b949e;">(115,000원)</small></div>
+                </div>
+                <div>
+                    <div class="metric-item-label">현재 손익률</div>
+                    <div class="metric-item-val" style="color:#f85149;">-4.26%</div>
+                </div>
+                <div>
+                    <div class="metric-item-label">권장 스탑선</div>
+                    <div class="metric-item-val" style="color:#f59e0b;">106,375원</div>
+                </div>
+            </div>
+            <div class="card-bottom-row">
+                <div style="font-size:12px; color:#c9d1d9;">💡 정상 상승 추세 유지 중. 손절선 유지하며 홀딩.</div>
+            </div>
+        </div>
+        </div>
 
-            <div class="card">
+            <!-- 데스크톱 테이블 뷰 -->
+            <div class="card" id="sellTableCard">
                 <table id="tableSell" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
@@ -11969,7 +13796,7 @@
                             <th class="text-right">현재 손익</th>
                             <th class="text-right col-desktop">최고 수익</th>
                             <th class="text-right">고점거리</th>
-                            <th class="text-center">미너비니 매도진단</th>
+                            <th class="text-center">진단</th>
                             <th class="text-right">권장스탑선</th>
                             <th>대응 가이드</th>
                             <th class="text-center" style="width:50px;">관리</th>
@@ -12049,310 +13876,145 @@
                 </table>
             </div>
         </div>
-    </div>
 
-    <!-- 종목 추가 모달 -->
-    <div id="modalAddStock" class="modal-overlay">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3>➕ 새 보유 종목 추가</h3>
-                <button class="modal-close" onclick="closeModal('modalAddStock')">&times;</button>
-            </div>
-            <div>
-                <div class="form-row">
-                    <div class="form-field">
-                        <label>시장 구분</label>
-                        <select id="webMarket" class="form-input">
-                            <option value="KR">🇰🇷 국내 주식 (KR)</option>
-                            <option value="US">🇺🇸 미국 주식 (US)</option>
-                        </select>
+        <!-- 탭 5: 20개년 퀀트 전략 실증 성과 비교 -->
+        <div id="tab-backtest" class="tab-content">
+            <div class="backtest-grid">
+                <div class="bt-card winner">
+                    <div class="bt-title">
+                        <span>🥇 한국 마크 미너비니 SEPA 추세추종</span>
+                        <span class="tag tag-gold">20년 1위</span>
                     </div>
-                    <div class="form-field">
-                        <label>종목코드 / 티커</label>
-                        <input type="text" id="webCode" class="form-input" placeholder="예: 000500, AAPL">
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">20년 누적 수익률</span>
+                        <strong style="color:#f59e0b; font-size:15px;">+19,704.7% (198.0배)</strong>
                     </div>
-                </div>
-                <div class="form-field">
-                    <label>종목명</label>
-                    <input type="text" id="webName" class="form-input" placeholder="예: 가온전선, Apple Inc.">
-                </div>
-                <div class="form-row">
-                    <div class="form-field">
-                        <label>매수가격 (단가)</label>
-                        <input type="number" id="webPrice" class="form-input" placeholder="예: 318000 또는 150.5" step="any">
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">연평균 복리(CAGR)</span>
+                        <strong style="color:#22c55e;">27.57%</strong>
                     </div>
-                    <div class="form-field">
-                        <label>매수일자</label>
-                        <input type="date" id="webDate" class="form-input">
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">전략 핵심 엔진</span>
+                        <span>50일선 트레일링 스탑 라이딩 + 5중 안전장치</span>
+                    </div>
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">자산 배분 가이드</span>
+                        <span style="color:#38bdf8;">국내 실전 계좌 (비중 50%)</span>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-field">
-                        <label>보유수량 (주)</label>
-                        <input type="number" id="webShares" class="form-input" value="1" min="1">
+
+                <div class="bt-card winner">
+                    <div class="bt-title">
+                        <span>🥈 미국 피터 린치 GARP 저평가 성장주</span>
+                        <span class="tag tag-green">20년 2위</span>
                     </div>
-                    <div class="form-field">
-                        <label>메모 (선택)</label>
-                        <input type="text" id="webMemo" class="form-input" placeholder="예: SEPA VCP 돌파">
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">20년 누적 수익률</span>
+                        <strong style="color:#22c55e; font-size:15px;">+7,678.5% (77.8배)</strong>
+                    </div>
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">연평균 복리(CAGR)</span>
+                        <strong style="color:#22c55e;">22.19%</strong>
+                    </div>
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">전략 핵심 엔진</span>
+                        <span>PEG < 1.0 극저평가 + 10종목 균등 복리</span>
+                    </div>
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">자산 배분 가이드</span>
+                        <span style="color:#38bdf8;">미국 실전 계좌 (비중 50%)</span>
                     </div>
                 </div>
-                <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
-                    <button class="btn" onclick="closeModal('modalAddStock')">취소</button>
-                    <button class="btn btn-green" onclick="submitWebAddStock()">💾 저장하기</button>
+
+                <div class="bt-card">
+                    <div class="bt-title">
+                        <span>🇰🇷 한국 KOSPI 종합지수</span>
+                        <span class="tag tag-blue">시장 벤치마크</span>
+                    </div>
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">20년 누적 수익률</span>
+                        <strong>+692.3% (7.9배)</strong>
+                    </div>
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">연평균 복리(CAGR)</span>
+                        <span>10.00%</span>
+                    </div>
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">미너비니 초과 성과</span>
+                        <strong style="color:#f59e0b;">시장 대비 +17.57%p 알파 창출</strong>
+                    </div>
+                </div>
+
+                <div class="bt-card">
+                    <div class="bt-title">
+                        <span>🇺🇸 미국 S&P 500 지수 (SPY)</span>
+                        <span class="tag tag-blue">시장 벤치마크</span>
+                    </div>
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">20년 누적 수익률</span>
+                        <strong>+544.2% (6.4배)</strong>
+                    </div>
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">연평균 복리(CAGR)</span>
+                        <span>8.95%</span>
+                    </div>
+                    <div class="bt-stat-row">
+                        <span style="color:#94a3b8;">피터 린치 초과 성과</span>
+                        <strong style="color:#22c55e;">시장 대비 +13.24%p 알파 창출</strong>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- GitHub 클라우드 연동 모달 -->
-    <div id="modalGhSync" class="modal-overlay">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3>⚙️ GitHub 클라우드 직접 연동 설정</h3>
-                <button class="modal-close" onclick="closeModal('modalGhSync')">&times;</button>
+        <!-- 하단 푸터 및 QR 코드 -->
+        <div style="text-align:center; color:#94a3b8; font-size:12px; margin-top:24px; padding:20px 10px; border-top:1px solid var(--border-color);">
+            <div style="font-weight:700; color:#f8fafc; margin-bottom:6px;">
+                🥇 마크 미너비니 SEPA 한국형 주도주 퀀트 시스템 · 20개년 실증 백테스트 1위 (CAGR 27.57%)
             </div>
-            <div>
-                <p style="font-size:13px; line-height:1.6; color:#8b949e; margin-top:0;">
-                    스마트폰이나 다른 브라우저에서 종목을 추가/삭제하면 별도의 PC 프로그램 실행 없이 GitHub 저장소의 <code>portfolio.json</code>을 즉시 원격 업데이트합니다.<br>
-                    <small style="color:var(--accent-gold);">🔒 토큰은 외부 서버로 전송되지 않으며, 현재 사용 중인 브라우저의 로컬 스토리지에만 안전하게 저장됩니다.</small>
-                </p>
-                <div class="form-field">
-                    <label>GitHub 저장소 (기본값)</label>
-                    <input type="text" id="ghRepoInput" class="form-input" value="jungkbugk/minervini-krx">
-                </div>
-                <div class="form-field">
-                    <label>GitHub Personal Access Token (PAT)</label>
-                    <input type="password" id="ghTokenInput" class="form-input" placeholder="ghp_...">
-                </div>
-                <div id="ghStatusText" style="font-size:13px; margin: 10px 0 16px 0;"></div>
-                <div style="display:flex; justify-content:space-between; gap:8px;">
-                    <button class="btn" style="color:#ff7b72; border-color:rgba(248,81,73,0.4);" onclick="clearGhToken()">연동 해제</button>
-                    <div style="display:flex; gap:8px;">
-                        <button class="btn" onclick="closeModal('modalGhSync')">닫기</button>
-                        <button class="btn btn-green" onclick="saveGhToken()">토큰 저장 및 검증</button>
-                    </div>
-                </div>
+            <div>한국투자증권 Open API 실전 계좌(10111722-01) 연동 · GitHub Pages 자동 동기화</div>
+
+            <div style="margin-top:14px; display:inline-flex; flex-direction:column; align-items:center; background:#131822; border:1px solid var(--border-color); border-radius:12px; padding:12px 18px;">
+                <div style="font-size:11px; color:#94a3b8; margin-bottom:6px; font-weight:600;">📱 스마트폰 카메라로 QR 코드를 스캔하여 모바일 대시보드로 열기</div>
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQgAAAEICAIAAAAslP2oAAAE4ElEQVR4nO3dwW7UMBRA0Qbx/78cFqyAG4kgG9vtOTs2mWk7Vx7l4fi67/sD+NW33/4NCAOaFQOCMCAIA4IwIAgDgjAgCAOCMCAIA4IwIAgDgjAgCAPC94+Xruv6OMHTPpOn9/92X8rb66x63bfXeXK//Ll28/b3Y8WAIAwIwoAgDAjCgCAMCMKAEXOMJ6ueTzXqPvop841R84TZc4n78M+DFQOCMCAIA4IwIAgDgjAgCANmzjGe7HZffNUc4O31Z883Rs1tTv88PLFiQBAGBGFAEAYEYUAQBgRhwIo5xm5W3b9/Mup1R+0D4ScrBgRhQBAGBGFAEAYEYUAQBoQvN8eYPa+YvU+D/8OKAUEYEIQBQRgQhAFBGBCEASvmGKv2Oby12zxh9rndq9yHfB6sGBCEAUEYEIQBQRgQhAFBGDBzjnHKffTZ53DPfr7Tbu//9M/DEysGBGFAEAYEYUAQBgRhQBAGhOuU/x8/yuzzvN9e57Oe+3E6KwYEYUAQBgRhQBAGBGFAEAaM2I8xe7/B7HOpR+0rmL2/YrbZf5d7s9/z2/djxYAgDAjCgCAMCMKAIAwIwoAR+zFO2c8w+774E89r+jej9o2MmqtYMSAIA4IwIAgDgjAgCAOCMGCnOcZbu81PZu+j2O2+/pPdzg8Z9XNZMSAIA4IwIAgDgjAgCAOCMGDFHOOUfRqnOH3+cB9yTogVA4IwIAgDgjAgCAOCMCAIA0acj7Gb3eYSs/dvrNqfcL+8zqp9PvZjwES+SkEQBgRhQBAGBGFAEAasmGOs+v/6p+8HWDWvWPXz3i8/J875hgV8lYIgDAjCgCAMCMKAIAwYMccYdb95t3nFqnPBn6x63VP+XrNZMSAIA4IwIAgDgjAgCAOCMGCn8zFG2e08h1Pu06/6O96HzEOsGBCEAUEYEIQBQRgQhAFBGLBiP8aqfRGz75d/1t/P7J/3OuR5WVYMCMKAIAwIwoAgDAjCgCAM2Omc79nnKox63dPnBrvtA7knzz1GsWJAEAYEYUAQBgRhQBAGBGHAzOdKnT4HeDLqPvoprzvKdfh8xooBQRgQhAFBGCAM+DtWDAjCgBFzjK92nvSqOckp54vfkz8/5hiwEV+lIAgDgjAgCAOCMCAIA2Y+V2q3cypmX2fU72H2HGD23Oba7Nz3UawYEIQBQRgQhAFBGBCEAUEYsNN+jFVOOW/77eu+dcq56aO8ff9WDAjCgCAMCMKAIAwIwoAgDBixH+OU/3+/ap/Dquc+PZl9fvY1ee6xat5ixYAgDAjCgCAMCMKAIAwIwoCZz5Xa7ZyN2ddZtT9ht/0z96L345xvWMBXKQjCgCAMCMKAIAwIwoCZc4xVz0EadZ1R50LsNs/Zbf/Gqv0tnisFA/gqBUEYEIQBQRgQhAFBGLBijrGbUedarLr+k9PP97g2Oz/EigFBGBCEAUEYEIQBQRgQhAHhy80xnqy6jz57/8aqfSbXZtd5y4oBQRgQhAFBGBCEAUEYEIQBK+YYX+08h9nnZry9/qr9DPch+0OeWDEgCAOCMCAIA4IwIAgDgjBg5hxj9vkJo8y+T3/6fozZ1zll3mXFgCAMCMKAIAwIwoAgDAjCgHDtdv8YdmDFgCAMCMKAIAwIwoAgDAjCgCAMCMKAIAwIwoAgDAjCgCAMCMKAjz/9AN6PM0NzYjGoAAAAAElFTkSuQmCC" alt="스마트폰 접속 QR 코드" style="width:130px; height:130px; border-radius:8px; border:2px solid var(--border-color); background:#fff; padding:4px;">
+                <div style="font-size:11px; margin-top:6px;"><a href="https://jungkbugk.github.io/minervini-krx/" target="_blank" style="color:#38bdf8; text-decoration:none;">https://jungkbugk.github.io/minervini-krx/</a></div>
             </div>
+
         </div>
     </div>
 
-    <!-- 토스트 알림창 -->
-    <div id="webToast" class="toast-box"></div>
-
+    <!-- 스크립트 영역 -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
-        let currentPortfolio = [{"code": "252990", "name": "샘씨엔에스", "market": "KR", "buy_price": 18080.0, "buy_date": "2026-09-23", "shares": 98, "memo": ""}, {"code": "003490", "name": "대한항공", "market": "KR", "buy_price": 30550.0, "buy_date": "2026-09-08", "shares": 81, "memo": ""}, {"code": "055550", "name": "신한지주", "market": "KR", "buy_price": 115000.0, "buy_date": "2026-09-07", "shares": 21, "memo": ""}];
-        const DEFAULT_REPO = "jungkbugk/minervini-krx";
+        function toggleMobileView() {
+            const isCardsHidden = $('.stock-cards-list').first().css('display') === 'none';
+            if (isCardsHidden) {
+                $('.stock-cards-list').css('display', 'flex');
+                $('.card').css('display', 'none');
+                showToast("📱 스마트폰 카드 뷰로 전환되었습니다.");
+            } else {
+                $('.stock-cards-list').css('display', 'none');
+                $('.card').css('display', 'block');
+                showToast("💻 데이터 테이블 뷰로 전환되었습니다.");
+            }
+        }
 
-        function showWebToast(msg, isError = false) {
-            const t = document.getElementById('webToast');
+        function copyCurrentUrl() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                showToast("대시보드 주소가 복사되었습니다!");
+            }).catch(() => {
+                showToast("복사 실패 (주소창을 이용하세요)");
+            });
+        }
+
+        function showToast(msg) {
+            const t = document.getElementById("toast");
             t.innerText = msg;
-            t.style.background = isError ? '#da3633' : '#238636';
-            t.style.display = 'block';
-            setTimeout(() => { t.style.display = 'none'; }, 3500);
-        }
-
-        function openModal(id) {
-            const el = document.getElementById(id);
-            if (el) el.style.display = 'flex';
-        }
-
-        function closeModal(id) {
-            const el = document.getElementById(id);
-            if (el) el.style.display = 'none';
-        }
-
-        function openAddModal() {
-            document.getElementById('webDate').value = new Date().toISOString().split('T')[0];
-            openModal('modalAddStock');
-        }
-
-        function openGhSyncModal(warnNotice = false) {
-            const savedToken = localStorage.getItem('minervini_gh_token') || '';
-            const savedRepo = localStorage.getItem('minervini_gh_repo') || DEFAULT_REPO;
-            document.getElementById('ghTokenInput').value = savedToken;
-            document.getElementById('ghRepoInput').value = savedRepo;
-
-            const statusEl = document.getElementById('ghStatusText');
-            if (savedToken) {
-                statusEl.innerHTML = '<span class="text-success font-bold">🟢 GitHub 클라우드 연동 완료</span> (웹에서 추가/삭제 시 자동 반영)';
-            } else {
-                statusEl.innerHTML = warnNotice 
-                    ? '<span class="text-warning font-bold">⚠️ GitHub 토큰을 등록하시면 웹에서 추가/삭제한 내역이 GitHub 저장소에 영구 동기화됩니다.</span>'
-                    : '<span class="text-muted">⚪ 아직 토큰이 등록되지 않았습니다.</span>';
-            }
-            openModal('modalGhSync');
-        }
-
-        async function saveGhToken() {
-            const token = document.getElementById('ghTokenInput').value.trim();
-            const repo = document.getElementById('ghRepoInput').value.trim() || DEFAULT_REPO;
-            if (!token) {
-                alert('GitHub 토큰(PAT)을 입력해주세요.');
-                return;
-            }
-
-            showWebToast('⏳ 토큰 유효성 검증 중...');
-            try {
-                const res = await fetch(`https://api.github.com/repos/${repo}`, {
-                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
-                });
-                if (res.ok) {
-                    localStorage.setItem('minervini_gh_token', token);
-                    localStorage.setItem('minervini_gh_repo', repo);
-                    updateGhSyncBadge();
-                    showWebToast('🎉 GitHub 클라우드 연동 성공!');
-                    closeModal('modalGhSync');
-                } else {
-                    showWebToast('❌ 토큰 또는 저장소 권한 확인 실패', true);
-                }
-            } catch (e) {
-                showWebToast('❌ 네트워크 오류: ' + e.message, true);
-            }
-        }
-
-        function clearGhToken() {
-            if (!confirm('저장된 GitHub 토큰을 삭제하시겠습니까?')) return;
-            localStorage.removeItem('minervini_gh_token');
-            updateGhSyncBadge();
-            showWebToast('토큰이 삭제되었습니다.');
-            closeModal('modalGhSync');
-        }
-
-        function updateGhSyncBadge() {
-            const badge = document.getElementById('ghSyncBadge');
-            if (!badge) return;
-            const token = localStorage.getItem('minervini_gh_token');
-            if (token) {
-                badge.innerHTML = '🟢 연동됨';
-                badge.className = 'badge badge-safe';
-            } else {
-                badge.innerHTML = '⚪ 미연동';
-                badge.className = 'badge badge-silver';
-            }
-        }
-
-        async function syncToGitHubApi(newPortfolio, commitMsg) {
-            const token = localStorage.getItem('minervini_gh_token');
-            const repo = localStorage.getItem('minervini_gh_repo') || DEFAULT_REPO;
-            if (!token) {
-                openGhSyncModal(true);
-                return false;
-            }
-
-            try {
-                showWebToast('⏳ GitHub 저장소에 동기화 중...');
-                const getUrl = `https://api.github.com/repos/${repo}/contents/portfolio.json`;
-                const getRes = await fetch(getUrl, {
-                    headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
-                });
-
-                let sha = null;
-                if (getRes.ok) {
-                    const data = await getRes.json();
-                    sha = data.sha;
-                }
-
-                const jsonStr = JSON.stringify(newPortfolio, null, 2);
-                const utf8Bytes = new TextEncoder().encode(jsonStr);
-                let binaryStr = '';
-                utf8Bytes.forEach(b => binaryStr += String.fromCharCode(b));
-                const base64Content = btoa(binaryStr);
-
-                const putRes = await fetch(getUrl, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/vnd.github.v3+json'
-                    },
-                    body: JSON.stringify({
-                        message: commitMsg,
-                        content: base64Content,
-                        sha: sha || undefined
-                    })
-                });
-
-                if (putRes.ok) {
-                    showWebToast('🎉 GitHub 저장소에 성공적으로 동기화되었습니다!');
-                    return true;
-                } else {
-                    const err = await putRes.json();
-                    showWebToast('❌ 동기화 실패: ' + (err.message || '권한 오류'), true);
-                    return false;
-                }
-            } catch (e) {
-                showWebToast('❌ 통신 오류: ' + e.message, true);
-                return false;
-            }
-        }
-
-        async function submitWebAddStock() {
-            const market = document.getElementById('webMarket').value;
-            const code = document.getElementById('webCode').value.trim().toUpperCase();
-            const name = document.getElementById('webName').value.trim() || code;
-            const price = parseFloat(document.getElementById('webPrice').value);
-            const date = document.getElementById('webDate').value;
-            const shares = parseInt(document.getElementById('webShares').value) || 1;
-            const memo = document.getElementById('webMemo').value.trim();
-
-            if (!code || isNaN(price) || price <= 0) {
-                alert('종목코드와 올바른 매수가격을 입력해주세요.');
-                return;
-            }
-
-            const item = { code, name, market, buy_price: price, buy_date: date, shares, memo };
-            const idx = currentPortfolio.findIndex(p => String(p.code).toUpperCase() === code);
-            if (idx >= 0) {
-                currentPortfolio[idx] = item;
-            } else {
-                currentPortfolio.push(item);
-            }
-
-            closeModal('modalAddStock');
-
-            const synced = await syncToGitHubApi(currentPortfolio, `Add/Update stock ${code} (${name}) via web`);
-            if (!synced) {
-                showWebToast(`[${code}] 로컬 반영 완료! (GitHub 클라우드에 영구 저장하려면 상단 연동 설정을 완료하세요)`);
-            }
-
-            setTimeout(() => { location.reload(); }, 1500);
-        }
-
-        async function deleteStockFromWeb(code, name) {
-            if (!confirm(`정말 [${name || code}] 종목을 포트폴리오에서 삭제하시겠습니까?`)) return;
-
-            currentPortfolio = currentPortfolio.filter(p => String(p.code).toUpperCase() !== String(code).toUpperCase());
-
-            const row = document.getElementById(`sell-row-${code}`);
-            if (row) {
-                row.style.opacity = '0.3';
-                row.style.background = 'rgba(248, 81, 73, 0.2)';
-            }
-
-            const synced = await syncToGitHubApi(currentPortfolio, `Delete stock ${code} (${name}) via web`);
-            if (!synced) {
-                showWebToast(`[${code}] 삭제 완료! (클라우드 반영은 연동 필요)`);
-            }
-
-            setTimeout(() => { location.reload(); }, 1500);
-        }
-
-        function exportPortfolioJson() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentPortfolio, null, 2));
-            const dlAnchor = document.createElement('a');
-            dlAnchor.setAttribute("href", dataStr);
-            dlAnchor.setAttribute("download", "portfolio.json");
-            document.body.appendChild(dlAnchor);
-            dlAnchor.click();
-            dlAnchor.remove();
-            showWebToast('📥 portfolio.json 다운로드 완료!');
+            t.style.display = "block";
+            setTimeout(() => { t.style.display = "none"; }, 2500);
         }
 
         $(document).ready(function() {
-            updateGhSyncBadge();
-
             const tableKR = $('#tableKR').DataTable({
                 pageLength: 25,
                 order: [[4, 'desc']],
@@ -12368,7 +14030,7 @@
                 pageLength: 25,
                 order: [[4, 'desc']],
                 language: {
-                    search: "미국 티커/종목 검색:",
+                    search: "미국 티커 검색:",
                     lengthMenu: "_MENU_ 개씩 보기",
                     info: "총 _TOTAL_개 중 _START_ ~ _END_ 표시",
                     paginate: { first: "처음", last: "마지막", next: "다음", previous: "이전" }
@@ -12377,10 +14039,19 @@
 
             const tableSell = $('#tableSell').DataTable({
                 pageLength: 25,
-                order: [[6, 'desc']], // 현재 수익률 기준 정렬
-                columnDefs: [{ orderable: false, targets: [12] }],
+                order: [[6, 'desc']],
                 language: {
                     search: "보유 종목 검색:",
+                    lengthMenu: "_MENU_ 개씩 보기",
+                    info: "총 _TOTAL_개 중 _START_ ~ _END_ 표시",
+                    paginate: { first: "처음", last: "마지막", next: "다음", previous: "이전" }
+                }
+            });
+
+            const tableKis = $('#tableKis').DataTable({
+                pageLength: 25,
+                language: {
+                    search: "실전 종목 검색:",
                     lengthMenu: "_MENU_ 개씩 보기",
                     info: "총 _TOTAL_개 중 _START_ ~ _END_ 표시",
                     paginate: { first: "처음", last: "마지막", next: "다음", previous: "이전" }
@@ -12395,14 +14066,21 @@
                     $('.tab-btn').eq(0).addClass('active');
                     $('#tab-kr').addClass('active');
                     tableKR.columns.adjust().draw();
-                } else if (tab === 'us') {
+                } else if (tab === 'kis') {
                     $('.tab-btn').eq(1).addClass('active');
+                    $('#tab-kis').addClass('active');
+                    tableKis.columns.adjust().draw();
+                } else if (tab === 'us') {
+                    $('.tab-btn').eq(2).addClass('active');
                     $('#tab-us').addClass('active');
                     tableUS.columns.adjust().draw();
                 } else if (tab === 'sell') {
-                    $('.tab-btn').eq(2).addClass('active');
+                    $('.tab-btn').eq(3).addClass('active');
                     $('#tab-sell').addClass('active');
                     tableSell.columns.adjust().draw();
+                } else if (tab === 'backtest') {
+                    $('.tab-btn').eq(4).addClass('active');
+                    $('#tab-backtest').addClass('active');
                 }
             };
         });
