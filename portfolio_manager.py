@@ -19,6 +19,13 @@ PORTFOLIO_FILE = "portfolio.json"
 
 def load_portfolio() -> list[dict]:
     """저장된 포트폴리오 종목 목록을 불러옵니다."""
+    quant_file = r"C:\Users\user\Quant\portfolio.json"
+    if os.path.exists(quant_file):
+        try:
+            with open(quant_file, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
     if os.path.exists(PORTFOLIO_FILE):
         try:
             with open(PORTFOLIO_FILE, "r", encoding="utf-8") as f:
