@@ -766,6 +766,10 @@ def generate_unified_dashboard(
     # 1. 최신 스크리닝 데이터 캐시 로드 (비어있을 경우 자동 보충)
     if kr_df is None or kr_df.empty:
         kr_file = os.path.join("history", "latest_kr.json")
+        quant_kr = r"C:\Users\user\Quant\history\latest_kr.json"
+        if os.path.exists(quant_kr):
+            if not os.path.exists(kr_file) or os.path.getmtime(quant_kr) > os.path.getmtime(kr_file):
+                kr_file = quant_kr
         if os.path.exists(kr_file):
             try:
                 with open(kr_file, "r", encoding="utf-8") as f:
