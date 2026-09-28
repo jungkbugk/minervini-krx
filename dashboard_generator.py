@@ -461,7 +461,7 @@ def build_kis_holdings_cards_and_rows(kis_info: dict) -> tuple[str, str]:
             </p>
         </div>
         """
-        empty_row = ''
+        empty_row = '<tr><td colspan="9" class="text-center py-4">현재 한국투자증권 실전 계좌에 보유 중인 주식이 없습니다 (현금 100% 보존 대기).</td></tr>'
         return empty_banner, empty_row
 
     cards = []
