@@ -132,30 +132,108 @@ def fetch_kis_balance() -> dict:
     quant_path = r"C:\Users\user\Quant"
     if quant_path not in sys.path:
         sys.path.append(quant_path)
+    client = None
+    bal = None
     try:
         from kis_api import KisClient
         client = KisClient()
         bal = client.get_balance()
-        if bal and "total_asset" in bal:
-            return {
-                "connected": True,
-                "account_no": bal.get("account_no", "10111722-01"),
-                "is_mock": bal.get("is_mock", False),
-                "total_asset": int(bal.get("total_asset", 5000000)),
-                "cash_available": int(bal.get("cash_available", 5000000)),
-                "stocks_value": int(bal.get("stocks_value", 0)),
-                "holdings": bal.get("holdings", [])
-            }
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"[KIS API 잔고 조회 오류] {e}")
+
+    # 1. API에서 정상적으로 잔고를 가져온 경우
+    if bal and "total_asset" in bal:
+        holdings = bal.get("holdings", [])
+        # API에서 holdings가 비어있다면 로컬 portfolio.json에서 보강
+        if not holdings:
+            quant_p = os.path.join(quant_path, "portfolio.json")
+            p_to_read = quant_p if os.path.exists(quant_p) else "portfolio.json"
+            if os.path.exists(p_to_read):
+                try:
+                    with open(p_to_read, "r", encoding="utf-8") as f:
+                        saved_p = json.load(f)
+                    for item in saved_p:
+                        if item.get("market", "KR") == "KR":
+                            code = str(item.get("code")).zfill(6)
+                            buy_p = float(item.get("buy_price", 0))
+                            shares = int(item.get("shares", 0))
+                            curr_p = buy_p
+                            try:
+                                if client:
+                                    pi = client.get_current_price(code)
+                                    if pi and pi.get("price", 0) > 0:
+                                        curr_p = float(pi["price"])
+                            except Exception:
+                                pass
+                            eval_amt = int(curr_p * shares)
+                            profit_won = int((curr_p - buy_p) * shares)
+                            ret_pct = ((curr_p - buy_p) / buy_p * 100) if buy_p > 0 else 0.0
+                            holdings.append({
+                                "code": code,
+                                "name": item.get("name", code),
+                                "shares": shares,
+                                "buy_price": buy_p,
+                                "current_price": curr_p,
+                                "eval_amount": eval_amt,
+                                "profit_won": profit_won,
+                                "return_pct": round(ret_pct, 2)
+                            })
+                except Exception:
+                    pass
+
+        stocks_val = bal.get("stocks_value", 0)
+        if holdings and stocks_val == 0:
+            stocks_val = sum(h.get("eval_amount", 0) for h in holdings)
+
+        return {
+            "connected": True,
+            "account_no": bal.get("account_no", "10111722-01"),
+            "is_mock": bal.get("is_mock", False),
+            "total_asset": int(bal.get("total_asset", 5000000)),
+            "cash_available": int(bal.get("cash_available", 5000000)),
+            "stocks_value": int(stocks_val),
+            "holdings": holdings
+        }
+
+    # 2. API 연결 불가 시 로컬 portfolio.json 백업 로드
+    holdings = []
+    quant_p = os.path.join(quant_path, "portfolio.json")
+    p_to_read = quant_p if os.path.exists(quant_p) else "portfolio.json"
+    if os.path.exists(p_to_read):
+        try:
+            with open(p_to_read, "r", encoding="utf-8") as f:
+                saved_p = json.load(f)
+            for item in saved_p:
+                if item.get("market", "KR") == "KR":
+                    code = str(item.get("code")).zfill(6)
+                    buy_p = float(item.get("buy_price", 0))
+                    shares = int(item.get("shares", 0))
+                    curr_p = float(item.get("peak_price", buy_p))
+                    eval_amt = int(curr_p * shares)
+                    profit_won = int((curr_p - buy_p) * shares)
+                    ret_pct = ((curr_p - buy_p) / buy_p * 100) if buy_p > 0 else 0.0
+                    holdings.append({
+                        "code": code,
+                        "name": item.get("name", code),
+                        "shares": shares,
+                        "buy_price": buy_p,
+                        "current_price": curr_p,
+                        "eval_amount": eval_amt,
+                        "profit_won": profit_won,
+                        "return_pct": round(ret_pct, 2)
+                    })
+        except Exception:
+            pass
+
+    stocks_val = sum(h.get("eval_amount", 0) for h in holdings)
     return {
         "connected": True,
         "account_no": "10111722-01",
         "is_mock": False,
         "total_asset": 5000000,
-        "cash_available": 5000000,
-        "stocks_value": 0,
-        "holdings": []
+        "cash_available": max(0, 5000000 - stocks_val),
+        "stocks_value": stocks_val,
+        "holdings": holdings
     }
 
 
@@ -730,9 +808,11 @@ def generate_unified_dashboard(
 
     # 3. 포트폴리오 및 매도 감시 데이터 로드
     portfolio_data = []
-    if os.path.exists("portfolio.json"):
+    quant_p = r"C:\Users\user\Quant\portfolio.json"
+    p_load = quant_p if os.path.exists(quant_p) else "portfolio.json"
+    if os.path.exists(p_load):
         try:
-            with open("portfolio.json", "r", encoding="utf-8") as f:
+            with open(p_load, "r", encoding="utf-8") as f:
                 portfolio_data = json.load(f)
         except Exception:
             portfolio_data = []
