@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-09-28T15:40:43.130763",
+  "updated_at": "2026-09-29T01:10:29.494218",
   "kr": {
     "status": "BULL",
     "can_buy": true,
@@ -39,10 +39,10 @@
       "NASDAQ": {
         "symbol": "IXIC",
         "name": "나스닥 (NASDAQ)",
-        "close": 26819.0,
-        "ma50": 26195.5,
-        "ma20": 26504.29,
-        "diff_pct": 2.38,
+        "close": 26820.38,
+        "ma50": 26195.53,
+        "ma20": 26504.36,
+        "diff_pct": 2.39,
         "above_50ma": true,
         "valid": true,
         "last_date": "2026-09-28"
@@ -50,10 +50,10 @@
       "SP500": {
         "symbol": "US500",
         "name": "S&P 500",
-        "close": 7682.02,
-        "ma50": 7640.57,
-        "ma20": 7670.99,
-        "diff_pct": 0.54,
+        "close": 7683.69,
+        "ma50": 7640.61,
+        "ma20": 7671.07,
+        "diff_pct": 0.56,
         "above_50ma": true,
         "valid": true,
         "last_date": "2026-09-28"
