@@ -1,2708 +1,2452 @@
 {
-  "_last_run_date": "2026-09-30",
+  "_last_run_date": "2026-10-01",
   "active_stocks": {
     "HZO": {
       "name": "MarineMax Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 52.33,
+      "last_seen": "2026-10-01",
+      "last_close": 52.3,
       "last_score": 99
     },
-    "ATKR": {
-      "name": "Atkore Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 94.76,
-      "last_score": 96
-    },
-    "AGEN": {
-      "name": "Agenus Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 9.64,
+    "SILC": {
+      "name": "Silicom Ltd",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 52.66,
       "last_score": 94
     },
-    "ABCL": {
-      "name": "AbCellera Biologics Inc.",
-      "consecutive_days": 12,
+    "LITE": {
+      "name": "Lumentum Holdings Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 14.72,
+      "last_seen": "2026-10-01",
+      "last_close": 1052.45,
       "last_score": 93
     },
     "ASX": {
       "name": "ASE Technology Holding Co.  Ltd. ADR",
-      "consecutive_days": 9,
+      "consecutive_days": 10,
       "first_seen": "2026-09-17",
-      "last_seen": "2026-09-30",
-      "last_close": 44.82,
+      "last_seen": "2026-10-01",
+      "last_close": 44.04,
       "last_score": 93
     },
     "HNGE": {
       "name": "Hinge Health  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 95.32,
-      "last_score": 93
-    },
-    "FTNT": {
-      "name": "Fortinet  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 177.97,
-      "last_score": 93
-    },
-    "GH": {
-      "name": "Guardant Health  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 178.12,
+      "last_seen": "2026-10-01",
+      "last_close": 97.43,
       "last_score": 93
     },
     "SMTI": {
       "name": "Sanara MedTech Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 35.06,
+      "last_seen": "2026-10-01",
+      "last_close": 35.01,
       "last_score": 93
     },
-    "PGEN": {
-      "name": "Precigen  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 8.12,
+    "ALNT": {
+      "name": "Allient Inc",
+      "consecutive_days": 11,
+      "first_seen": "2026-09-16",
+      "last_seen": "2026-10-01",
+      "last_close": 114.99,
       "last_score": 92
     },
     "CRSR": {
       "name": "Corsair Gaming Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 13.56,
+      "last_seen": "2026-10-01",
+      "last_close": 13.58,
       "last_score": 92
     },
     "PSNL": {
       "name": "Personalis  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 16.43,
+      "last_seen": "2026-10-01",
+      "last_close": 16.25,
+      "last_score": 92
+    },
+    "AMN": {
+      "name": "AMN Healthcare Services  Inc.",
+      "consecutive_days": 5,
+      "first_seen": "2026-09-24",
+      "last_seen": "2026-10-01",
+      "last_close": 35.9,
+      "last_score": 92
+    },
+    "ATKR": {
+      "name": "Atkore Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 94.82,
       "last_score": 92
     },
     "ITGR": {
       "name": "Integer Holdings Corp",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 126.4,
+      "last_seen": "2026-10-01",
+      "last_close": 126.41,
       "last_score": 92
+    },
+    "AGEN": {
+      "name": "Agenus Inc",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 9.35,
+      "last_score": 91
     },
     "PUBM": {
       "name": "PubMatic  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 19.07,
-      "last_score": 91
-    },
-    "BZH": {
-      "name": "Beazer Homes USA  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 33.37,
+      "last_seen": "2026-10-01",
+      "last_close": 18.91,
       "last_score": 91
     },
     "ARX": {
       "name": "Accelerant Holdings",
-      "consecutive_days": 4,
+      "consecutive_days": 5,
       "first_seen": "2026-09-24",
-      "last_seen": "2026-09-30",
-      "last_close": 19.74,
+      "last_seen": "2026-10-01",
+      "last_close": 19.75,
+      "last_score": 91
+    },
+    "BZH": {
+      "name": "Beazer Homes USA  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 33.42,
       "last_score": 91
     },
     "AMD": {
       "name": "Advanced Micro Devices  Inc.",
-      "consecutive_days": 11,
+      "consecutive_days": 12,
       "first_seen": "2026-09-15",
-      "last_seen": "2026-09-30",
-      "last_close": 603.88,
+      "last_seen": "2026-10-01",
+      "last_close": 609.55,
+      "last_score": 90
+    },
+    "ABCL": {
+      "name": "AbCellera Biologics Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 14.16,
+      "last_score": 90
+    },
+    "COHU": {
+      "name": "Cohu  Inc.",
+      "consecutive_days": 9,
+      "first_seen": "2026-09-18",
+      "last_seen": "2026-10-01",
+      "last_close": 70.26,
+      "last_score": 90
+    },
+    "RVMD": {
+      "name": "Revolution Medicines  Inc.",
+      "consecutive_days": 2,
+      "first_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
+      "last_close": 209.71,
+      "last_score": 90
+    },
+    "UMC": {
+      "name": "United Microelectronics Corp ADR",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 24.91,
+      "last_score": 90
+    },
+    "PARR": {
+      "name": "Par Pacific Holdings  Inc.",
+      "consecutive_days": 2,
+      "first_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
+      "last_close": 83.89,
+      "last_score": 90
+    },
+    "MTRN": {
+      "name": "Materion Corporation",
+      "consecutive_days": 11,
+      "first_seen": "2026-09-16",
+      "last_seen": "2026-10-01",
+      "last_close": 276.69,
       "last_score": 90
     },
     "DDOG": {
       "name": "Datadog Inc",
-      "consecutive_days": 7,
+      "consecutive_days": 8,
       "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 273.37,
+      "last_seen": "2026-10-01",
+      "last_close": 272.93,
       "last_score": 90
     },
     "SAFT": {
       "name": "Safety Insurance Group Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
       "last_close": 103.63,
       "last_score": 90
     },
-    "ALNT": {
-      "name": "Allient Inc",
-      "consecutive_days": 10,
-      "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 112.0,
+    "LIND": {
+      "name": "Lindblad Expeditions Holdings  Inc.",
+      "consecutive_days": 3,
+      "first_seen": "2026-09-29",
+      "last_seen": "2026-10-01",
+      "last_close": 32.13,
+      "last_score": 89
+    },
+    "FTNT": {
+      "name": "Fortinet  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 177.27,
+      "last_score": 89
+    },
+    "PANW": {
+      "name": "Palo Alto Networks  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 392.67,
+      "last_score": 89
+    },
+    "GH": {
+      "name": "Guardant Health  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 178.52,
+      "last_score": 89
+    },
+    "ZETA": {
+      "name": "Zeta Global Holdings Corp.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 31.92,
       "last_score": 89
     },
     "XMTR": {
       "name": "Xometry  Inc.",
-      "consecutive_days": 10,
+      "consecutive_days": 11,
       "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 104.76,
-      "last_score": 89
-    },
-    "ADPT": {
-      "name": "Adaptive Biotechnologies Corporation",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 29.0,
-      "last_score": 89
-    },
-    "RBRK": {
-      "name": "Rubrik  Inc.",
-      "consecutive_days": 8,
-      "first_seen": "2026-09-18",
-      "last_seen": "2026-09-30",
-      "last_close": 115.82,
-      "last_score": 89
-    },
-    "MTRN": {
-      "name": "Materion Corporation",
-      "consecutive_days": 10,
-      "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 269.02,
-      "last_score": 89
-    },
-    "ARW": {
-      "name": "Arrow Electronics  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 231.03,
+      "last_seen": "2026-10-01",
+      "last_close": 102.46,
       "last_score": 89
     },
     "CHEF": {
       "name": "The Chefs' Warehouse  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 112.27,
+      "last_seen": "2026-10-01",
+      "last_close": 112.3,
       "last_score": 89
     },
-    "CRL": {
-      "name": "Charles River Laboratories International  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 296.5,
+    "RBRK": {
+      "name": "Rubrik  Inc.",
+      "consecutive_days": 9,
+      "first_seen": "2026-09-18",
+      "last_seen": "2026-10-01",
+      "last_close": 115.11,
       "last_score": 89
     },
-    "ZBRA": {
-      "name": "Zebra Technologies Corp",
-      "consecutive_days": 12,
+    "ARW": {
+      "name": "Arrow Electronics  Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 375.76,
+      "last_seen": "2026-10-01",
+      "last_close": 228.37,
       "last_score": 89
     },
     "KEYS": {
       "name": "Keysight Technologies  Inc.",
-      "consecutive_days": 9,
+      "consecutive_days": 10,
       "first_seen": "2026-09-17",
-      "last_seen": "2026-09-30",
-      "last_close": 363.08,
+      "last_seen": "2026-10-01",
+      "last_close": 371.44,
+      "last_score": 89
+    },
+    "CRL": {
+      "name": "Charles River Laboratories International  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 294.99,
+      "last_score": 89
+    },
+    "ZBRA": {
+      "name": "Zebra Technologies Corp",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 377.09,
+      "last_score": 89
+    },
+    "S": {
+      "name": "SentinelOne Inc",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 23.8,
       "last_score": 89
     },
     "ANET": {
       "name": "Arista Networks  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 205.87,
+      "last_seen": "2026-10-01",
+      "last_close": 204.26,
       "last_score": 89
+    },
+    "TWST": {
+      "name": "Twist Bioscience Corporation",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 196.99,
+      "last_score": 88
     },
     "CDNA": {
       "name": "CareDx  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 63.6,
+      "last_seen": "2026-10-01",
+      "last_close": 66.34,
       "last_score": 88
     },
-    "CRWD": {
-      "name": "CrowdStrike Holdings  Inc.",
-      "consecutive_days": 12,
+    "MRNA": {
+      "name": "Moderna  Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 266.34,
-      "last_score": 88
-    },
-    "OKTA": {
-      "name": "Okta  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 209.11,
+      "last_seen": "2026-10-01",
+      "last_close": 198.95,
       "last_score": 88
     },
     "PBF": {
       "name": "PBF Energy Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 76.86,
+      "last_seen": "2026-10-01",
+      "last_close": 80.36,
+      "last_score": 88
+    },
+    "OKTA": {
+      "name": "Okta  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 208.68,
       "last_score": 88
     },
     "TWLO": {
       "name": "Twilio Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 292.57,
+      "last_seen": "2026-10-01",
+      "last_close": 294.21,
       "last_score": 88
     },
     "FET": {
       "name": "Forum Energy Technologies Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 80.42,
+      "last_seen": "2026-10-01",
+      "last_close": 81.94,
       "last_score": 88
     },
     "NTRA": {
       "name": "Natera  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 421.25,
+      "last_seen": "2026-10-01",
+      "last_close": 420.82,
+      "last_score": 88
+    },
+    "CRWD": {
+      "name": "CrowdStrike Holdings  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 264.51,
+      "last_score": 88
+    },
+    "SMTC": {
+      "name": "Semtech Corporation",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 180.68,
       "last_score": 88
     },
     "P": {
       "name": "Everpure Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 132.18,
-      "last_score": 88
-    },
-    "PANW": {
-      "name": "Palo Alto Networks  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 397.48,
+      "last_seen": "2026-10-01",
+      "last_close": 131.97,
       "last_score": 88
     },
     "INSW": {
       "name": "International Seaways  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 113.91,
+      "last_seen": "2026-10-01",
+      "last_close": 113.04,
       "last_score": 88
     },
     "HTFL": {
       "name": "Heartflow  Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 50.06,
+      "last_seen": "2026-10-01",
+      "last_close": 49.95,
       "last_score": 88
     },
-    "AMN": {
-      "name": "AMN Healthcare Services  Inc.",
-      "consecutive_days": 4,
-      "first_seen": "2026-09-24",
-      "last_seen": "2026-09-30",
-      "last_close": 35.48,
+    "FEIM": {
+      "name": "Frequency Electronics Inc",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 86.85,
       "last_score": 88
     },
     "BLFS": {
       "name": "BioLife Solutions  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 39.24,
+      "last_seen": "2026-10-01",
+      "last_close": 38.33,
       "last_score": 88
     },
-    "TBBB": {
-      "name": "BBB Foods Inc.",
-      "consecutive_days": 12,
+    "MG": {
+      "name": "Mistras Group Inc",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 52.19,
-      "last_score": 88
-    },
-    "IMAX": {
-      "name": "IMAX Corporation",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 55.81,
+      "last_seen": "2026-10-01",
+      "last_close": 20.59,
       "last_score": 88
     },
     "DRTS": {
       "name": "Alpha Tau Medical Ltd",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 14.97,
+      "last_seen": "2026-10-01",
+      "last_close": 14.61,
+      "last_score": 87
+    },
+    "PGEN": {
+      "name": "Precigen  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 8.32,
       "last_score": 87
     },
     "NAT": {
       "name": "Nordic American Tankers Ltd",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 8.15,
+      "last_seen": "2026-10-01",
+      "last_close": 8.09,
       "last_score": 87
     },
     "PRLB": {
       "name": "Proto Labs  Inc.",
-      "consecutive_days": 10,
+      "consecutive_days": 11,
       "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 96.61,
-      "last_score": 87
-    },
-    "BWLP": {
-      "name": "BW LPG Ltd",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 25.41,
+      "last_seen": "2026-10-01",
+      "last_close": 95.01,
       "last_score": 87
     },
     "RDVT": {
       "name": "Red Violet Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 80.0,
+      "last_seen": "2026-10-01",
+      "last_close": 79.75,
       "last_score": 87
     },
-    "GSAT": {
-      "name": "Globalstar  Inc.",
-      "consecutive_days": 12,
+    "DAC": {
+      "name": "Danaos Corporation",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 82.85,
+      "last_seen": "2026-10-01",
+      "last_close": 159.79,
+      "last_score": 87
+    },
+    "SCSC": {
+      "name": "ScanSource  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 59.51,
+      "last_score": 87
+    },
+    "BWIN": {
+      "name": "The Baldwin Insurance Group  Inc.",
+      "consecutive_days": 10,
+      "first_seen": "2026-09-17",
+      "last_seen": "2026-10-01",
+      "last_close": 31.83,
       "last_score": 87
     },
     "ANL": {
       "name": "Adlai Nortye Group Ltd ADR",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 15.77,
+      "last_seen": "2026-10-01",
+      "last_close": 16.04,
       "last_score": 86
     },
-    "RVMD": {
-      "name": "Revolution Medicines  Inc.",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 204.62,
-      "last_score": 86
-    },
-    "LITE": {
-      "name": "Lumentum Holdings Inc.",
-      "consecutive_days": 12,
+    "DELL": {
+      "name": "Dell Technologies Inc",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 956.47,
-      "last_score": 86
-    },
-    "COHU": {
-      "name": "Cohu  Inc.",
-      "consecutive_days": 8,
-      "first_seen": "2026-09-18",
-      "last_seen": "2026-09-30",
-      "last_close": 67.19,
+      "last_seen": "2026-10-01",
+      "last_close": 533.66,
       "last_score": 86
     },
     "CAKE": {
       "name": "Cheesecake Factory Inc",
-      "consecutive_days": 6,
+      "consecutive_days": 7,
       "first_seen": "2026-09-22",
-      "last_seen": "2026-09-30",
-      "last_close": 106.07,
+      "last_seen": "2026-10-01",
+      "last_close": 106.67,
       "last_score": 86
     },
-    "HAE": {
-      "name": "Haemonetics Corp",
-      "consecutive_days": 5,
-      "first_seen": "2026-09-23",
-      "last_seen": "2026-09-30",
-      "last_close": 104.13,
+    "ADPT": {
+      "name": "Adaptive Biotechnologies Corporation",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 28.44,
       "last_score": 86
     },
     "CYRX": {
       "name": "Cryoport  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 17.3,
+      "last_seen": "2026-10-01",
+      "last_close": 17.32,
       "last_score": 86
     },
-    "MG": {
-      "name": "Mistras Group Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 21.08,
+    "HAE": {
+      "name": "Haemonetics Corp",
+      "consecutive_days": 6,
+      "first_seen": "2026-09-23",
+      "last_seen": "2026-10-01",
+      "last_close": 105.25,
       "last_score": 86
     },
     "KELYA": {
       "name": "Kelly Services Inc Class A",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 16.35,
+      "last_seen": "2026-10-01",
+      "last_close": 16.55,
       "last_score": 86
     },
     "MATX": {
       "name": "Matson Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 223.43,
+      "last_seen": "2026-10-01",
+      "last_close": 223.74,
       "last_score": 86
     },
-    "CVE": {
-      "name": "Cenovus Energy Incorporation",
-      "consecutive_days": 1,
+    "FROG": {
+      "name": "JFrog Ltd.",
+      "consecutive_days": 2,
       "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 31.57,
+      "last_seen": "2026-10-01",
+      "last_close": 97.41,
       "last_score": 86
     },
-    "MRNA": {
-      "name": "Moderna  Inc.",
-      "consecutive_days": 12,
+    "PAYC": {
+      "name": "Paycom Software  Inc.",
+      "consecutive_days": 9,
+      "first_seen": "2026-09-18",
+      "last_seen": "2026-10-01",
+      "last_close": 223.76,
+      "last_score": 86
+    },
+    "IMAX": {
+      "name": "IMAX Corporation",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 189.86,
-      "last_score": 85
+      "last_seen": "2026-10-01",
+      "last_close": 53.56,
+      "last_score": 86
+    },
+    "HALO": {
+      "name": "Halozyme Therapeutics  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 108.66,
+      "last_score": 86
     },
     "MU": {
       "name": "Micron Technology  Inc.",
-      "consecutive_days": 11,
+      "consecutive_days": 12,
       "first_seen": "2026-09-15",
-      "last_seen": "2026-09-30",
-      "last_close": 1066.78,
+      "last_seen": "2026-10-01",
+      "last_close": 1041.12,
+      "last_score": 85
+    },
+    "PAYS": {
+      "name": "Paysign Inc",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 14.24,
       "last_score": 85
     },
     "RNG": {
       "name": "RingCentral Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 76.0,
+      "last_seen": "2026-10-01",
+      "last_close": 75.9,
       "last_score": 85
     },
-    "BFLY": {
-      "name": "Butterfly Network  Inc.",
-      "consecutive_days": 7,
-      "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 9.05,
-      "last_score": 85
-    },
-    "ETON": {
-      "name": "Eton Pharmaceuticals Inc",
-      "consecutive_days": 12,
+    "OMER": {
+      "name": "Omeros Corporation",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 58.35,
+      "last_seen": "2026-10-01",
+      "last_close": 18.89,
       "last_score": 85
     },
     "STX": {
       "name": "Seagate Technology Holdings PLC",
-      "consecutive_days": 8,
+      "consecutive_days": 9,
       "first_seen": "2026-09-18",
-      "last_seen": "2026-09-30",
-      "last_close": 913.61,
+      "last_seen": "2026-10-01",
+      "last_close": 903.51,
+      "last_score": 85
+    },
+    "MRVL": {
+      "name": "Marvell Technology  Inc.",
+      "consecutive_days": 10,
+      "first_seen": "2026-09-17",
+      "last_seen": "2026-10-01",
+      "last_close": 264.74,
       "last_score": 85
     },
     "SIMO": {
       "name": "Silicon Motion Technology Corporation ADR",
-      "consecutive_days": 8,
-      "first_seen": "2026-09-18",
-      "last_seen": "2026-09-30",
-      "last_close": 280.86,
-      "last_score": 85
-    },
-    "KRT": {
-      "name": "Karat Packaging Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 53.03,
-      "last_score": 85
-    },
-    "MTW": {
-      "name": "Manitowoc Company Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 22.2,
-      "last_score": 85
-    },
-    "SMTC": {
-      "name": "Semtech Corporation",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 178.79,
-      "last_score": 85
-    },
-    "NBIS": {
-      "name": "Nebius Group NV",
       "consecutive_days": 9,
-      "first_seen": "2026-09-17",
-      "last_seen": "2026-09-30",
-      "last_close": 242.19,
+      "first_seen": "2026-09-18",
+      "last_seen": "2026-10-01",
+      "last_close": 277.27,
       "last_score": 85
     },
     "FRO": {
       "name": "Frontline PLC",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 50.34,
-      "last_score": 85
-    },
-    "LIND": {
-      "name": "Lindblad Expeditions Holdings  Inc.",
-      "consecutive_days": 2,
-      "first_seen": "2026-09-29",
-      "last_seen": "2026-09-30",
-      "last_close": 31.39,
+      "last_seen": "2026-10-01",
+      "last_close": 50.63,
       "last_score": 85
     },
     "IRDM": {
       "name": "Iridium Communications Inc.",
-      "consecutive_days": 7,
+      "consecutive_days": 8,
       "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 48.68,
+      "last_seen": "2026-10-01",
+      "last_close": 48.26,
       "last_score": 85
     },
-    "MASS": {
-      "name": "908 Devices Inc.",
-      "consecutive_days": 12,
+    "TH": {
+      "name": "Target Hospitality Corp.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 11.88,
+      "last_seen": "2026-10-01",
+      "last_close": 19.96,
       "last_score": 85
     },
-    "FEIM": {
-      "name": "Frequency Electronics Inc",
-      "consecutive_days": 12,
+    "NUTX": {
+      "name": "Nutex Health Inc",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 212.16,
+      "last_score": 85
+    },
+    "TBBB": {
+      "name": "BBB Foods Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 84.4,
+      "last_seen": "2026-10-01",
+      "last_close": 51.52,
       "last_score": 85
     },
     "DGII": {
       "name": "Digi International Inc.",
-      "consecutive_days": 7,
+      "consecutive_days": 8,
       "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 76.97,
+      "last_seen": "2026-10-01",
+      "last_close": 76.15,
       "last_score": 85
     },
-    "PRCH": {
-      "name": "Porch Group  Inc.",
-      "consecutive_days": 12,
+    "PBYI": {
+      "name": "Puma Biotechnology Inc",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 16.97,
+      "last_seen": "2026-10-01",
+      "last_close": 9.9,
       "last_score": 85
     },
-    "MSGS": {
-      "name": "Madison Square Garden Sports Corp.",
-      "consecutive_days": 4,
-      "first_seen": "2026-09-24",
-      "last_seen": "2026-09-30",
-      "last_close": 414.9,
-      "last_score": 85
-    },
-    "CNK": {
-      "name": "Cinemark Holdings Inc",
-      "consecutive_days": 7,
-      "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 38.17,
-      "last_score": 85
-    },
-    "VTRS": {
-      "name": "Viatris Inc.",
-      "consecutive_days": 10,
-      "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 17.98,
+    "QLYS": {
+      "name": "Qualys  Inc.",
+      "consecutive_days": 2,
+      "first_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
+      "last_close": 186.66,
       "last_score": 85
     },
     "FFIV": {
       "name": "F5  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 444.68,
+      "last_seen": "2026-10-01",
+      "last_close": 443.41,
       "last_score": 85
     },
-    "TWST": {
-      "name": "Twist Bioscience Corporation",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 190.79,
+    "KOD": {
+      "name": "Kodiak Sciences Inc.",
+      "consecutive_days": 3,
+      "first_seen": "2026-09-29",
+      "last_seen": "2026-10-01",
+      "last_close": 98.36,
       "last_score": 84
     },
     "TXG": {
       "name": "10x Genomics  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 93.27,
+      "last_seen": "2026-10-01",
+      "last_close": 90.12,
       "last_score": 84
     },
     "IOVA": {
       "name": "Iovance Biotherapeutics Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 14.31,
-      "last_score": 84
-    },
-    "KOD": {
-      "name": "Kodiak Sciences Inc.",
-      "consecutive_days": 2,
-      "first_seen": "2026-09-29",
-      "last_seen": "2026-09-30",
-      "last_close": 89.55,
+      "last_seen": "2026-10-01",
+      "last_close": 14.43,
       "last_score": 84
     },
     "RCEL": {
       "name": "AVITA Medical Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 11.78,
+      "last_seen": "2026-10-01",
+      "last_close": 12.15,
       "last_score": 84
     },
-    "ILMN": {
-      "name": "Illumina Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 278.33,
+    "ABSI": {
+      "name": "Absci Corp",
+      "consecutive_days": 10,
+      "first_seen": "2026-09-17",
+      "last_seen": "2026-10-01",
+      "last_close": 10.85,
       "last_score": 84
     },
     "HPE": {
       "name": "Hewlett Packard Enterprise Company",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 63.94,
+      "last_seen": "2026-10-01",
+      "last_close": 63.17,
       "last_score": 84
     },
     "SDGR": {
       "name": "Schrodinger Inc",
-      "consecutive_days": 1,
+      "consecutive_days": 2,
       "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 30.67,
+      "last_seen": "2026-10-01",
+      "last_close": 31.26,
+      "last_score": 84
+    },
+    "ILMN": {
+      "name": "Illumina Inc",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 271.8,
+      "last_score": 84
+    },
+    "MASS": {
+      "name": "908 Devices Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 12.55,
+      "last_score": 84
+    },
+    "FOSL": {
+      "name": "Fossil Group Inc",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 6.52,
+      "last_score": 84
+    },
+    "CVI": {
+      "name": "CVR Energy Inc",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 53.11,
       "last_score": 84
     },
     "LPG": {
       "name": "Dorian LPG Ltd.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 56.12,
+      "last_seen": "2026-10-01",
+      "last_close": 55.44,
       "last_score": 84
     },
-    "NEO": {
-      "name": "NeoGenomics  Inc.",
-      "consecutive_days": 4,
-      "first_seen": "2026-09-24",
-      "last_seen": "2026-09-30",
-      "last_close": 18.74,
+    "XNCR": {
+      "name": "Xencor  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 24.74,
       "last_score": 84
     },
     "NTAP": {
       "name": "NetApp Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 212.8,
+      "last_seen": "2026-10-01",
+      "last_close": 210.38,
       "last_score": 84
     },
     "AVT": {
       "name": "Avnet Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 102.18,
-      "last_score": 84
-    },
-    "NET": {
-      "name": "Cloudflare  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 351.27,
-      "last_score": 84
-    },
-    "WT": {
-      "name": "WisdomTree  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 24.51,
+      "last_seen": "2026-10-01",
+      "last_close": 100.57,
       "last_score": 84
     },
     "DHT": {
       "name": "DHT Holdings  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 23.11,
-      "last_score": 84
-    },
-    "MLAB": {
-      "name": "Mesa Laboratories  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 131.58,
+      "last_seen": "2026-10-01",
+      "last_close": 23.3,
       "last_score": 84
     },
     "MGNI": {
       "name": "Magnite  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 25.75,
+      "last_seen": "2026-10-01",
+      "last_close": 25.22,
       "last_score": 84
     },
-    "S": {
-      "name": "SentinelOne Inc",
-      "consecutive_days": 12,
+    "MLAB": {
+      "name": "Mesa Laboratories  Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 23.73,
-      "last_score": 84
-    },
-    "DAC": {
-      "name": "Danaos Corporation",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 157.49,
+      "last_seen": "2026-10-01",
+      "last_close": 129.04,
       "last_score": 84
     },
     "BRKR": {
       "name": "Bruker Corporation",
-      "consecutive_days": 10,
+      "consecutive_days": 11,
       "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 64.84,
+      "last_seen": "2026-10-01",
+      "last_close": 63.93,
+      "last_score": 84
+    },
+    "CRCT": {
+      "name": "Cricut  Inc.",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 6.43,
       "last_score": 84
     },
     "WCC": {
       "name": "WESCO International  Inc.",
-      "consecutive_days": 7,
+      "consecutive_days": 8,
       "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 365.08,
+      "last_seen": "2026-10-01",
+      "last_close": 363.94,
       "last_score": 84
     },
     "DT": {
       "name": "Dynatrace  Inc",
-      "consecutive_days": 10,
+      "consecutive_days": 11,
       "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 58.23,
-      "last_score": 84
-    },
-    "SXT": {
-      "name": "Sensient Technologies Corporation",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 133.74,
+      "last_seen": "2026-10-01",
+      "last_close": 58.41,
       "last_score": 84
     },
     "DSGR": {
       "name": "Distribution Solutions Group  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 34.97,
+      "last_seen": "2026-10-01",
+      "last_close": 34.93,
       "last_score": 84
-    },
-    "QMCO": {
-      "name": "Quantum Corp",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 32.49,
-      "last_score": 83
-    },
-    "PAYS": {
-      "name": "Paysign Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 13.07,
-      "last_score": 83
     },
     "MRVI": {
       "name": "Maravai LifeSciences Holdings Inc",
-      "consecutive_days": 9,
+      "consecutive_days": 10,
       "first_seen": "2026-09-17",
-      "last_seen": "2026-09-30",
-      "last_close": 7.58,
+      "last_seen": "2026-10-01",
+      "last_close": 7.56,
       "last_score": 83
     },
-    "ACHV": {
-      "name": "Achieve Life Sciences  Inc.",
-      "consecutive_days": 12,
+    "MTW": {
+      "name": "Manitowoc Company Inc",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 7.99,
+      "last_seen": "2026-10-01",
+      "last_close": 21.21,
       "last_score": 83
     },
     "SOPH": {
       "name": "SOPHiA GENETICS SA",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 8.4,
+      "last_seen": "2026-10-01",
+      "last_close": 8.35,
+      "last_score": 83
+    },
+    "REPL": {
+      "name": "Replimune Group  Inc.",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 13.27,
       "last_score": 83
     },
     "TNK": {
       "name": "Teekay Tankers Ltd",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 99.94,
+      "last_seen": "2026-10-01",
+      "last_close": 98.65,
       "last_score": 83
     },
-    "BVS": {
-      "name": "Bioventus Inc.",
-      "consecutive_days": 6,
-      "first_seen": "2026-09-22",
-      "last_seen": "2026-09-30",
-      "last_close": 13.83,
-      "last_score": 83
-    },
-    "STTK": {
-      "name": "Shattuck Labs Inc",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 7.22,
-      "last_score": 83
-    },
-    "MCS": {
-      "name": "Marcus Corp",
-      "consecutive_days": 12,
+    "BWLP": {
+      "name": "BW LPG Ltd",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 28.75,
+      "last_seen": "2026-10-01",
+      "last_close": 25.32,
       "last_score": 83
     },
     "OGN": {
       "name": "Organon & Co.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 13.74,
+      "last_seen": "2026-10-01",
+      "last_close": 13.72,
       "last_score": 83
     },
-    "GCT": {
-      "name": "Gigacloud Technology Inc",
-      "consecutive_days": 12,
+    "OPRT": {
+      "name": "Oportun Financial Corp",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 52.69,
+      "last_seen": "2026-10-01",
+      "last_close": 8.12,
       "last_score": 83
     },
     "CNXN": {
       "name": "PC Connection Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 89.71,
+      "last_seen": "2026-10-01",
+      "last_close": 91.38,
       "last_score": 83
     },
     "IBTA": {
       "name": "Ibotta  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 39.61,
+      "last_seen": "2026-10-01",
+      "last_close": 39.48,
       "last_score": 83
     },
-    "SCSC": {
-      "name": "ScanSource  Inc.",
-      "consecutive_days": 12,
+    "GSAT": {
+      "name": "Globalstar  Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 58.12,
+      "last_seen": "2026-10-01",
+      "last_close": 82.89,
       "last_score": 83
     },
-    "BWIN": {
-      "name": "The Baldwin Insurance Group  Inc.",
-      "consecutive_days": 9,
-      "first_seen": "2026-09-17",
-      "last_seen": "2026-09-30",
-      "last_close": 31.82,
+    "JOYY": {
+      "name": "JOYY Inc. ADR",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 79.73,
       "last_score": 83
     },
     "TJGC": {
       "name": "TJGC Group Ltd",
-      "consecutive_days": 1,
+      "consecutive_days": 2,
       "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 34.2,
+      "last_seen": "2026-10-01",
+      "last_close": 33.87,
       "last_score": 82
     },
     "IGR": {
       "name": "CBRE Global Real Estate Income Closed End Fund",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 11.85,
+      "last_seen": "2026-10-01",
+      "last_close": 11.64,
       "last_score": 82
     },
-    "PARR": {
-      "name": "Par Pacific Holdings  Inc.",
-      "consecutive_days": 1,
+    "KRT": {
+      "name": "Karat Packaging Inc",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 52.24,
+      "last_score": 82
+    },
+    "CVE": {
+      "name": "Cenovus Energy Incorporation",
+      "consecutive_days": 2,
       "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 80.35,
+      "last_seen": "2026-10-01",
+      "last_close": 31.42,
       "last_score": 82
     },
-    "ZETA": {
-      "name": "Zeta Global Holdings Corp.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 29.92,
-      "last_score": 82
-    },
-    "MRX": {
-      "name": "Marex Group Ltd",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 70.91,
-      "last_score": 82
-    },
-    "VCTR": {
-      "name": "Victory Capital Holdings  Inc.",
-      "consecutive_days": 3,
-      "first_seen": "2026-09-25",
-      "last_seen": "2026-09-30",
-      "last_close": 110.18,
-      "last_score": 82
-    },
-    "OPRT": {
-      "name": "Oportun Financial Corp",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 8.12,
-      "last_score": 82
-    },
-    "PAYC": {
-      "name": "Paycom Software  Inc.",
-      "consecutive_days": 8,
-      "first_seen": "2026-09-18",
-      "last_seen": "2026-09-30",
-      "last_close": 221.29,
-      "last_score": 82
-    },
-    "TGT": {
-      "name": "Target Corp",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 159.21,
+    "NVEC": {
+      "name": "NVE Corp",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 110.38,
       "last_score": 82
     },
     "TGTX": {
       "name": "TG Therapeutics  Inc.",
-      "consecutive_days": 10,
+      "consecutive_days": 11,
       "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 55.71,
+      "last_seen": "2026-10-01",
+      "last_close": 54.95,
       "last_score": 82
     },
     "LGND": {
       "name": "Ligand Pharmaceuticals Incorporated",
-      "consecutive_days": 6,
+      "consecutive_days": 7,
       "first_seen": "2026-09-22",
-      "last_seen": "2026-09-30",
-      "last_close": 308.82,
+      "last_seen": "2026-10-01",
+      "last_close": 307.05,
       "last_score": 82
     },
-    "SCCO": {
-      "name": "Southern Copper Corp",
-      "consecutive_days": 9,
-      "first_seen": "2026-09-17",
-      "last_seen": "2026-09-30",
-      "last_close": 205.5,
-      "last_score": 82
-    },
-    "OSPN": {
-      "name": "OneSpan Inc.",
-      "consecutive_days": 12,
+    "NTNX": {
+      "name": "Nutanix  Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 18.02,
-      "last_score": 82
-    },
-    "SU": {
-      "name": "Suncor Energy Inc (Canada)",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 68.42,
+      "last_seen": "2026-10-01",
+      "last_close": 69.95,
       "last_score": 82
     },
     "LQDT": {
       "name": "Liquidity Services Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 42.98,
+      "last_seen": "2026-10-01",
+      "last_close": 43.01,
       "last_score": 82
     },
     "TSM": {
       "name": "Taiwan Semiconductor Manufacturing Company Limited ADR",
-      "consecutive_days": 10,
+      "consecutive_days": 11,
       "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 456.81,
+      "last_seen": "2026-10-01",
+      "last_close": 456.18,
+      "last_score": 82
+    },
+    "DXCM": {
+      "name": "Dexcom Inc",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 86.94,
       "last_score": 82
     },
     "DV": {
       "name": "DoubleVerify Holdings  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 13.47,
+      "last_seen": "2026-10-01",
+      "last_close": 13.49,
       "last_score": 82
     },
-    "DELL": {
-      "name": "Dell Technologies Inc",
-      "consecutive_days": 12,
+    "TKNO": {
+      "name": "Alpha Teknova  Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 541.91,
-      "last_score": 81
-    },
-    "UMC": {
-      "name": "United Microelectronics Corp ADR",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 24.64,
-      "last_score": 81
-    },
-    "BE": {
-      "name": "Bloom Energy Corporation",
-      "consecutive_days": 10,
-      "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 290.06,
+      "last_seen": "2026-10-01",
+      "last_close": 8.95,
       "last_score": 81
     },
     "ECO": {
       "name": "Okeanis Eco Tankers Corp.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 82.87,
+      "last_seen": "2026-10-01",
+      "last_close": 82.79,
       "last_score": 81
     },
     "CLMT": {
       "name": "Calumet  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 53.94,
+      "last_seen": "2026-10-01",
+      "last_close": 52.76,
       "last_score": 81
     },
     "VLO": {
       "name": "Valero Energy Corp",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 394.98,
-      "last_score": 81
-    },
-    "VSXY": {
-      "name": "Victoria's Secret & Co.",
-      "consecutive_days": 2,
-      "first_seen": "2026-09-29",
-      "last_seen": "2026-09-30",
-      "last_close": 91.3,
-      "last_score": 81
-    },
-    "CVI": {
-      "name": "CVR Energy Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 52.11,
+      "last_seen": "2026-10-01",
+      "last_close": 400.86,
       "last_score": 81
     },
     "MPC": {
       "name": "Marathon Petroleum Corporation",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 397.38,
+      "last_seen": "2026-10-01",
+      "last_close": 409.99,
+      "last_score": 81
+    },
+    "DINO": {
+      "name": "HF Sinclair Corporation",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 110.98,
       "last_score": 81
     },
     "CORT": {
       "name": "Corcept Therapeutics Incorporated",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 117.33,
+      "last_seen": "2026-10-01",
+      "last_close": 113.39,
       "last_score": 81
     },
-    "TH": {
-      "name": "Target Hospitality Corp.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 19.5,
+    "DK": {
+      "name": "Delek US Holdings Inc",
+      "consecutive_days": 2,
+      "first_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
+      "last_close": 72.82,
       "last_score": 81
     },
-    "TER": {
-      "name": "Teradyne  Inc.",
-      "consecutive_days": 8,
-      "first_seen": "2026-09-18",
-      "last_seen": "2026-09-30",
-      "last_close": 398.35,
+    "VSXY": {
+      "name": "Victoria's Secret & Co.",
+      "consecutive_days": 3,
+      "first_seen": "2026-09-29",
+      "last_seen": "2026-10-01",
+      "last_close": 88.09,
       "last_score": 81
     },
-    "PSX": {
-      "name": "Phillips 66",
-      "consecutive_days": 12,
+    "JILL": {
+      "name": "JJill Inc",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 257.12,
+      "last_seen": "2026-10-01",
+      "last_close": 24.48,
       "last_score": 81
     },
     "NSIT": {
       "name": "Insight Enterprises Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 154.72,
+      "last_seen": "2026-10-01",
+      "last_close": 158.96,
+      "last_score": 81
+    },
+    "AYA": {
+      "name": "Aya Gold & Silver Inc (Quebec)",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 27.32,
+      "last_score": 81
+    },
+    "TER": {
+      "name": "Teradyne  Inc.",
+      "consecutive_days": 9,
+      "first_seen": "2026-09-18",
+      "last_seen": "2026-10-01",
+      "last_close": 412.9,
       "last_score": 81
     },
     "SNOW": {
       "name": "Snowflake Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 338.9,
+      "last_seen": "2026-10-01",
+      "last_close": 342.01,
       "last_score": 81
     },
-    "HALO": {
-      "name": "Halozyme Therapeutics  Inc.",
-      "consecutive_days": 12,
+    "WT": {
+      "name": "WisdomTree  Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 110.92,
+      "last_seen": "2026-10-01",
+      "last_close": 23.62,
       "last_score": 81
     },
-    "SN": {
-      "name": "SharkNinja  Inc.",
+    "NET": {
+      "name": "Cloudflare  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 347.05,
+      "last_score": 81
+    },
+    "ONTO": {
+      "name": "Onto Innovation Inc.",
       "consecutive_days": 4,
-      "first_seen": "2026-09-24",
-      "last_seen": "2026-09-30",
-      "last_close": 182.61,
-      "last_score": 81
-    },
-    "TK": {
-      "name": "Teekay Corp Ltd",
-      "consecutive_days": 9,
-      "first_seen": "2026-09-17",
-      "last_seen": "2026-09-30",
-      "last_close": 14.57,
-      "last_score": 81
-    },
-    "CGAU": {
-      "name": "Centerra Gold Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 22.0,
-      "last_score": 81
-    },
-    "WTTR": {
-      "name": "Select Water Solutions  Inc.",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 20.04,
-      "last_score": 81
-    },
-    "PBYI": {
-      "name": "Puma Biotechnology Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 9.77,
+      "first_seen": "2026-09-25",
+      "last_seen": "2026-10-01",
+      "last_close": 311.61,
       "last_score": 81
     },
     "CON": {
       "name": "Concentra Group Holdings Parent Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 34.94,
+      "last_seen": "2026-10-01",
+      "last_close": 34.65,
       "last_score": 81
     },
-    "DXPE": {
-      "name": "DXP Enterprises  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 183.66,
+    "TX": {
+      "name": "Ternium SA ADR",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 54.43,
       "last_score": 81
     },
     "DDI": {
       "name": "DoubleDown Interactive Co Ltd ADR",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 13.13,
+      "last_seen": "2026-10-01",
+      "last_close": 13.24,
+      "last_score": 81
+    },
+    "MSM": {
+      "name": "MSC Industrial Direct Co.  Inc.",
+      "consecutive_days": 3,
+      "first_seen": "2026-09-29",
+      "last_seen": "2026-10-01",
+      "last_close": 125.98,
       "last_score": 81
     },
     "ACA": {
       "name": "Arcosa  Inc.",
-      "consecutive_days": 9,
+      "consecutive_days": 10,
       "first_seen": "2026-09-17",
-      "last_seen": "2026-09-30",
-      "last_close": 146.07,
+      "last_seen": "2026-10-01",
+      "last_close": 146.38,
       "last_score": 81
     },
-    "WST": {
-      "name": "West Pharmaceutical Services  Inc.",
-      "consecutive_days": 12,
+    "EXEL": {
+      "name": "Exelixis Inc",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 372.7,
+      "last_seen": "2026-10-01",
+      "last_close": 58.56,
       "last_score": 81
     },
     "NDSN": {
       "name": "Nordson Corporation",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 329.57,
+      "last_seen": "2026-10-01",
+      "last_close": 326.65,
       "last_score": 81
     },
     "BOW": {
       "name": "Bowhead Specialty Holdings Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 33.78,
+      "last_seen": "2026-10-01",
+      "last_close": 33.8,
       "last_score": 81
     },
-    "OMER": {
-      "name": "Omeros Corporation",
-      "consecutive_days": 12,
+    "QMCO": {
+      "name": "Quantum Corp",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 19.07,
+      "last_seen": "2026-10-01",
+      "last_close": 31.66,
       "last_score": 80
     },
-    "ABSI": {
-      "name": "Absci Corp",
-      "consecutive_days": 9,
-      "first_seen": "2026-09-17",
-      "last_seen": "2026-09-30",
-      "last_close": 10.12,
+    "BFLY": {
+      "name": "Butterfly Network  Inc.",
+      "consecutive_days": 8,
+      "first_seen": "2026-09-21",
+      "last_seen": "2026-10-01",
+      "last_close": 8.71,
       "last_score": 80
     },
-    "MRVL": {
-      "name": "Marvell Technology  Inc.",
-      "consecutive_days": 9,
-      "first_seen": "2026-09-17",
-      "last_seen": "2026-09-30",
-      "last_close": 258.75,
-      "last_score": 80
-    },
-    "XNCR": {
-      "name": "Xencor  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 25.78,
-      "last_score": 80
-    },
-    "FOSL": {
-      "name": "Fossil Group Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 6.36,
-      "last_score": 80
-    },
-    "TRMD": {
-      "name": "Torm PLC",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 38.69,
-      "last_score": 80
-    },
-    "UGP": {
-      "name": "Ultrapar Participacoes SA ADR",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 7.41,
-      "last_score": 80
-    },
-    "AAMI": {
-      "name": "Acadian Asset Management Inc.",
+    "NBIS": {
+      "name": "Nebius Group NV",
       "consecutive_days": 10,
-      "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 92.15,
+      "first_seen": "2026-09-17",
+      "last_seen": "2026-10-01",
+      "last_close": 231.1,
+      "last_score": 80
+    },
+    "TSEM": {
+      "name": "Tower Semiconductor Ltd.",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 239.87,
+      "last_score": 80
+    },
+    "NEO": {
+      "name": "NeoGenomics  Inc.",
+      "consecutive_days": 5,
+      "first_seen": "2026-09-24",
+      "last_seen": "2026-10-01",
+      "last_close": 18.58,
       "last_score": 80
     },
     "CMBT": {
       "name": "CMB.TECH NV",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 19.28,
+      "last_seen": "2026-10-01",
+      "last_close": 19.39,
+      "last_score": 80
+    },
+    "AAMI": {
+      "name": "Acadian Asset Management Inc.",
+      "consecutive_days": 11,
+      "first_seen": "2026-09-16",
+      "last_seen": "2026-10-01",
+      "last_close": 92.32,
+      "last_score": 80
+    },
+    "TRMD": {
+      "name": "Torm PLC",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 38.37,
+      "last_score": 80
+    },
+    "UGP": {
+      "name": "Ultrapar Participacoes SA ADR",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 7.32,
       "last_score": 80
     },
     "RVTY": {
       "name": "Revvity  Inc.",
-      "consecutive_days": 8,
+      "consecutive_days": 9,
       "first_seen": "2026-09-18",
-      "last_seen": "2026-09-30",
-      "last_close": 155.25,
+      "last_seen": "2026-10-01",
+      "last_close": 152.77,
+      "last_score": 80
+    },
+    "GCT": {
+      "name": "Gigacloud Technology Inc",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 52.31,
       "last_score": 80
     },
     "BHE": {
       "name": "Benchmark Electronics Inc",
-      "consecutive_days": 6,
+      "consecutive_days": 7,
       "first_seen": "2026-09-22",
-      "last_seen": "2026-09-30",
-      "last_close": 84.33,
+      "last_seen": "2026-10-01",
+      "last_close": 84.57,
+      "last_score": 80
+    },
+    "VIR": {
+      "name": "Vir Biotechnology  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 11.25,
       "last_score": 80
     },
     "ASC": {
       "name": "Ardmore Shipping Corp",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 19.07,
+      "last_seen": "2026-10-01",
+      "last_close": 18.9,
       "last_score": 80
     },
-    "STNG": {
-      "name": "Scorpio Tankers Inc.",
-      "consecutive_days": 12,
+    "BIIB": {
+      "name": "Biogen Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 86.5,
-      "last_score": 80
-    },
-    "BIO": {
-      "name": "Bio-Rad Laboratories  Inc. Class A",
-      "consecutive_days": 5,
-      "first_seen": "2026-09-23",
-      "last_seen": "2026-09-30",
-      "last_close": 379.17,
+      "last_seen": "2026-10-01",
+      "last_close": 225.99,
       "last_score": 80
     },
     "NVDA": {
       "name": "NVIDIA Corporation",
-      "consecutive_days": 8,
+      "consecutive_days": 9,
       "first_seen": "2026-09-18",
-      "last_seen": "2026-09-30",
-      "last_close": 230.77,
+      "last_seen": "2026-10-01",
+      "last_close": 230.16,
       "last_score": 80
     },
-    "TKNO": {
-      "name": "Alpha Teknova  Inc.",
-      "consecutive_days": 12,
+    "ACHV": {
+      "name": "Achieve Life Sciences  Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 9.04,
+      "last_seen": "2026-10-01",
+      "last_close": 7.72,
       "last_score": 79
     },
     "STLN": {
       "name": "Starling Oncology  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 6.43,
+      "last_seen": "2026-10-01",
+      "last_close": 6.25,
+      "last_score": 79
+    },
+    "SB": {
+      "name": "Safe Bulkers  Inc.",
+      "consecutive_days": 3,
+      "first_seen": "2026-09-29",
+      "last_seen": "2026-10-01",
+      "last_close": 8.74,
+      "last_score": 79
+    },
+    "IDT": {
+      "name": "IDT Corporation",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 79.38,
       "last_score": 79
     },
     "HAFN": {
       "name": "Hafnia Limited",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 10.11,
+      "last_seen": "2026-10-01",
+      "last_close": 9.84,
       "last_score": 79
     },
-    "AMRX": {
-      "name": "Amneal Pharmaceuticals  Inc",
-      "consecutive_days": 10,
-      "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 20.15,
-      "last_score": 79
-    },
-    "ONTO": {
-      "name": "Onto Innovation Inc.",
-      "consecutive_days": 3,
-      "first_seen": "2026-09-25",
-      "last_seen": "2026-09-30",
-      "last_close": 303.55,
+    "ZIM": {
+      "name": "ZIM Integrated Shipping Services Ltd",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 29.61,
       "last_score": 79
     },
     "DCTH": {
       "name": "Delcath Systems Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 15.78,
-      "last_score": 79
-    },
-    "MFG": {
-      "name": "Mizuho Financial Group  Inc. ADR",
-      "consecutive_days": 3,
-      "first_seen": "2026-09-25",
-      "last_seen": "2026-09-30",
-      "last_close": 11.19,
-      "last_score": 79
-    },
-    "JOYY": {
-      "name": "JOYY Inc. ADR",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 80.4,
+      "last_seen": "2026-10-01",
+      "last_close": 15.71,
       "last_score": 79
     },
     "RSKD": {
       "name": "Riskified Ltd",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 7.89,
+      "last_seen": "2026-10-01",
+      "last_close": 7.76,
       "last_score": 78
     },
-    "SFL": {
-      "name": "SFL Corporation Ltd.",
-      "consecutive_days": 12,
+    "TGT": {
+      "name": "Target Corp",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 13.35,
-      "last_score": 78
-    },
-    "FROG": {
-      "name": "JFrog Ltd.",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 92.16,
+      "last_seen": "2026-10-01",
+      "last_close": 157.4,
       "last_score": 78
     },
     "ASML": {
       "name": "ASML Holding N.V. ADR",
-      "consecutive_days": 6,
+      "consecutive_days": 7,
       "first_seen": "2026-09-22",
-      "last_seen": "2026-09-30",
-      "last_close": 1827.18,
+      "last_seen": "2026-10-01",
+      "last_close": 1807.74,
       "last_score": 78
     },
     "SBLK": {
       "name": "Star Bulk Carriers Corp.",
-      "consecutive_days": 1,
+      "consecutive_days": 2,
       "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 29.98,
-      "last_score": 78
-    },
-    "FCX": {
-      "name": "Freeport-McMoRan Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 72.0,
-      "last_score": 78
-    },
-    "RAL": {
-      "name": "Ralliant Corporation",
-      "consecutive_days": 10,
-      "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 69.92,
-      "last_score": 78
-    },
-    "MRK": {
-      "name": "Merck & Co Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 148.21,
+      "last_seen": "2026-10-01",
+      "last_close": 29.85,
       "last_score": 78
     },
     "GIC": {
       "name": "Global Industrial Company",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 42.36,
+      "last_seen": "2026-10-01",
+      "last_close": 42.29,
+      "last_score": 78
+    },
+    "VTRS": {
+      "name": "Viatris Inc.",
+      "consecutive_days": 11,
+      "first_seen": "2026-09-16",
+      "last_seen": "2026-10-01",
+      "last_close": 17.59,
+      "last_score": 78
+    },
+    "CNK": {
+      "name": "Cinemark Holdings Inc",
+      "consecutive_days": 8,
+      "first_seen": "2026-09-21",
+      "last_seen": "2026-10-01",
+      "last_close": 36.73,
+      "last_score": 78
+    },
+    "RAL": {
+      "name": "Ralliant Corporation",
+      "consecutive_days": 11,
+      "first_seen": "2026-09-16",
+      "last_seen": "2026-10-01",
+      "last_close": 69.4,
+      "last_score": 78
+    },
+    "OSPN": {
+      "name": "OneSpan Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 17.72,
       "last_score": 78
     },
     "PRTH": {
       "name": "Priority Technology Holdings Inc",
-      "consecutive_days": 7,
+      "consecutive_days": 8,
       "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 7.79,
-      "last_score": 78
-    },
-    "DE": {
-      "name": "Deere & Co",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 684.31,
+      "last_seen": "2026-10-01",
+      "last_close": 7.8,
       "last_score": 78
     },
     "AMG": {
       "name": "Affiliated Managers Group  Inc.",
-      "consecutive_days": 5,
+      "consecutive_days": 6,
       "first_seen": "2026-09-23",
-      "last_seen": "2026-09-30",
-      "last_close": 368.82,
+      "last_seen": "2026-10-01",
+      "last_close": 366.68,
       "last_score": 78
     },
     "HRTG": {
       "name": "Heritage Insurance Holdings Inc",
-      "consecutive_days": 11,
+      "consecutive_days": 12,
       "first_seen": "2026-09-15",
-      "last_seen": "2026-09-30",
-      "last_close": 33.43,
+      "last_seen": "2026-10-01",
+      "last_close": 33.74,
       "last_score": 78
     },
-    "DINO": {
-      "name": "HF Sinclair Corporation",
-      "consecutive_days": 12,
+    "PSX": {
+      "name": "Phillips 66",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 108.09,
-      "last_score": 77
-    },
-    "JILL": {
-      "name": "JJill Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 24.49,
-      "last_score": 77
-    },
-    "NEOG": {
-      "name": "Neogen Corporation",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 12.72,
+      "last_seen": "2026-10-01",
+      "last_close": 260.76,
       "last_score": 77
     },
     "FIVN": {
       "name": "Five9  Inc.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 34.02,
+      "last_seen": "2026-10-01",
+      "last_close": 34.33,
       "last_score": 77
     },
-    "WEST": {
-      "name": "Westrock Coffee Co",
-      "consecutive_days": 3,
-      "first_seen": "2026-09-25",
-      "last_seen": "2026-09-30",
-      "last_close": 8.08,
+    "NEOG": {
+      "name": "Neogen Corporation",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 12.62,
+      "last_score": 77
+    },
+    "SN": {
+      "name": "SharkNinja  Inc.",
+      "consecutive_days": 5,
+      "first_seen": "2026-09-24",
+      "last_seen": "2026-10-01",
+      "last_close": 179.26,
+      "last_score": 77
+    },
+    "AMRX": {
+      "name": "Amneal Pharmaceuticals  Inc",
+      "consecutive_days": 11,
+      "first_seen": "2026-09-16",
+      "last_seen": "2026-10-01",
+      "last_close": 19.77,
+      "last_score": 77
+    },
+    "TK": {
+      "name": "Teekay Corp Ltd",
+      "consecutive_days": 10,
+      "first_seen": "2026-09-17",
+      "last_seen": "2026-10-01",
+      "last_close": 14.38,
+      "last_score": 77
+    },
+    "CGAU": {
+      "name": "Centerra Gold Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 21.62,
       "last_score": 77
     },
     "PBR": {
       "name": "Petroleo Brasileiro ADR Reptg 2",
-      "consecutive_days": 10,
+      "consecutive_days": 11,
       "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 20.97,
+      "last_seen": "2026-10-01",
+      "last_close": 20.92,
       "last_score": 77
     },
-    "VIR": {
-      "name": "Vir Biotechnology  Inc.",
-      "consecutive_days": 12,
+    "PRCH": {
+      "name": "Porch Group  Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 10.75,
-      "last_score": 77
-    },
-    "NTNX": {
-      "name": "Nutanix  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 71.02,
-      "last_score": 77
-    },
-    "MSGE": {
-      "name": "Madison Square Garden Entertainment Corp",
-      "consecutive_days": 4,
-      "first_seen": "2026-09-24",
-      "last_seen": "2026-09-30",
-      "last_close": 82.08,
-      "last_score": 77
-    },
-    "ROG": {
-      "name": "Rogers Corporation",
-      "consecutive_days": 6,
-      "first_seen": "2026-09-22",
-      "last_seen": "2026-09-30",
-      "last_close": 147.89,
+      "last_seen": "2026-10-01",
+      "last_close": 16.28,
       "last_score": 77
     },
     "ENTG": {
       "name": "Entegris Inc",
-      "consecutive_days": 8,
+      "consecutive_days": 9,
       "first_seen": "2026-09-18",
-      "last_seen": "2026-09-30",
-      "last_close": 154.48,
+      "last_seen": "2026-10-01",
+      "last_close": 156.48,
       "last_score": 77
     },
-    "ZD": {
-      "name": "Ziff Davis Inc",
-      "consecutive_days": 12,
+    "PLXS": {
+      "name": "Plexus Corp",
+      "consecutive_days": 7,
+      "first_seen": "2026-09-22",
+      "last_seen": "2026-10-01",
+      "last_close": 266.0,
+      "last_score": 77
+    },
+    "SU": {
+      "name": "Suncor Energy Inc (Canada)",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 56.57,
+      "last_seen": "2026-10-01",
+      "last_close": 68.93,
+      "last_score": 77
+    },
+    "TEVA": {
+      "name": "Teva Pharmaceutical Industries Limited",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 38.87,
+      "last_score": 77
+    },
+    "TALO": {
+      "name": "Talos Energy Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 16.41,
       "last_score": 77
     },
     "PK": {
       "name": "Park Hotels & Resorts Inc",
-      "consecutive_days": 4,
+      "consecutive_days": 5,
       "first_seen": "2026-09-24",
-      "last_seen": "2026-09-30",
-      "last_close": 15.38,
+      "last_seen": "2026-10-01",
+      "last_close": 15.36,
       "last_score": 77
     },
     "EXPD": {
       "name": "Expeditors International of Washington Inc",
-      "consecutive_days": 3,
+      "consecutive_days": 4,
       "first_seen": "2026-09-25",
-      "last_seen": "2026-09-30",
-      "last_close": 185.96,
+      "last_seen": "2026-10-01",
+      "last_close": 186.96,
       "last_score": 77
     },
-    "EXEL": {
-      "name": "Exelixis Inc",
-      "consecutive_days": 12,
+    "BIO": {
+      "name": "Bio-Rad Laboratories  Inc. Class A",
+      "consecutive_days": 6,
+      "first_seen": "2026-09-23",
+      "last_seen": "2026-10-01",
+      "last_close": 369.29,
+      "last_score": 77
+    },
+    "WST": {
+      "name": "West Pharmaceutical Services  Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 59.12,
-      "last_score": 77
-    },
-    "MSM": {
-      "name": "MSC Industrial Direct Co.  Inc.",
-      "consecutive_days": 2,
-      "first_seen": "2026-09-29",
-      "last_seen": "2026-09-30",
-      "last_close": 124.82,
+      "last_seen": "2026-10-01",
+      "last_close": 367.34,
       "last_score": 77
     },
     "HSTM": {
       "name": "HealthStream  Inc.",
-      "consecutive_days": 1,
+      "consecutive_days": 2,
       "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 30.12,
+      "last_seen": "2026-10-01",
+      "last_close": 30.11,
       "last_score": 77
     },
     "PLSE": {
       "name": "Pulse Biosciences Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 49.17,
-      "last_score": 76
-    },
-    "INTC": {
-      "name": "Intel Corp",
-      "consecutive_days": 9,
-      "first_seen": "2026-09-17",
-      "last_seen": "2026-09-30",
-      "last_close": 118.32,
-      "last_score": 76
-    },
-    "HELP": {
-      "name": "Cybin Inc.",
-      "consecutive_days": 9,
-      "first_seen": "2026-09-17",
-      "last_seen": "2026-09-30",
-      "last_close": 12.57,
-      "last_score": 76
-    },
-    "NUAI": {
-      "name": "New Era Energy & Digital Inc",
-      "consecutive_days": 7,
-      "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 6.71,
-      "last_score": 76
-    },
-    "DOCN": {
-      "name": "DigitalOcean Holdings  Inc.",
-      "consecutive_days": 7,
-      "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 136.34,
-      "last_score": 76
-    },
-    "DK": {
-      "name": "Delek US Holdings Inc",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 70.42,
-      "last_score": 76
-    },
-    "AYA": {
-      "name": "Aya Gold & Silver Inc (Quebec)",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 27.0,
-      "last_score": 76
-    },
-    "AVAH": {
-      "name": "Aveanna Healthcare Holdings Inc",
-      "consecutive_days": 7,
-      "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 12.35,
-      "last_score": 76
-    },
-    "LRCX": {
-      "name": "Lam Research Corporation",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 326.2,
-      "last_score": 76
-    },
-    "ZIM": {
-      "name": "ZIM Integrated Shipping Services Ltd",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 29.32,
-      "last_score": 76
-    },
-    "QRVO": {
-      "name": "Qorvo  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 117.26,
-      "last_score": 76
-    },
-    "KN": {
-      "name": "Knowles Corporation",
-      "consecutive_days": 6,
-      "first_seen": "2026-09-22",
-      "last_seen": "2026-09-30",
-      "last_close": 37.38,
-      "last_score": 76
-    },
-    "PLXS": {
-      "name": "Plexus Corp",
-      "consecutive_days": 6,
-      "first_seen": "2026-09-22",
-      "last_seen": "2026-09-30",
-      "last_close": 264.64,
-      "last_score": 76
-    },
-    "TEVA": {
-      "name": "Teva Pharmaceutical Industries Limited",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 39.39,
-      "last_score": 76
-    },
-    "SLAB": {
-      "name": "Silicon Laboratories Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 221.71,
-      "last_score": 76
-    },
-    "E": {
-      "name": "Eni SpA ADR",
-      "consecutive_days": 5,
-      "first_seen": "2026-09-23",
-      "last_seen": "2026-09-30",
-      "last_close": 54.59,
-      "last_score": 76
-    },
-    "BIIB": {
-      "name": "Biogen Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 226.63,
-      "last_score": 76
-    },
-    "RGA": {
-      "name": "Reinsurance Group of America  Incorporated",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 251.61,
-      "last_score": 76
-    },
-    "AAPL": {
-      "name": "Apple Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 335.23,
+      "last_seen": "2026-10-01",
+      "last_close": 51.08,
       "last_score": 76
     },
     "BAND": {
       "name": "Bandwidth Inc.",
-      "consecutive_days": 5,
+      "consecutive_days": 6,
       "first_seen": "2026-09-23",
-      "last_seen": "2026-09-30",
-      "last_close": 63.64,
-      "last_score": 75
+      "last_seen": "2026-10-01",
+      "last_close": 59.79,
+      "last_score": 76
+    },
+    "INTC": {
+      "name": "Intel Corp",
+      "consecutive_days": 10,
+      "first_seen": "2026-09-17",
+      "last_seen": "2026-10-01",
+      "last_close": 119.49,
+      "last_score": 76
+    },
+    "BE": {
+      "name": "Bloom Energy Corporation",
+      "consecutive_days": 11,
+      "first_seen": "2026-09-16",
+      "last_seen": "2026-10-01",
+      "last_close": 279.35,
+      "last_score": 76
+    },
+    "LRCX": {
+      "name": "Lam Research Corporation",
+      "consecutive_days": 2,
+      "first_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
+      "last_close": 337.98,
+      "last_score": 76
+    },
+    "AVAH": {
+      "name": "Aveanna Healthcare Holdings Inc",
+      "consecutive_days": 8,
+      "first_seen": "2026-09-21",
+      "last_seen": "2026-10-01",
+      "last_close": 12.48,
+      "last_score": 76
+    },
+    "KN": {
+      "name": "Knowles Corporation",
+      "consecutive_days": 7,
+      "first_seen": "2026-09-22",
+      "last_seen": "2026-10-01",
+      "last_close": 37.48,
+      "last_score": 76
+    },
+    "SLAB": {
+      "name": "Silicon Laboratories Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 221.82,
+      "last_score": 76
+    },
+    "GNK": {
+      "name": "Genco Shipping & Trading Limited",
+      "consecutive_days": 2,
+      "first_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
+      "last_close": 26.83,
+      "last_score": 76
     },
     "APPS": {
       "name": "Digital Turbine  Inc.",
-      "consecutive_days": 7,
+      "consecutive_days": 8,
       "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 11.55,
+      "last_seen": "2026-10-01",
+      "last_close": 11.27,
+      "last_score": 75
+    },
+    "AMBQ": {
+      "name": "Ambiq Micro  Inc.",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 69.11,
       "last_score": 75
     },
     "OBIO": {
       "name": "Orchestra Biomed Holdings Inc",
-      "consecutive_days": 10,
+      "consecutive_days": 11,
       "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 6.1,
+      "last_seen": "2026-10-01",
+      "last_close": 6.3,
       "last_score": 75
     },
-    "SB": {
-      "name": "Safe Bulkers  Inc.",
-      "consecutive_days": 2,
-      "first_seen": "2026-09-29",
-      "last_seen": "2026-09-30",
-      "last_close": 8.55,
-      "last_score": 75
-    },
-    "HNST": {
-      "name": "The Honest Company  Inc.",
-      "consecutive_days": 12,
+    "SFL": {
+      "name": "SFL Corporation Ltd.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 5.18,
-      "last_score": 75
-    },
-    "IDT": {
-      "name": "IDT Corporation",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 74.53,
-      "last_score": 75
-    },
-    "ORIC": {
-      "name": "ORIC Pharmaceuticals  Inc.",
-      "consecutive_days": 10,
-      "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 13.45,
-      "last_score": 75
-    },
-    "OPY": {
-      "name": "Oppenheimer Holdings Inc.",
-      "consecutive_days": 4,
-      "first_seen": "2026-09-24",
-      "last_seen": "2026-09-30",
-      "last_close": 119.74,
-      "last_score": 75
-    },
-    "AMTB": {
-      "name": "Amerant Bancorp Inc.",
-      "consecutive_days": 4,
-      "first_seen": "2026-09-24",
-      "last_seen": "2026-09-30",
-      "last_close": 29.4,
-      "last_score": 75
-    },
-    "GSL": {
-      "name": "Global Ship Lease  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 44.84,
-      "last_score": 75
-    },
-    "BATRK": {
-      "name": "Liberty Media Liberty Braves Ord Shs Series C",
-      "consecutive_days": 5,
-      "first_seen": "2026-09-23",
-      "last_seen": "2026-09-30",
-      "last_close": 53.81,
+      "last_seen": "2026-10-01",
+      "last_close": 13.29,
       "last_score": 75
     },
     "HSHP": {
       "name": "Himalaya Shipping Ltd",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 17.89,
-      "last_score": 74
-    },
-    "MTLS": {
-      "name": "Materialise NV ADR",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 8.62,
+      "last_seen": "2026-10-01",
+      "last_close": 17.75,
       "last_score": 74
     },
     "VEON": {
       "name": "VEON Ltd ADR",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 73.69,
+      "last_seen": "2026-10-01",
+      "last_close": 74.25,
       "last_score": 74
     },
-    "MEOH": {
-      "name": "Methanex Corp",
+    "MTLS": {
+      "name": "Materialise NV ADR",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 8.57,
+      "last_score": 74
+    },
+    "SCCO": {
+      "name": "Southern Copper Corp",
       "consecutive_days": 10,
-      "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 59.31,
+      "first_seen": "2026-09-17",
+      "last_seen": "2026-10-01",
+      "last_close": 200.05,
+      "last_score": 74
+    },
+    "MRK": {
+      "name": "Merck & Co Inc",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 144.47,
       "last_score": 74
     },
     "SAIC": {
       "name": "Science Applications International Corp",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 129.11,
+      "last_seen": "2026-10-01",
+      "last_close": 129.71,
       "last_score": 74
     },
-    "XOM": {
-      "name": "Exxonmobil Holdings Corp",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 162.99,
-      "last_score": 74
-    },
-    "WAB": {
-      "name": "Westinghouse Air Brake Technologies Corp",
-      "consecutive_days": 2,
-      "first_seen": "2026-09-29",
-      "last_seen": "2026-09-30",
-      "last_close": 292.27,
-      "last_score": 74
-    },
-    "BNS": {
-      "name": "The Bank of Nova Scotia",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 92.0,
-      "last_score": 74
-    },
-    "BAP": {
-      "name": "Credicorp Ltd",
-      "consecutive_days": 7,
+    "GRMN": {
+      "name": "Garmin Ltd.",
+      "consecutive_days": 8,
       "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 383.07,
+      "last_seen": "2026-10-01",
+      "last_close": 287.37,
       "last_score": 74
+    },
+    "LXFR": {
+      "name": "Luxfer Holdings PLC",
+      "consecutive_days": 3,
+      "first_seen": "2026-09-29",
+      "last_seen": "2026-10-01",
+      "last_close": 17.27,
+      "last_score": 74
+    },
+    "HPQ": {
+      "name": "HP Inc",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 32.13,
+      "last_score": 73
     },
     "APA": {
       "name": "APA Corporation",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 42.17,
+      "last_seen": "2026-10-01",
+      "last_close": 42.76,
       "last_score": 73
     },
     "PRE": {
       "name": "Prenetics Global Ltd",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 22.96,
+      "last_seen": "2026-10-01",
+      "last_close": 23.0,
       "last_score": 73
     },
-    "HBM": {
-      "name": "Hudbay Minerals Inc.",
-      "consecutive_days": 9,
-      "first_seen": "2026-09-17",
-      "last_seen": "2026-09-30",
-      "last_close": 27.22,
-      "last_score": 73
-    },
-    "TENB": {
-      "name": "Tenable Holdings  Inc.",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 36.29,
-      "last_score": 73
-    },
-    "ROKU": {
-      "name": "Roku  Inc.",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 153.15,
-      "last_score": 73
-    },
-    "TALO": {
-      "name": "Talos Energy Inc.",
-      "consecutive_days": 12,
+    "QRVO": {
+      "name": "Qorvo  Inc.",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 16.3,
+      "last_seen": "2026-10-01",
+      "last_close": 114.74,
+      "last_score": 73
+    },
+    "STNG": {
+      "name": "Scorpio Tankers Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 84.78,
       "last_score": 73
     },
     "NVT": {
       "name": "nVent Electric PLC",
-      "consecutive_days": 8,
+      "consecutive_days": 9,
       "first_seen": "2026-09-18",
-      "last_seen": "2026-09-30",
-      "last_close": 161.23,
+      "last_seen": "2026-10-01",
+      "last_close": 161.38,
       "last_score": 73
     },
     "LFUS": {
       "name": "Littelfuse  Inc.",
-      "consecutive_days": 3,
+      "consecutive_days": 4,
       "first_seen": "2026-09-25",
-      "last_seen": "2026-09-30",
-      "last_close": 428.11,
-      "last_score": 73
-    },
-    "MUFG": {
-      "name": "Mitsubishi UFJ Financial Group  Inc. ADR",
-      "consecutive_days": 3,
-      "first_seen": "2026-09-25",
-      "last_seen": "2026-09-30",
-      "last_close": 23.33,
+      "last_seen": "2026-10-01",
+      "last_close": 427.67,
       "last_score": 73
     },
     "TXN": {
       "name": "Texas Instruments Inc",
-      "consecutive_days": 3,
+      "consecutive_days": 4,
       "first_seen": "2026-09-25",
-      "last_seen": "2026-09-30",
-      "last_close": 282.12,
+      "last_seen": "2026-10-01",
+      "last_close": 280.07,
       "last_score": 73
     },
-    "BBY": {
-      "name": "Best Buy Co.  Inc.",
-      "consecutive_days": 12,
+    "MANH": {
+      "name": "Manhattan Associates  Inc.",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 201.77,
+      "last_score": 73
+    },
+    "XOM": {
+      "name": "Exxonmobil Holdings Corp",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 89.89,
-      "last_score": 73
-    },
-    "NTCT": {
-      "name": "NetScout Systems  Inc.",
-      "consecutive_days": 5,
-      "first_seen": "2026-09-23",
-      "last_seen": "2026-09-30",
-      "last_close": 39.76,
+      "last_seen": "2026-10-01",
+      "last_close": 163.21,
       "last_score": 73
     },
     "NEU": {
       "name": "NewMarket Corporation",
-      "consecutive_days": 10,
+      "consecutive_days": 11,
       "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 909.09,
+      "last_seen": "2026-10-01",
+      "last_close": 904.14,
+      "last_score": 73
+    },
+    "NTCT": {
+      "name": "NetScout Systems  Inc.",
+      "consecutive_days": 6,
+      "first_seen": "2026-09-23",
+      "last_seen": "2026-10-01",
+      "last_close": 39.79,
       "last_score": 73
     },
     "APH": {
       "name": "Amphenol Corp",
-      "consecutive_days": 4,
+      "consecutive_days": 5,
       "first_seen": "2026-09-24",
-      "last_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
       "last_close": 84.83,
       "last_score": 73
     },
-    "IEX": {
-      "name": "IDEX Corporation",
-      "consecutive_days": 3,
-      "first_seen": "2026-09-25",
-      "last_seen": "2026-09-30",
-      "last_close": 230.45,
-      "last_score": 73
-    },
-    "IFF": {
-      "name": "International Flavors & Fragrances Inc.",
-      "consecutive_days": 11,
-      "first_seen": "2026-09-15",
-      "last_seen": "2026-09-30",
-      "last_close": 85.0,
-      "last_score": 73
+    "TEN": {
+      "name": "Tsakos Energy Navigation Ltd",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 48.52,
+      "last_score": 72
     },
     "SSL": {
       "name": "Sasol Limited ADR",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
       "last_close": 13.77,
       "last_score": 72
     },
-    "TEN": {
-      "name": "Tsakos Energy Navigation Ltd",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 48.49,
-      "last_score": 72
-    },
-    "QLYS": {
-      "name": "Qualys  Inc.",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 181.72,
+    "ROG": {
+      "name": "Rogers Corporation",
+      "consecutive_days": 7,
+      "first_seen": "2026-09-22",
+      "last_seen": "2026-10-01",
+      "last_close": 155.13,
       "last_score": 72
     },
     "SWKS": {
       "name": "Skyworks Solutions  Inc.",
-      "consecutive_days": 11,
+      "consecutive_days": 12,
       "first_seen": "2026-09-15",
-      "last_seen": "2026-09-30",
-      "last_close": 88.35,
-      "last_score": 72
-    },
-    "SMFG": {
-      "name": "Sumitomo Mitsui Financial Group  Inc. ADR",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 26.25,
-      "last_score": 72
-    },
-    "AMGN": {
-      "name": "Amgen Inc",
-      "consecutive_days": 6,
-      "first_seen": "2026-09-22",
-      "last_seen": "2026-09-30",
-      "last_close": 424.43,
-      "last_score": 72
-    },
-    "GNK": {
-      "name": "Genco Shipping & Trading Limited",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 26.5,
+      "last_seen": "2026-10-01",
+      "last_close": 85.82,
       "last_score": 72
     },
     "APLE": {
       "name": "Apple Hospitality REIT Inc",
-      "consecutive_days": 3,
+      "consecutive_days": 4,
       "first_seen": "2026-09-25",
-      "last_seen": "2026-09-30",
-      "last_close": 16.25,
-      "last_score": 72
-    },
-    "PRSU": {
-      "name": "Pursuit Attractions and Hospitality  Inc.",
-      "consecutive_days": 3,
-      "first_seen": "2026-09-25",
-      "last_seen": "2026-09-30",
-      "last_close": 49.96,
-      "last_score": 72
-    },
-    "AME": {
-      "name": "AMETEK Inc",
-      "consecutive_days": 3,
-      "first_seen": "2026-09-25",
-      "last_seen": "2026-09-30",
-      "last_close": 252.89,
+      "last_seen": "2026-10-01",
+      "last_close": 16.14,
       "last_score": 72
     },
     "JCI": {
       "name": "Johnson Controls International PLC",
-      "consecutive_days": 3,
+      "consecutive_days": 4,
       "first_seen": "2026-09-25",
-      "last_seen": "2026-09-30",
-      "last_close": 151.1,
+      "last_seen": "2026-10-01",
+      "last_close": 150.47,
       "last_score": 72
+    },
+    "HELP": {
+      "name": "Cybin Inc.",
+      "consecutive_days": 10,
+      "first_seen": "2026-09-17",
+      "last_seen": "2026-10-01",
+      "last_close": 11.85,
+      "last_score": 71
+    },
+    "NUAI": {
+      "name": "New Era Energy & Digital Inc",
+      "consecutive_days": 8,
+      "first_seen": "2026-09-21",
+      "last_seen": "2026-10-01",
+      "last_close": 6.38,
+      "last_score": 71
     },
     "DIOD": {
       "name": "Diodes Incorporated",
-      "consecutive_days": 6,
-      "first_seen": "2026-09-22",
-      "last_seen": "2026-09-30",
-      "last_close": 97.38,
-      "last_score": 71
-    },
-    "NMAX": {
-      "name": "Newsmax Inc.",
       "consecutive_days": 7,
-      "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 11.12,
+      "first_seen": "2026-09-22",
+      "last_seen": "2026-10-01",
+      "last_close": 97.0,
       "last_score": 71
     },
-    "KB": {
-      "name": "KB Financial Group Inc. ADR",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 124.4,
-      "last_score": 71
-    },
-    "PNTG": {
-      "name": "The Pennant Group  Inc.",
+    "OPY": {
+      "name": "Oppenheimer Holdings Inc.",
       "consecutive_days": 5,
-      "first_seen": "2026-09-23",
-      "last_seen": "2026-09-30",
-      "last_close": 40.13,
+      "first_seen": "2026-09-24",
+      "last_seen": "2026-10-01",
+      "last_close": 117.59,
+      "last_score": 71
+    },
+    "ORIC": {
+      "name": "ORIC Pharmaceuticals  Inc.",
+      "consecutive_days": 11,
+      "first_seen": "2026-09-16",
+      "last_seen": "2026-10-01",
+      "last_close": 13.03,
+      "last_score": 71
+    },
+    "GSL": {
+      "name": "Global Ship Lease  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 44.69,
+      "last_score": 71
+    },
+    "IOSP": {
+      "name": "Innospec Inc",
+      "consecutive_days": 11,
+      "first_seen": "2026-09-16",
+      "last_seen": "2026-10-01",
+      "last_close": 94.83,
+      "last_score": 71
+    },
+    "TRNS": {
+      "name": "Transcat  Inc.",
+      "consecutive_days": 2,
+      "first_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
+      "last_close": 89.18,
       "last_score": 71
     },
     "HPK": {
       "name": "Highpeak Energy Inc",
-      "consecutive_days": 1,
+      "consecutive_days": 2,
       "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
       "last_close": 7.85,
-      "last_score": 70
-    },
-    "ANGO": {
-      "name": "AngioDynamics  Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 15.44,
-      "last_score": 70
-    },
-    "GRMN": {
-      "name": "Garmin Ltd.",
-      "consecutive_days": 7,
-      "first_seen": "2026-09-21",
-      "last_seen": "2026-09-30",
-      "last_close": 291.11,
       "last_score": 70
     },
     "BSTZ": {
       "name": "BlackRock Science and Technology Term Closed End Fund",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 30.1,
-      "last_score": 70
-    },
-    "LXFR": {
-      "name": "Luxfer Holdings PLC",
       "consecutive_days": 2,
-      "first_seen": "2026-09-29",
-      "last_seen": "2026-09-30",
-      "last_close": 17.29,
+      "first_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
+      "last_close": 30.73,
       "last_score": 70
     },
-    "VBNK": {
-      "name": "Versabank",
-      "consecutive_days": 12,
+    "DE": {
+      "name": "Deere & Co",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 22.25,
+      "last_seen": "2026-10-01",
+      "last_close": 652.48,
+      "last_score": 70
+    },
+    "SNX": {
+      "name": "TD SYNNEX Corporation",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 263.27,
+      "last_score": 69
+    },
+    "EOLS": {
+      "name": "Evolus Inc",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 7.93,
+      "last_score": 69
+    },
+    "TENB": {
+      "name": "Tenable Holdings  Inc.",
+      "consecutive_days": 2,
+      "first_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
+      "last_close": 35.73,
       "last_score": 69
     },
     "AII": {
       "name": "American Integrity Insurance Group Inc",
-      "consecutive_days": 11,
-      "first_seen": "2026-09-15",
-      "last_seen": "2026-09-30",
-      "last_close": 25.06,
-      "last_score": 69
-    },
-    "ING": {
-      "name": "ING Groep N.V. ADR",
       "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 35.81,
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-10-01",
+      "last_close": 25.21,
       "last_score": 69
     },
-    "IOSP": {
-      "name": "Innospec Inc",
-      "consecutive_days": 10,
-      "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 97.14,
+    "SSRM": {
+      "name": "SSR Mining Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 33.68,
       "last_score": 69
     },
     "CVX": {
       "name": "Chevron Corporation",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 205.68,
+      "last_seen": "2026-10-01",
+      "last_close": 205.9,
+      "last_score": 69
+    },
+    "NRC": {
+      "name": "NRC Health",
+      "consecutive_days": 2,
+      "first_seen": "2026-09-30",
+      "last_seen": "2026-10-01",
+      "last_close": 21.74,
+      "last_score": 69
+    },
+    "BBY": {
+      "name": "Best Buy Co.  Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 87.88,
+      "last_score": 69
+    },
+    "PAYO": {
+      "name": "Payoneer Global Inc",
+      "consecutive_days": 5,
+      "first_seen": "2026-09-24",
+      "last_seen": "2026-10-01",
+      "last_close": 7.15,
+      "last_score": 69
+    },
+    "AAPL": {
+      "name": "Apple Inc.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 330.15,
+      "last_score": 69
+    },
+    "RGA": {
+      "name": "Reinsurance Group of America  Incorporated",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 245.59,
       "last_score": 69
     },
     "GILD": {
       "name": "Gilead Sciences  Inc.",
-      "consecutive_days": 10,
+      "consecutive_days": 11,
       "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 150.58,
+      "last_seen": "2026-10-01",
+      "last_close": 147.43,
+      "last_score": 69
+    },
+    "AME": {
+      "name": "AMETEK Inc",
+      "consecutive_days": 4,
+      "first_seen": "2026-09-25",
+      "last_seen": "2026-10-01",
+      "last_close": 247.84,
       "last_score": 69
     },
     "ETN": {
       "name": "Eaton Corporation PLC",
-      "consecutive_days": 6,
+      "consecutive_days": 7,
       "first_seen": "2026-09-22",
-      "last_seen": "2026-09-30",
-      "last_close": 433.08,
+      "last_seen": "2026-10-01",
+      "last_close": 429.39,
       "last_score": 69
-    },
-    "LLY": {
-      "name": "Eli Lilly and Company",
-      "consecutive_days": 4,
-      "first_seen": "2026-09-24",
-      "last_seen": "2026-09-30",
-      "last_close": 1190.01,
-      "last_score": 69
-    },
-    "JNJ": {
-      "name": "Johnson & Johnson",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 266.56,
-      "last_score": 69
-    },
-    "PM": {
-      "name": "Philip Morris International Inc.",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 193.34,
-      "last_score": 69
-    },
-    "HPQ": {
-      "name": "HP Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 30.84,
-      "last_score": 68
     },
     "CRGY": {
       "name": "Crescent Energy Company",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 13.05,
+      "last_seen": "2026-10-01",
+      "last_close": 13.09,
       "last_score": 68
     },
-    "LSCC": {
-      "name": "Lattice Semiconductor Corporation",
-      "consecutive_days": 6,
+    "AMGN": {
+      "name": "Amgen Inc",
+      "consecutive_days": 7,
       "first_seen": "2026-09-22",
-      "last_seen": "2026-09-30",
-      "last_close": 125.84,
+      "last_seen": "2026-10-01",
+      "last_close": 415.17,
+      "last_score": 68
+    },
+    "PRSU": {
+      "name": "Pursuit Attractions and Hospitality  Inc.",
+      "consecutive_days": 4,
+      "first_seen": "2026-09-25",
+      "last_seen": "2026-10-01",
+      "last_close": 50.3,
       "last_score": 68
     },
     "SHEL": {
       "name": "Shell plc ADR",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 95.3,
+      "last_seen": "2026-10-01",
+      "last_close": 95.08,
       "last_score": 68
     },
-    "ARGX": {
-      "name": "argenx SE ADR",
-      "consecutive_days": 10,
-      "first_seen": "2026-09-16",
-      "last_seen": "2026-09-30",
-      "last_close": 955.66,
+    "BATRK": {
+      "name": "Liberty Media Liberty Braves Ord Shs Series C",
+      "consecutive_days": 6,
+      "first_seen": "2026-09-23",
+      "last_seen": "2026-10-01",
+      "last_close": 52.01,
       "last_score": 68
     },
     "IBRX": {
       "name": "ImmunityBio  Inc.",
-      "consecutive_days": 1,
+      "consecutive_days": 2,
       "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 9.06,
+      "last_seen": "2026-10-01",
+      "last_close": 9.16,
       "last_score": 67
     },
     "FSLY": {
       "name": "Fastly  Inc.",
-      "consecutive_days": 1,
+      "consecutive_days": 2,
       "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 25.75,
-      "last_score": 67
-    },
-    "MAKO": {
-      "name": "Mako Mining Corp",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 9.49,
+      "last_seen": "2026-10-01",
+      "last_close": 25.81,
       "last_score": 67
     },
     "SANM": {
       "name": "Sanmina Corporation",
-      "consecutive_days": 6,
+      "consecutive_days": 7,
       "first_seen": "2026-09-22",
-      "last_seen": "2026-09-30",
-      "last_close": 217.29,
-      "last_score": 67
-    },
-    "RUSHB": {
-      "name": "Rush Enterprises  Inc. Class B",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 53.83,
+      "last_seen": "2026-10-01",
+      "last_close": 216.16,
       "last_score": 67
     },
     "NPK": {
       "name": "National Presto Industries Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 145.9,
+      "last_seen": "2026-10-01",
+      "last_close": 148.53,
       "last_score": 67
     },
-    "TRNS": {
-      "name": "Transcat  Inc.",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 88.28,
+    "RUSHB": {
+      "name": "Rush Enterprises  Inc. Class B",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 53.53,
       "last_score": 67
     },
     "FDMT": {
       "name": "4D Molecular Therapeutics Inc",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 14.49,
+      "last_seen": "2026-10-01",
+      "last_close": 14.16,
       "last_score": 66
     },
-    "TITN": {
-      "name": "Titan Machinery Inc",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 23.57,
+    "FIGS": {
+      "name": "FIGS  Inc.",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 13.91,
       "last_score": 66
     },
     "NVGS": {
       "name": "Navigator Holdings Ltd.",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 23.18,
+      "last_seen": "2026-10-01",
+      "last_close": 23.23,
       "last_score": 66
     },
-    "PAYO": {
-      "name": "Payoneer Global Inc",
-      "consecutive_days": 4,
-      "first_seen": "2026-09-24",
-      "last_seen": "2026-09-30",
-      "last_close": 7.14,
-      "last_score": 66
-    },
-    "EOLS": {
-      "name": "Evolus Inc",
-      "consecutive_days": 12,
+    "VBNK": {
+      "name": "Versabank",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 7.93,
+      "last_seen": "2026-10-01",
+      "last_close": 21.97,
       "last_score": 65
     },
-    "CNH": {
-      "name": "CNH Industrial N.V.",
-      "consecutive_days": 12,
+    "TITN": {
+      "name": "Titan Machinery Inc",
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 13.13,
-      "last_score": 65
-    },
-    "SSRM": {
-      "name": "SSR Mining Inc.",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 33.83,
+      "last_seen": "2026-10-01",
+      "last_close": 22.38,
       "last_score": 65
     },
     "BOX": {
       "name": "Box Inc",
-      "consecutive_days": 1,
+      "consecutive_days": 2,
       "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 33.4,
+      "last_seen": "2026-10-01",
+      "last_close": 33.43,
       "last_score": 65
     },
-    "BGC": {
-      "name": "Bgc Group Inc",
+    "BP": {
+      "name": "BP PLC ADR",
       "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 11.68,
-      "last_score": 65
-    },
-    "COKE": {
-      "name": "Coca-Cola Consolidated Inc",
-      "consecutive_days": 4,
-      "first_seen": "2026-09-24",
-      "last_seen": "2026-09-30",
-      "last_close": 192.54,
-      "last_score": 65
-    },
-    "GPRK": {
-      "name": "GeoPark Ltd",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 10.6,
-      "last_score": 63
-    },
-    "SHG": {
-      "name": "Shinhan Financial Group Co.  Ltd. ADR",
-      "consecutive_days": 12,
-      "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 77.76,
-      "last_score": 63
-    },
-    "TRVG": {
-      "name": "Trivago NV ADR",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 5.58,
-      "last_score": 62
-    },
-    "ZLAB": {
-      "name": "Zai Lab Ltd ADR",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 26.2,
-      "last_score": 62
-    },
-    "AVBP": {
-      "name": "ArriVent BioPharma  Inc.",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 30.1,
-      "last_score": 62
-    },
-    "NRC": {
-      "name": "NRC Health",
-      "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 21.02,
-      "last_score": 61
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 44.35,
+      "last_score": 64
     },
     "TRLV": {
       "name": "Trulieve Cannabis Corp ( Delaware )",
-      "consecutive_days": 12,
+      "consecutive_days": 13,
       "first_seen": "2026-09-14",
-      "last_seen": "2026-09-30",
-      "last_close": 10.78,
-      "last_score": 59
+      "last_seen": "2026-10-01",
+      "last_close": 11.13,
+      "last_score": 63
     },
-    "BGR": {
-      "name": "BlackRock Energy and Resources Closed Fund",
+    "GPRK": {
+      "name": "GeoPark Ltd",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 10.43,
+      "last_score": 62
+    },
+    "NMAX": {
+      "name": "Newsmax Inc.",
+      "consecutive_days": 8,
+      "first_seen": "2026-09-21",
+      "last_seen": "2026-10-01",
+      "last_close": 10.4,
+      "last_score": 62
+    },
+    "RCBC": {
+      "name": "River City Bank",
       "consecutive_days": 1,
-      "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 16.97,
-      "last_score": 58
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 51.0,
+      "last_score": 61
     },
-    "RUM": {
-      "name": "RUM Group Inc.",
-      "consecutive_days": 11,
-      "first_seen": "2026-09-15",
-      "last_seen": "2026-09-30",
-      "last_close": 8.18,
+    "CNH": {
+      "name": "CNH Industrial N.V.",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-14",
+      "last_seen": "2026-10-01",
+      "last_close": 12.64,
+      "last_score": 60
+    },
+    "DSP": {
+      "name": "Viant Technology Inc",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-01",
+      "last_seen": "2026-10-01",
+      "last_close": 12.72,
       "last_score": 57
     },
     "CVLT": {
       "name": "Commvault Systems  Inc.",
-      "consecutive_days": 1,
+      "consecutive_days": 2,
       "first_seen": "2026-09-30",
-      "last_seen": "2026-09-30",
-      "last_close": 147.89,
+      "last_seen": "2026-10-01",
+      "last_close": 147.45,
       "last_score": 55
     }
   }
