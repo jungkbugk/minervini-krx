@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-01T14:37:37.395092",
+  "updated_at": "2026-10-02T01:01:50.948001",
   "kr": {
     "status": "BULL",
     "can_buy": true,
@@ -31,18 +31,18 @@
     }
   },
   "us": {
-    "status": "CAUTION",
-    "can_buy": false,
-    "action": "⚠️ 신규 매수 자제 / 관망 권장",
-    "message": "S&P 500 지수가 50일선 아래로 하회하여 변동성 구간에 진입했습니다. 보수적 현금 관망을 권장합니다.",
+    "status": "BULL",
+    "can_buy": true,
+    "action": "🟢 신규 매수 가능 (주도주 공략)",
+    "message": "미국 주요 지수가 50일선 위에 위치하여 상승 추세를 유지하고 있습니다.",
     "indices": {
       "NASDAQ": {
         "symbol": "IXIC",
         "name": "나스닥 (NASDAQ)",
-        "close": 26868.1,
-        "ma50": 26265.34,
-        "ma20": 26596.27,
-        "diff_pct": 2.29,
+        "close": 26871.6,
+        "ma50": 26265.41,
+        "ma20": 26596.44,
+        "diff_pct": 2.31,
         "above_50ma": true,
         "valid": true,
         "last_date": "2026-10-01"
@@ -50,11 +50,11 @@
       "SP500": {
         "symbol": "US500",
         "name": "S&P 500",
-        "close": 7645.63,
-        "ma50": 7650.94,
-        "ma20": 7670.26,
-        "diff_pct": -0.07,
-        "above_50ma": false,
+        "close": 7666.45,
+        "ma50": 7651.35,
+        "ma20": 7671.3,
+        "diff_pct": 0.2,
+        "above_50ma": true,
         "valid": true,
         "last_date": "2026-10-01"
       }
