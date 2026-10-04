@@ -19,13 +19,6 @@ PORTFOLIO_FILE = "portfolio.json"
 
 def load_portfolio() -> list[dict]:
     """저장된 포트폴리오 종목 목록을 불러옵니다."""
-    quant_file = r"C:\Users\user\Quant\portfolio.json"
-    if os.path.exists(quant_file):
-        try:
-            with open(quant_file, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            pass
     if os.path.exists(PORTFOLIO_FILE):
         try:
             with open(PORTFOLIO_FILE, "r", encoding="utf-8") as f:
@@ -35,10 +28,27 @@ def load_portfolio() -> list[dict]:
     return []
 
 
+def _write_atomic(path: str, positions: list[dict]) -> None:
+    """임시 파일에 쓴 뒤 os.replace로 교체 (쓰는 도중 종료돼도 원본이 깨지지 않음)."""
+    tmp = f"{path}.{os.getpid()}.tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(positions, f, ensure_ascii=False, indent=2)
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(tmp, path)
+
+
 def save_portfolio(positions: list[dict]) -> None:
     """포트폴리오 종목 목록을 저장합니다."""
-    with open(PORTFOLIO_FILE, "w", encoding="utf-8") as f:
-        json.dump(positions, f, ensure_ascii=False, indent=2)
+    _write_atomic(PORTFOLIO_FILE, positions)
+
+    # stock_minervini 폴더에도 즉시 동기화 복사
+    minervini_p = r"C:\Users\user\stock_minervini\portfolio.json"
+    try:
+        if os.path.exists(os.path.dirname(minervini_p)):
+            _write_atomic(minervini_p, positions)
+    except Exception:
+        pass
 
 
 def add_position(
