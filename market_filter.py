@@ -13,6 +13,48 @@ import FinanceDataReader as fdr
 import pandas as pd
 
 CACHE_FILE = os.path.join("history", "market_regime.json")
+MAX_STALE_DAYS = 4      # 마지막 지수 데이터가 이보다 오래되면(연휴 감안) 데이터 오류로 간주
+
+
+def _naver_index_closes(code: str) -> pd.Series | None:
+    """네이버 지수 일별 종가(장중에는 오늘 행이 현재가). KOSPI/KOSDAQ 전용.
+    (FDR 의 KS11/KQ11 은 2026-09-17 이후 갱신이 멈춰 레짐이 2주간 옛 데이터로 판정되었음)"""
+    import requests
+    rows = []
+    for page in (1, 2):
+        r = requests.get(f"https://m.stock.naver.com/api/index/{code}/price?pageSize=60&page={page}",
+                         headers={"User-Agent": "Mozilla/5.0"}, timeout=5)
+        r.raise_for_status()
+        rows += r.json()
+    s = pd.Series({pd.Timestamp(x["localTradedAt"]): float(str(x["closePrice"]).replace(",", "")) for x in rows}).sort_index()
+    return s if len(s) >= 50 else None
+
+
+def _metrics_from_closes(symbol: str, name: str, close_series: pd.Series, source: str) -> dict:
+    curr_price = float(close_series.iloc[-1])
+    ma50 = float(close_series.rolling(50).mean().iloc[-1])
+    ma20 = float(close_series.rolling(20).mean().iloc[-1])
+    last = close_series.index[-1]
+    stale = (datetime.now() - last.to_pydatetime()).days > MAX_STALE_DAYS
+    return {
+        "symbol": symbol, "name": name, "close": round(curr_price, 2), "ma50": round(ma50, 2), "ma20": round(ma20, 2),
+        "diff_pct": round((curr_price - ma50) / ma50 * 100, 2) if ma50 > 0 else 0.0,
+        "above_50ma": bool(curr_price >= ma50), "valid": not stale, "last_date": last.strftime("%Y-%m-%d"), "source": source,
+        **({"error": f"지수 데이터가 {last.strftime('%Y-%m-%d')} 이후 갱신되지 않음"} if stale else {}),
+    }
+
+
+def fetch_kr_index_metrics(naver_code: str, fdr_symbol: str, name: str) -> dict:
+    """KOSPI/KOSDAQ: 네이버 우선, 실패 시 FDR. 둘 다 실패하거나 오래된 데이터면 valid=False."""
+    try:
+        s = _naver_index_closes(naver_code)
+        if s is not None:
+            m = _metrics_from_closes(fdr_symbol, name, s, "naver")
+            if m["valid"]:
+                return m
+    except Exception:
+        pass
+    return fetch_index_metrics(fdr_symbol, name)
 
 
 def fetch_index_metrics(symbol: str, name: str) -> dict:
@@ -21,6 +63,8 @@ def fetch_index_metrics(symbol: str, name: str) -> dict:
         # 최근 약 6개월치 데이터 조회
         start_date = (datetime.now() - timedelta(days=160)).strftime("%Y-%m-%d")
         df = fdr.DataReader(symbol, start=start_date)
+        if df is not None and not df.empty and len(df) >= 50:
+            return _metrics_from_closes(symbol, name, df["Close"].dropna().astype(float), "fdr")
         if df is None or df.empty or len(df) < 50:
             return {
                 "symbol": symbol,
@@ -80,14 +124,20 @@ def get_market_regime(force_refresh: bool = False) -> dict:
             pass
 
     # 1. 한국 시장 지수 진단
-    kospi = fetch_index_metrics("KS11", "코스피 (KOSPI)")
-    kosdaq = fetch_index_metrics("KQ11", "코스닥 (KOSDAQ)")
+    kospi = fetch_kr_index_metrics("KOSPI", "KS11", "코스피 (KOSPI)")
+    kosdaq = fetch_kr_index_metrics("KOSDAQ", "KQ11", "코스닥 (KOSDAQ)")
 
     kr_indices = {"KOSPI": kospi, "KOSDAQ": kosdaq}
     kr_both_below = not kospi["above_50ma"] and not kosdaq["above_50ma"]
     kr_any_below = not kospi["above_50ma"] or not kosdaq["above_50ma"]
+    kr_invalid = [i["name"] for i in (kospi, kosdaq) if not i.get("valid")]
 
-    if kr_both_below:
+    if kr_invalid:       # 데이터 오류 시 매수 차단(안전 쪽). 예전에는 오류여도 '50일선 위'로 간주해 매수를 허용했음
+        kr_status = "UNKNOWN"
+        kr_can_buy = False
+        kr_action = "⚠️ 지수 데이터 오류 — 신규 매수 보류"
+        kr_msg = f"{', '.join(kr_invalid)} 지수 데이터를 가져오지 못했거나 오래되어 시장 레짐을 판정할 수 없습니다. 데이터가 복구될 때까지 신규 매수를 보류합니다."
+    elif kr_both_below:
         kr_status = "BEAR"  # 전면 조정장
         kr_can_buy = False
         kr_action = "🚨 전면 매수 금지 (100% 현금 유지)"
