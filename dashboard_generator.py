@@ -1340,8 +1340,8 @@ def generate_unified_dashboard(
                 <span>🥇 Mark Minervini SEPA KRX</span>
             </div>
             <div class="nav-links">
-                <a href="https://jungkbugk.github.io/PeterLynch/" target="_blank" class="btn-link btn-silver" title="피터 린치 미국 퀀트 대시보드 바로가기">
-                    🥈 미장 피터린치
+                <a href="https://jungkbugk.github.io/PeterLynch/" target="_blank" class="btn-link btn-silver" title="미국 가치주 미국 퀀트 대시보드 바로가기">
+                    🥈 미장 미국 가치주
                 </a>
                 <button onclick="toggleMobileView()" class="btn-link" title="카드 뷰와 테이블 뷰 전환">
                     📱/💻 보기전환
@@ -1609,7 +1609,7 @@ def generate_unified_dashboard(
 
                 <div class="bt-card winner">
                     <div class="bt-title">
-                        <span>🥈 미국 피터 린치 GARP 저평가 성장주</span>
+                        <span>🥈 미국 미국 저평가 가치주</span>
                         <span class="tag tag-green">20년 2위</span>
                     </div>
                     <div class="bt-stat-row">
@@ -1663,7 +1663,7 @@ def generate_unified_dashboard(
                         <span>8.95%</span>
                     </div>
                     <div class="bt-stat-row">
-                        <span style="color:#94a3b8;">피터 린치 초과 성과</span>
+                        <span style="color:#94a3b8;">미국 가치주 초과 성과</span>
                         <strong style="color:#22c55e;">시장 대비 +13.24%p 알파 창출</strong>
                     </div>
                 </div>
