@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-07T14:15:19.548842",
+  "updated_at": "2026-10-07T15:35:22.665530",
   "kr": {
     "status": "BULL",
     "can_buy": true,
@@ -9,10 +9,10 @@
       "KOSPI": {
         "symbol": "KS11",
         "name": "코스피 (KOSPI)",
-        "close": 6839.94,
-        "ma50": 6693.89,
-        "ma20": 6902.31,
-        "diff_pct": 2.18,
+        "close": 6803.9,
+        "ma50": 6693.17,
+        "ma20": 6900.51,
+        "diff_pct": 1.65,
         "above_50ma": true,
         "valid": true,
         "last_date": "2026-10-07",
@@ -21,10 +21,10 @@
       "KOSDAQ": {
         "symbol": "KQ11",
         "name": "코스닥 (KOSDAQ)",
-        "close": 902.64,
-        "ma50": 817.07,
-        "ma20": 844.2,
-        "diff_pct": 10.47,
+        "close": 898.43,
+        "ma50": 816.99,
+        "ma20": 843.99,
+        "diff_pct": 9.97,
         "above_50ma": true,
         "valid": true,
         "last_date": "2026-10-07",
