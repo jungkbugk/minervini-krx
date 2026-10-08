@@ -1,33 +1,33 @@
 {
-  "updated_at": "2026-10-08T08:35:12.623629",
+  "updated_at": "2026-10-08T15:35:49.888265",
   "kr": {
-    "status": "BULL",
-    "can_buy": true,
-    "action": "🟢 신규 매수 가능 (주도주 공략)",
-    "message": "코스피/코스닥 지수가 모두 50일선 위에 안정적으로 안착해 있습니다. 미너비니 SEPA 주도주 돌파 매수 전략이 안전하게 작동하는 환경입니다.",
+    "status": "CAUTION",
+    "can_buy": false,
+    "action": "⚠️ 신규 매수 자제 / 현금 비중 확대",
+    "message": "코스피 (KOSPI) 지수가 50일선 아래로 꺾여 시장 변동성이 심화되었습니다. 신규 매수를 멈추고 현금 비중을 높여 계좌를 보호하세요.",
     "indices": {
       "KOSPI": {
         "symbol": "KS11",
         "name": "코스피 (KOSPI)",
-        "close": 6803.9,
-        "ma50": 6693.17,
-        "ma20": 6900.51,
-        "diff_pct": 1.65,
-        "above_50ma": true,
+        "close": 6625.93,
+        "ma50": 6691.88,
+        "ma20": 6882.03,
+        "diff_pct": -0.99,
+        "above_50ma": false,
         "valid": true,
-        "last_date": "2026-10-07",
+        "last_date": "2026-10-08",
         "source": "naver"
       },
       "KOSDAQ": {
         "symbol": "KQ11",
         "name": "코스닥 (KOSDAQ)",
-        "close": 898.43,
-        "ma50": 816.99,
-        "ma20": 843.99,
-        "diff_pct": 9.97,
+        "close": 892.27,
+        "ma50": 819.87,
+        "ma20": 847.5,
+        "diff_pct": 8.83,
         "above_50ma": true,
         "valid": true,
-        "last_date": "2026-10-07",
+        "last_date": "2026-10-08",
         "source": "naver"
       }
     }
