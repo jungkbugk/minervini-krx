@@ -1,0 +1,269 @@
+{
+  "_last_run_date": "2026-10-03",
+  "active_stocks": {
+    "222800": {
+      "name": "심텍",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 170200,
+      "last_score": 97
+    },
+    "144960": {
+      "name": "뉴파워프라즈마",
+      "consecutive_days": 7,
+      "first_seen": "2026-09-18",
+      "last_seen": "2026-10-03",
+      "last_close": 13230,
+      "last_score": 92
+    },
+    "036930": {
+      "name": "주성엔지니어링",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 239500,
+      "last_score": 90
+    },
+    "131290": {
+      "name": "티에스이",
+      "consecutive_days": 10,
+      "first_seen": "2026-09-15",
+      "last_seen": "2026-10-03",
+      "last_close": 292500,
+      "last_score": 89
+    },
+    "119850": {
+      "name": "지엔씨에너지",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 53400,
+      "last_score": 89
+    },
+    "000500": {
+      "name": "가온전선",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 327500,
+      "last_score": 88
+    },
+    "252990": {
+      "name": "샘씨엔에스",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 19920,
+      "last_score": 88
+    },
+    "064290": {
+      "name": "인텍플러스",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 59100,
+      "last_score": 87
+    },
+    "031980": {
+      "name": "피에스케이홀딩스",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 193600,
+      "last_score": 87
+    },
+    "327260": {
+      "name": "RF머트리얼즈",
+      "consecutive_days": 2,
+      "first_seen": "2026-10-02",
+      "last_seen": "2026-10-03",
+      "last_close": 53200,
+      "last_score": 86
+    },
+    "089860": {
+      "name": "롯데렌탈",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 51400,
+      "last_score": 86
+    },
+    "095610": {
+      "name": "테스",
+      "consecutive_days": 2,
+      "first_seen": "2026-10-02",
+      "last_seen": "2026-10-03",
+      "last_close": 178400,
+      "last_score": 85
+    },
+    "010950": {
+      "name": "S-Oil",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 164900,
+      "last_score": 84
+    },
+    "098120": {
+      "name": "마이크로컨텍솔",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-03",
+      "last_seen": "2026-10-03",
+      "last_close": 60600,
+      "last_score": 82
+    },
+    "005930": {
+      "name": "삼성전자",
+      "consecutive_days": 6,
+      "first_seen": "2026-09-21",
+      "last_seen": "2026-10-03",
+      "last_close": 276000,
+      "last_score": 79
+    },
+    "096530": {
+      "name": "씨젠",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 36750,
+      "last_score": 78
+    },
+    "001820": {
+      "name": "삼화콘덴서",
+      "consecutive_days": 7,
+      "first_seen": "2026-09-18",
+      "last_seen": "2026-10-03",
+      "last_close": 157800,
+      "last_score": 76
+    },
+    "028670": {
+      "name": "팬오션",
+      "consecutive_days": 2,
+      "first_seen": "2026-10-02",
+      "last_seen": "2026-10-03",
+      "last_close": 6250,
+      "last_score": 76
+    },
+    "281820": {
+      "name": "케이씨텍",
+      "consecutive_days": 2,
+      "first_seen": "2026-10-02",
+      "last_seen": "2026-10-03",
+      "last_close": 92100,
+      "last_score": 74
+    },
+    "001450": {
+      "name": "현대해상",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 47650,
+      "last_score": 73
+    },
+    "094800": {
+      "name": "맵스리얼티",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 7870,
+      "last_score": 73
+    },
+    "096770": {
+      "name": "SK이노베이션",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 151300,
+      "last_score": 72
+    },
+    "122640": {
+      "name": "예스티",
+      "consecutive_days": 6,
+      "first_seen": "2026-09-21",
+      "last_seen": "2026-10-03",
+      "last_close": 33850,
+      "last_score": 72
+    },
+    "181710": {
+      "name": "NHN",
+      "consecutive_days": 2,
+      "first_seen": "2026-10-02",
+      "last_seen": "2026-10-03",
+      "last_close": 57300,
+      "last_score": 71
+    },
+    "083450": {
+      "name": "GST",
+      "consecutive_days": 2,
+      "first_seen": "2026-10-02",
+      "last_seen": "2026-10-03",
+      "last_close": 53900,
+      "last_score": 70
+    },
+    "101160": {
+      "name": "월덱스",
+      "consecutive_days": 2,
+      "first_seen": "2026-10-02",
+      "last_seen": "2026-10-03",
+      "last_close": 33100,
+      "last_score": 69
+    },
+    "161890": {
+      "name": "한국콜마",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 137100,
+      "last_score": 68
+    },
+    "192820": {
+      "name": "코스맥스",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 271000,
+      "last_score": 68
+    },
+    "059090": {
+      "name": "미코",
+      "consecutive_days": 2,
+      "first_seen": "2026-10-02",
+      "last_seen": "2026-10-03",
+      "last_close": 23950,
+      "last_score": 67
+    },
+    "041960": {
+      "name": "코미팜",
+      "consecutive_days": 8,
+      "first_seen": "2026-09-17",
+      "last_seen": "2026-10-03",
+      "last_close": 9890,
+      "last_score": 67
+    },
+    "007340": {
+      "name": "DN오토모티브",
+      "consecutive_days": 8,
+      "first_seen": "2026-09-17",
+      "last_seen": "2026-10-03",
+      "last_close": 50500,
+      "last_score": 66
+    },
+    "005830": {
+      "name": "DB손해보험",
+      "consecutive_days": 13,
+      "first_seen": "2026-09-10",
+      "last_seen": "2026-10-03",
+      "last_close": 182500,
+      "last_score": 65
+    },
+    "088350": {
+      "name": "한화생명",
+      "consecutive_days": 1,
+      "first_seen": "2026-10-03",
+      "last_seen": "2026-10-03",
+      "last_close": 5320,
+      "last_score": 59
+    }
+  }
+}
