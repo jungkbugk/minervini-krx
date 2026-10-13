@@ -554,7 +554,7 @@ def build_kis_holdings_cards_and_rows(kis_info: dict) -> tuple[str, str]:
         profit_won = int(h.get("profit_won", (curr_p - buy_p) * shares))
         ret_pct = float(h.get("return_pct", ((curr_p - buy_p) / buy_p * 100) if buy_p > 0 else 0.0))
         
-        stop_p = buy_p * 0.925
+        stop_p = buy_p * 0.90
         ret_color = "#3fb950" if ret_pct >= 0 else "#f85149"
         ret_sign = "+" if ret_pct > 0 else ""
 
@@ -583,7 +583,7 @@ def build_kis_holdings_cards_and_rows(kis_info: dict) -> tuple[str, str]:
                 </div>
             </div>
             <div class="card-bottom-row">
-                <div>권장 손절선: <strong style="color:#f85149;">{int(stop_p):,}원 (-7.5%)</strong></div>
+                <div>권장 손절선: <strong style="color:#f85149;">{int(stop_p):,}원 (-10%)</strong></div>
                 <div style="color:#3fb950;">기관 50MA 추세 홀딩</div>
             </div>
         </div>
@@ -831,21 +831,7 @@ def generate_unified_dashboard(
 
     portfolio_json_str = json.dumps(portfolio_data, ensure_ascii=False)
 
-    if sell_signals is None:
-        signals_file = os.path.join("history", "latest_sell_signals.json")
-        if os.path.exists(signals_file):
-            try:
-                with open(signals_file, "r", encoding="utf-8") as f:
-                    sell_signals = json.load(f)
-            except Exception:
-                sell_signals = []
-        else:
-            try:
-                from minervini_sell_monitor import run_sell_monitor
-                sell_signals = run_sell_monitor()
-            except Exception:
-                sell_signals = []
-
+    # 구 매도 모니터(minervini_sell_monitor)는 폐기됨(2026-10-14). 실전 매도는 quant_bot 이 담당하므로 경보 목록은 넘겨받은 값만 쓴다.
     sell_signals = sell_signals or []
     urgent_sell_count = sum(1 for s in sell_signals if s.get("urgency") in ["CRITICAL", "WARNING"])
 
