@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T15:35:25.823727",
+  "updated_at": "2026-10-14T08:35:31.150822",
   "kr": {
     "status": "CAUTION",
     "can_buy": false,
@@ -41,13 +41,13 @@
       "NASDAQ": {
         "symbol": "IXIC",
         "name": "나스닥 (NASDAQ)",
-        "close": 27245.9,
-        "ma50": 26600.42,
-        "ma20": 26958.7,
-        "diff_pct": 2.43,
+        "close": 27204.38,
+        "ma50": 26626.23,
+        "ma20": 27019.84,
+        "diff_pct": 2.17,
         "above_50ma": true,
         "valid": true,
-        "last_date": "2026-10-12",
+        "last_date": "2026-10-13",
         "source": "fdr"
       },
       "SP500": {
