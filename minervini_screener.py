@@ -256,13 +256,8 @@ def main() -> None:
     else:
         us_df, us_new, us_drop = load_latest_cache("us")
 
-    # 3. 보유 종목 미너비니 매도 시점 감시
+    # 3. (구 매도 모니터는 폐기됨 — 실전 매도는 quant_bot 이 담당)
     sell_signals = []
-    try:
-        from minervini_sell_monitor import run_sell_monitor
-        sell_signals = run_sell_monitor()
-    except Exception as e:
-        print(f"매도 감시 실행 중 오류: {e}")
 
     # 4. 한/미 스크리너 및 매도 감시 통합 대시보드 (index.html) 생성
     dashboard_path = generate_unified_dashboard(
