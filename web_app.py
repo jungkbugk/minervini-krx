@@ -721,11 +721,10 @@ class PortfolioRequestHandler(BaseHTTPRequestHandler):
 
         elif path == "/api/run_monitor":
             try:
-                from minervini_sell_monitor import run_sell_monitor
                 from dashboard_generator import generate_unified_dashboard
                 from sync_to_github import sync_all_files
 
-                sell_signals = run_sell_monitor()
+                sell_signals = []          # 구 매도 모니터(minervini_sell_monitor)는 폐기됨(2026-10-14)
 
                 # 캐시된 스크리닝 데이터 로드
                 kr_df = pd.DataFrame()
