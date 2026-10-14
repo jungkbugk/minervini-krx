@@ -1,33 +1,33 @@
 {
-  "updated_at": "2026-10-14T08:35:31.150822",
+  "updated_at": "2026-10-14T15:35:35.646060",
   "kr": {
-    "status": "CAUTION",
+    "status": "BEAR",
     "can_buy": false,
-    "action": "⚠️ 신규 매수 자제 / 현금 비중 확대",
-    "message": "코스피 (KOSPI) 지수가 50일선 아래로 꺾여 시장 변동성이 심화되었습니다. 신규 매수를 멈추고 현금 비중을 높여 계좌를 보호하세요.",
+    "action": "🚨 전면 매수 금지 (100% 현금 유지)",
+    "message": "코스피와 코스닥이 모두 50일 이동평균선 아래로 이탈했습니다. 시장 하방 압력으로 인해 개별 종목 매수 시 잦은 손절이 발생하므로 신규 매수를 중단하고 현금을 100% 보존해야 합니다.",
     "indices": {
       "KOSPI": {
         "symbol": "KS11",
         "name": "코스피 (KOSPI)",
-        "close": 6035.35,
-        "ma50": 6684.68,
-        "ma20": 6802.71,
-        "diff_pct": -9.71,
+        "close": 6008.81,
+        "ma50": 6691.59,
+        "ma20": 6751.45,
+        "diff_pct": -10.2,
         "above_50ma": false,
         "valid": true,
-        "last_date": "2026-10-13",
+        "last_date": "2026-10-14",
         "source": "naver"
       },
       "KOSDAQ": {
         "symbol": "KQ11",
         "name": "코스닥 (KOSDAQ)",
-        "close": 837.03,
-        "ma50": 824.18,
-        "ma20": 849.69,
-        "diff_pct": 1.56,
-        "above_50ma": true,
+        "close": 823.88,
+        "ma50": 827.4,
+        "ma20": 849.04,
+        "diff_pct": -0.43,
+        "above_50ma": false,
         "valid": true,
-        "last_date": "2026-10-13",
+        "last_date": "2026-10-14",
         "source": "naver"
       }
     }
@@ -53,13 +53,13 @@
       "SP500": {
         "symbol": "US500",
         "name": "S&P 500",
-        "close": 7807.24,
-        "ma50": 7703.27,
-        "ma20": 7714.14,
-        "diff_pct": 1.35,
+        "close": 7805.45,
+        "ma50": 7707.37,
+        "ma20": 7725.12,
+        "diff_pct": 1.27,
         "above_50ma": true,
         "valid": true,
-        "last_date": "2026-10-12",
+        "last_date": "2026-10-13",
         "source": "fdr"
       }
     }
