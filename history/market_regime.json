@@ -1,0 +1,63 @@
+{
+  "updated_at": "2026-10-03T00:38:41.555506",
+  "kr": {
+    "status": "BULL",
+    "can_buy": true,
+    "action": "🟢 신규 매수 가능 (주도주 공략)",
+    "message": "코스피/코스닥 지수가 모두 50일선 위에 안정적으로 안착해 있습니다. 미너비니 SEPA 주도주 돌파 매수 전략이 안전하게 작동하는 환경입니다.",
+    "indices": {
+      "KOSPI": {
+        "symbol": "KS11",
+        "name": "코스피 (KOSPI)",
+        "close": 6724.34,
+        "ma50": 6705.8,
+        "ma20": 6802.33,
+        "diff_pct": 0.28,
+        "above_50ma": true,
+        "valid": true,
+        "last_date": "2026-09-17"
+      },
+      "KOSDAQ": {
+        "symbol": "KQ11",
+        "name": "코스닥 (KOSDAQ)",
+        "close": 821.67,
+        "ma50": 800.28,
+        "ma20": 819.37,
+        "diff_pct": 2.67,
+        "above_50ma": true,
+        "valid": true,
+        "last_date": "2026-09-17"
+      }
+    }
+  },
+  "us": {
+    "status": "BULL",
+    "can_buy": true,
+    "action": "🟢 신규 매수 가능 (주도주 공략)",
+    "message": "미국 주요 지수가 50일선 위에 위치하여 상승 추세를 유지하고 있습니다.",
+    "indices": {
+      "NASDAQ": {
+        "symbol": "IXIC",
+        "name": "나스닥 (NASDAQ)",
+        "close": 27190.86,
+        "ma50": 26306.47,
+        "ma20": 26626.78,
+        "diff_pct": 3.36,
+        "above_50ma": true,
+        "valid": true,
+        "last_date": "2026-10-02"
+      },
+      "SP500": {
+        "symbol": "US500",
+        "name": "S&P 500",
+        "close": 7722.72,
+        "ma50": 7657.64,
+        "ma20": 7670.05,
+        "diff_pct": 0.85,
+        "above_50ma": true,
+        "valid": true,
+        "last_date": "2026-10-02"
+      }
+    }
+  }
+}
